@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="146"
+   height="146"
+   viewBox="0 0 146 146"
+   version="1.1"
+   id="svg2"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="Kan Icon.svg"
+   inkscape:export-filename="\\vmware-host\Shared Folders\Documents\College\Dissertation\Images\favicon.png"
+   inkscape:export-xdpi="157.81"
+   inkscape:export-ydpi="157.81">
+  <metadata
+     id="metadata18">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Kan Icon</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1280"
+     inkscape:window-height="737"
+     id="namedview16"
+     showgrid="false"
+     inkscape:zoom="1.9186992"
+     inkscape:cx="73"
+     inkscape:cy="61.5"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title4">Kan Icon</title>
+  <desc
+     id="desc6">Created with Sketch.</desc>
+  <defs
+     id="defs8" />
+  <g
+     id="Icon-and-branding"
+     style="fill:none;stroke:none"
+     transform="translate(0,16.224576)">
+    <g
+       id="152---iPad"
+       transform="translate(-3,-24)">
+      <g
+         id="Kan-Icon"
+         transform="translate(3,24)">
+        <polygon
+           id="Rectangle-1"
+           points="2.0700595,3.0359956 45.310655,5.2187943 85.3332,60.999999 58.540001,89.587671 "
+           style="fill:#e65346" />
+        <polygon
+           id="Triangle-1"
+           points="40,6 125.42154,7.9818355 82.71077,61 "
+           style="fill:#f8e81c" />
+        <path
+           d="m 0,0 c 0,0 53.201595,0 126.37717,0 l 19.1707,0 c 0,0 -22.29996,26.974342 -48.648326,53.987251 C 70.551181,81.00016 43.253958,122.10998 43.253958,122.10998 l -2e-6,-8.52146 c 0,0 17.416157,-31.950083 46.429821,-65.689743 29.013663,-33.73966 29.985253,-37.010208 29.985253,-37.010208 l -112.4834946,0 L 0,0 z"
+           id="Path-1"
+           inkscape:connector-curvature="0"
+           style="fill:#4990e2" />
+      </g>
+    </g>
+  </g>
+</svg>

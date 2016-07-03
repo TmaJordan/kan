@@ -1,0 +1,26 @@
+<html ng-app="kanApp">
+    <head>
+        <title>Kan - Task and Project Management</title>
+        <meta charset="utf-8">
+
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="icon" type="image/png" href="favicon.png" />
+        <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700" rel="stylesheet"> 
+        <link rel="stylesheet" href="style/style.css" />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+        <script src="js/kan.js"></script>
+    </head>
+    <body>
+        <h1><img src="images/Kan Icon.svg">Kan</h1>
+        <section ng-controller="TasksController">
+            <ul>
+                <li ng-repeat="task in tasks">
+                    <span>{{task.title}}</span>
+                </li>
+            </ul>
+        </section> 
+    </body>
+</html>
