@@ -2,7 +2,7 @@
 
 var kanApp = angular.module('kanApp', ['ngRoute']);
 
-kanApp.config(function($routeProvider) {
+kanApp.config(function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'templates/tasks.html',
@@ -20,6 +20,8 @@ kanApp.config(function($routeProvider) {
             templateUrl: 'templates/reports.html',
             controller: 'ReportsController'
         });
+
+    $locationProvider.html5Mode(true);
 });
 
 kanApp.controller('TasksController', function TasksController($scope) {
