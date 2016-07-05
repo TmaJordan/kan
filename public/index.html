@@ -11,16 +11,20 @@
         <link rel="stylesheet" href="style/style.css" />
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"></script>
         <script src="js/kan.js"></script>
     </head>
     <body>
         <h1><img src="images/Kan Icon.svg">Kan</h1>
-        <section ng-controller="TasksController">
+        <nav>
             <ul>
-                <li ng-repeat="task in tasks">
-                    <span>{{task.title}}</span>
-                </li>
+                <li><a href="#/">Tasks</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#org">Organisation</a></li>
+                <li><a href="#reports">Reports</a></li>
             </ul>
-        </section> 
+        </nav>
+        <main ng-view> 
+        </main>
     </body>
 </html>

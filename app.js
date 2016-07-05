@@ -1,5 +1,12 @@
 var express = require('express');
+var mongoose = require('mongoose');
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
+
 var app = express();
+
+app.use(morgan('dev'));
+app.use(bodyParser.json());    
 
 // Serve static files
 app.use(express.static(__dirname + '/public'));
@@ -8,5 +15,5 @@ app.get('/', function(req, res) {
 });
 
 app.listen(3000, function () {
-  console.log('Server listening on port 3000!');
+  console.log('Server listening on port 3000');
 });
