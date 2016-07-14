@@ -3,6 +3,35 @@ body {
     padding: 0;
     margin: 0;
     line-height: 1.6;
+    box-sizing: border-box;
+}
+
+nav {
+    float: left;
+    width: 4em;
+    overflow: hidden;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+nav img {
+    padding: 0.25em;
+}
+
+nav a {
+    display: block;
+}
+
+nav a:active, nav a:focus, nav a:hover, a.selected {
+    background: #4A90E2;
+}
+
+main {
+    margin-left: 4em;
 }
 
 h1 {
