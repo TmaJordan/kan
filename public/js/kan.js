@@ -27,13 +27,16 @@ kanApp.config(function($routeProvider, $locationProvider) {
 kanApp.controller('TasksController', function TasksController($scope) {
    $scope.tasks = [
        {
-           title: 'Build Basic App'
+           title: 'Build Basic App',
+           completed: true
        },
        {
-           title: 'Meet with Ruairi'
+           title: 'Meet with Ruairi',
+           completed: false
        },
        {
-           title: 'Finish app'
+           title: 'Finish app',
+           completed: false
        }
    ];
 });

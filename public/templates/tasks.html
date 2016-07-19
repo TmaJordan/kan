@@ -1,7 +1,8 @@
 <section>
-    <ul>
-        <li ng-repeat="task in tasks">
-            <span>{{task.title}}</span>
+    <ul class="task-list">
+        <li ng-repeat="task in tasks | filter:{completed:false}" class="task-item">
+            <input class="toggle" type="checkbox" ng-model="task.completed" ng-change="toggleCompleted(task)">
+            <label ng-click="editTask(task)">{{task.title}}</label>
         </li>
     </ul>
 </section>
