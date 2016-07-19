@@ -39,6 +39,14 @@ kanApp.controller('TasksController', function TasksController($scope) {
            completed: false
        }
    ];
+
+   $scope.toggleCompleted = function(task) {
+       alert(task.title + " is " + (task.completed ? "Complete": "Not Complete"));
+   }
+
+   $scope.editTask = function(task) {
+       alert("Edit: " + task.title);
+   }
 });
 
 kanApp.controller('ProjectController', function ProjectController($scope) {
