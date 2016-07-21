@@ -26,6 +26,10 @@ kanApp.factory('tasks', [function(){
 
 kanApp.config(function($routeProvider, $locationProvider) {
     $routeProvider
+        .when('/', {
+            templateUrl: 'templates/tasks.html',
+            controller: 'TasksController'
+        })
         .when('/index.html', {
             templateUrl: 'templates/tasks.html',
             controller: 'TasksController'
@@ -53,11 +57,19 @@ kanApp.controller('TasksController', [
         $scope.tasks = tasks.tasks;
 
         $scope.toggleCompleted = function(task) {
-            alert(task.title + " is " + (task.completed ? "Complete": "Not Complete"));
+            console.log(task.title + " is " + (task.completed ? "Complete": "Not Complete"));
         }
 
         $scope.editTask = function(task) {
-            alert("Edit: " + task.title);
+            console.log("Edit: " + task.title);
+        }
+
+        $scope.addTask = function() {
+            var task = {
+                title: 'New Task',
+                completed: false
+            }
+            $scope.tasks.unshift(task);
         }
     }
 ]);

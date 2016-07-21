@@ -1,4 +1,7 @@
 <section>
+    <header class="task-header">
+        <button class="add" ng-click="addTask()">+</button>
+    </header>
     <ul class="task-list">
         <li ng-repeat="task in tasks | filter:{completed:false}" class="task-item">
             <input class="toggle" type="checkbox" ng-model="task.completed" ng-change="toggleCompleted(task)">
