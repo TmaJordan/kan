@@ -19,10 +19,10 @@
         <h1><img src="images/Kan Icon.svg" alt="App Logo">Kan</h1>
         <nav>
             <ul>
-                <li><a href="/" ng-class="{'selected': index==0}" ng-click="index=0"><img src="images/tasks.svg" alt="Tasks" title="Tasks"></a></li>
-                <li><a href="projects" ng-class="{'selected': index==1}" ng-click="index=1"><img src="images/project.svg" alt="Projects" title="Projects"></a></li>
-                <li><a href="org" ng-class="{'selected': index==2}" ng-click="index=2"><img src="images/org.svg" alt="Organisation" title="Organisation"></a></li>
-                <li><a href="reports" ng-class="{'selected': index==3}" ng-click="index=3"><img src="images/stats.svg" alt="Reports" title="Reports"></a></li>
+                <li><a href="index.html" ng-class="{'selected': index==0 || !index}" ng-click="index=0"><img src="images/tasks.svg" alt="Tasks" title="Tasks"></a></li>
+                <li><a href="projects.html" ng-class="{'selected': index==1}" ng-click="index=1"><img src="images/project.svg" alt="Projects" title="Projects"></a></li>
+                <li><a href="org.html" ng-class="{'selected': index==2}" ng-click="index=2"><img src="images/org.svg" alt="Organisation" title="Organisation"></a></li>
+                <li><a href="reports.html" ng-class="{'selected': index==3}" ng-click="index=3"><img src="images/stats.svg" alt="Reports" title="Reports"></a></li>
             </ul>
         </nav>
         <main ng-view> 

@@ -26,19 +26,19 @@ kanApp.factory('tasks', [function(){
 
 kanApp.config(function($routeProvider, $locationProvider) {
     $routeProvider
-        .when('/', {
+        .when('/index.html', {
             templateUrl: 'templates/tasks.html',
             controller: 'TasksController'
         })
-        .when('/projects', {
+        .when('/projects.html', {
             templateUrl: 'templates/projects.html',
             controller: 'ProjectController'
         })
-        .when('/org', {
+        .when('/org.html', {
             templateUrl: 'templates/organisation.html',
             controller: 'OrgController'
         })
-        .when('/reports', {
+        .when('/reports.html', {
             templateUrl: 'templates/reports.html',
             controller: 'ReportsController'
         });
