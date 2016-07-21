@@ -24,51 +24,63 @@ kanApp.config(function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
 });
 
-kanApp.controller('TasksController', function TasksController($scope) {
-   $scope.tasks = [
-       {
-           title: 'Build Basic App',
-           completed: true
-       },
-       {
-           title: 'Meet with Ruairi',
-           completed: false
-       },
-       {
-           title: 'Finish app',
-           completed: false
-       }
-   ];
+kanApp.controller('TasksController', [
+    '$scope', 
+    function TasksController($scope) {
+        $scope.tasks = [
+            {
+                title: 'Build Basic App',
+                completed: true
+            },
+            {
+                title: 'Meet with Ruairi',
+                completed: false
+            },
+            {
+                title: 'Finish app',
+                completed: false
+            }
+        ];
 
-   $scope.toggleCompleted = function(task) {
-       alert(task.title + " is " + (task.completed ? "Complete": "Not Complete"));
-   }
-
-   $scope.editTask = function(task) {
-       alert("Edit: " + task.title);
-   }
-});
-
-kanApp.controller('ProjectController', function ProjectController($scope) {
-    $scope.projects = [
-        {
-            title: 'Kan App'
+        $scope.toggleCompleted = function(task) {
+            alert(task.title + " is " + (task.completed ? "Complete": "Not Complete"));
         }
-    ]
-});
 
-kanApp.controller('OrgController', function OrgController($scope) {
-    $scope.users = [
-        {
-            username: 'tjordan'
+        $scope.editTask = function(task) {
+            alert("Edit: " + task.title);
         }
-    ]
-});
+    }
+]);
 
-kanApp.controller('ReportsController', function ReportsController($scope) {
-    $scope.reports = [
-        {
-            type: 'Burndown'
-        }
-    ]
-});
+kanApp.controller('ProjectController', [
+    '$scope',
+    function ProjectController($scope) {
+        $scope.projects = [
+            {
+                title: 'Kan App'
+            }
+        ]
+    }
+]);
+
+kanApp.controller('OrgController', [
+    '$scope',
+    function OrgController($scope) {
+        $scope.users = [
+            {
+                username: 'tjordan'
+            }
+        ]
+    }
+]);
+
+kanApp.controller('ReportsController', [
+    '$scope',
+    function ReportsController($scope) {
+        $scope.reports = [
+            {
+                type: 'Burndown'
+            }
+        ]
+    }
+]);
