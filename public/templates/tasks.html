@@ -1,5 +1,8 @@
 <section>
     <header class="task-header">
+        <select ng-model="selectedView" ng-change="updateView()">
+            <option ng-repeat="view in views" value="{{view.title}}">{{view.title}}</option>
+        </select>
         <button class="add" ng-click="addTask()">+</button>
     </header>
     <ul class="task-list">

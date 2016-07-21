@@ -13,6 +13,20 @@ input[type=checkbox] {
     height:2em;
 }
 
+option {
+    display: block;
+    border: 0;
+    font-size: 1.25em;
+    margin: 0.25em;
+    padding: 0.1em;
+}
+
+select {
+    margin: 0.5em;
+    margin-left:1em; 
+    padding: 0.25em;
+}
+
 button {
     display: block;
     cursor: pointer;

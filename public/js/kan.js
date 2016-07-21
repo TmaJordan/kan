@@ -54,8 +54,20 @@ kanApp.controller('TasksController', [
     '$scope',
     'tasks', 
     function TasksController($scope, tasks) {
-        $scope.tasks = tasks.tasks;
+        $scope.views = [
+            {title: "My Tasks"},
+            {title: "Today's Tasks"},
+            {title: "Other Tasks"},
+            {title: "Project Tasks"}
+        ];
+        $scope.selectedView = $scope.views[0].title;
 
+        $scope.updateView = function() {
+            console.log($scope.selectedView);
+        }
+        
+        $scope.tasks = tasks.tasks;
+        
         $scope.toggleCompleted = function(task) {
             console.log(task.title + " is " + (task.completed ? "Complete": "Not Complete"));
         }
@@ -70,6 +82,7 @@ kanApp.controller('TasksController', [
                 completed: false
             }
             $scope.tasks.unshift(task);
+            console.log("New Task Created")
         }
     }
 ]);
