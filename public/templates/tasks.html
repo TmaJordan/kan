@@ -8,7 +8,7 @@
     <ul class="task-list">
         <li ng-repeat="task in tasks | filter:{completed:false}" class="task-item">
             <input class="toggle" type="checkbox" ng-model="task.completed" ng-change="toggleCompleted(task)">
-            <label ng-click="editTask(task)">{{task.title}}</label>
+            <label ng-click="editTask(task)"><a ng-href="tasks/{{task.id}}">{{task.title}}</a></label>
         </li>
     </ul>
     <div ng-show="popup.show" class="toast">

@@ -9,8 +9,8 @@ body {
 }
 
 input[type=checkbox] {
-    width:2em; 
-    height:2em;
+    width:2.5em; 
+    height:2.5em;
 }
 
 option {
@@ -130,6 +130,11 @@ h1 img {
     margin: 0.5em;
     border: 1px solid #555;
     box-shadow: 2px 2px 4px #555;
+}
+
+.task-item a {
+    color: #333;
+    text-decoration: none;
 }
 
 .task-item * {

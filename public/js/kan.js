@@ -7,14 +7,17 @@ kanApp.factory('tasks', [function(){
     var o = {
         tasks: [
             {
+                id: 1,
                 title: 'Build Basic App',
                 completed: true
             },
             {
+                id: 2,
                 title: 'Meet with Ruairi',
                 completed: false
             },
             {
+                id: 3,
                 title: 'Finish app',
                 completed: false
             }
@@ -33,6 +36,10 @@ kanApp.config(function($routeProvider, $locationProvider) {
         .when('/index.html', {
             templateUrl: 'templates/tasks.html',
             controller: 'TasksController'
+        })
+        .when('/tasks/:id', {
+            templateUrl: 'templates/task.html',
+            controller: 'TaskController'
         })
         .when('/projects.html', {
             templateUrl: 'templates/projects.html',
@@ -107,6 +114,14 @@ kanApp.controller('TasksController', [
         }
     }
 ]);
+
+kanApp.controller('TaskController', [
+    '$scope',
+    '$routeParams',
+    function($scope, $routeParams) {
+        $scope.id = $routeParams.id
+    }
+])
 
 kanApp.controller('ProjectController', [
     '$scope',
