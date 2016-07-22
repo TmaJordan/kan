@@ -59,7 +59,8 @@ kanApp.controller('TasksController', [
             {title: "My Tasks"},
             {title: "Today's Tasks"},
             {title: "Other Tasks"},
-            {title: "Project Tasks"}
+            {title: "Project Tasks"},
+            {title: "Completed Tasks"}
         ];
         $scope.selectedView = $scope.views[0].title;
 
@@ -83,7 +84,7 @@ kanApp.controller('TasksController', [
             $scope.popup.show = true;
             hidePromise = $timeout(function(){
                 $scope.popup.show = false; 
-            }, 3000);
+            }, 5000);
         }
 
         $scope.undo = function() {

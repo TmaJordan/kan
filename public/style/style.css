@@ -41,7 +41,7 @@ button.add {
 }
 
 .toast {
-    background: rgba(100, 100, 100, 0.6);
+    background: rgba(100, 100, 100, 0.75);
     color: #fff;
     width: 20em;
     margin: auto;
@@ -59,8 +59,9 @@ button.add {
     margin: 0;
     padding: 0;
     font-size: 1.1em;
-    color: #4A90E2;
+    color: #6CB2F6;
     background: none;
+    text-decoration: underline;
 }
 
 nav {
