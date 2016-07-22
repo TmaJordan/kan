@@ -52,8 +52,9 @@ kanApp.config(function($routeProvider, $locationProvider) {
 
 kanApp.controller('TasksController', [
     '$scope',
+    '$timeout',
     'tasks', 
-    function TasksController($scope, tasks) {
+    function TasksController($scope, $timeout, tasks) {
         $scope.views = [
             {title: "My Tasks"},
             {title: "Today's Tasks"},
@@ -67,9 +68,28 @@ kanApp.controller('TasksController', [
         }
         
         $scope.tasks = tasks.tasks;
+        $scope.task = {};
         
+        $scope.popup = {
+            show: false,
+            text: '',
+            action: ''
+        };
+        var hidePromise;
         $scope.toggleCompleted = function(task) {
+            $scope.task = task;
             console.log(task.title + " is " + (task.completed ? "Complete": "Not Complete"));
+            $scope.popup.text = task.title + " is " + (task.completed ? "Complete": "Not Complete");
+            $scope.popup.show = true;
+            hidePromise = $timeout(function(){
+                $scope.popup.show = false; 
+            }, 3000);
+        }
+
+        $scope.undo = function() {
+            $scope.task.completed = !$scope.task.completed;
+            $scope.popup.show = false;
+            $timeout.cancel(hidePromise)
         }
 
         $scope.editTask = function(task) {

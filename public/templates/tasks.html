@@ -11,4 +11,8 @@
             <label ng-click="editTask(task)">{{task.title}}</label>
         </li>
     </ul>
+    <div ng-show="popup.show" class="toast">
+        {{popup.text}}
+        <button ng-click="undo()">Undo</button>
+    </div>
 </section>

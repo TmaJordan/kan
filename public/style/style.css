@@ -40,6 +40,29 @@ button.add {
     background: none;
 }
 
+.toast {
+    background: rgba(100, 100, 100, 0.6);
+    color: #fff;
+    width: 20em;
+    margin: auto;
+    text-align: center;
+    border-radius: 0.25em;
+    box-shadow: 2px 2px 4px #555;
+    position: absolute;
+    top: 3.75em;
+    left: 20%;
+}
+
+.toast button {
+    display: inline;
+    border: none;
+    margin: 0;
+    padding: 0;
+    font-size: 1.1em;
+    color: #4A90E2;
+    background: none;
+}
+
 nav {
     float: left;
     width: 4em;
