@@ -36,6 +36,10 @@ kanApp.factory('tasks', [function(){
         }
     };
 
+    o.update = function(task) {
+        return task;
+    }
+
     o.newTaskTitle = "New Task";
     
     return o; 
@@ -146,6 +150,12 @@ kanApp.controller('TaskController', [
 
         $scope.edit = function() {
             $scope.viewMode = "edit";
+        }
+
+        $scope.saveEdit = function() {
+            //Need to save
+            tasks.update($scope.task);
+            $scope.viewMode = "view";
         }
     }
 ])
