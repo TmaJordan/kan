@@ -8,11 +8,20 @@ body {
     box-sizing: border-box;
 }
 
+/* Styling for form objects in app */
 input[type=checkbox] {
     width:2.5em; 
     height:2.5em;
     position: relative;
     top: 0.5em;
+}
+
+textarea {
+	width: 20em;
+	height: 5em;
+	border: 2px solid #cccccc;
+	padding: 0.25em;
+	font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Segoe UI', 'Verdana', sans-serif;
 }
 
 option {
@@ -29,19 +38,29 @@ select {
     padding: 0.25em;
 }
 
-button {
+button, input[type=submit] {
     display: block;
     cursor: pointer;
 }
 
-button.add {
+fieldset {
     border: none;
+    padding: 0.25em;;
     margin: 0;
-    padding: 0;
-    font-size: 2em;
-    background: none;
 }
 
+input[type=submit] {
+    background: #4A90E2;
+    color: #fff;
+    font-size: 1.125em;
+    padding: 0.25em;
+    margin: 0.25em;
+    border: none;
+    border-radius: 0.25em;
+}
+/* End of form element styling */
+
+/* Styling for notification bar */
 .toast {
     background: rgba(100, 100, 100, 0.75);
     color: #fff;
@@ -65,7 +84,9 @@ button.add {
     background: none;
     text-decoration: underline;
 }
+/* End of notification styling */
 
+/* Nav styling for buttons on left */
 nav {
     float: left;
     width: 4em;
@@ -89,7 +110,9 @@ nav a {
 nav a:active, nav a:focus, nav a:hover, a.selected {
     background: #4A90E2;
 }
+/* End of nav styling */
 
+/* High level styles for across app */
 main {
     margin-left: 4em;
 }
@@ -110,11 +133,19 @@ h1 img {
 }
 
 h2 {
-    font-size: 1.25em;
+    font-size: 1.5em;
     padding: 0.25em;
     margin: 0;
 }
 
+h3 {
+    font-size: 1.25em;
+    padding: 0em 0.25em;
+    margin: 0;
+}
+/* End of high level styles */
+
+/* Styles for viewing task list and individual tasks */
 a.back {
     color: #4A90E2;
     text-decoration: none;
@@ -123,6 +154,14 @@ a.back {
 .task-header {
     overflow: hidden;
     width: 50%;
+}
+
+button.add {
+    border: none;
+    margin: 0;
+    padding: 0;
+    font-size: 2em;
+    background: none;
 }
 
 .task-header button {
@@ -160,3 +199,34 @@ a.back {
     width: 1em;
     margin-left: 3em;
 }
+
+.description {
+    padding: 0em 0.5em;
+    font-size: 0.875em;
+}
+
+.comment-thread {
+    height: 15em;
+    overflow: auto;
+    padding: 0em 0.5em;
+}
+
+.comment-thread div {
+    margin: 0.5em 2em 0.5em 0em;
+    background: #999;
+    border-radius: 0.25em;
+    box-shadow: 2px 2px 4px #555;
+}
+
+.comment-form input[type=submit] {
+    margin-left: 12.375em;
+}
+
+.task-view, .task-edit {
+    width: 50%;
+}
+
+.task-edit * {
+    display: block;
+}
+/* End of task styles */

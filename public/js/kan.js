@@ -10,18 +10,21 @@ kanApp.factory('tasks', [function(){
                 _id: 1,
                 title: 'Build Basic App',
                 description: 'Need to develop basic app structure and learn MEAN stack',
+                comments: [],
                 completed: true
             },
             {
                 _id: 2,
                 title: 'Meet with Ruairi',
                 description: 'Need to meet with Ruairi once he is back from vacation',
+                comments: [],
                 completed: false
             },
             {
                 _id: 3,
                 title: 'Finish app',
                 description: 'Need to finish out app and test it against real users',
+                comments: [],
                 completed: false
             }
         ]
@@ -150,6 +153,20 @@ kanApp.controller('TaskController', [
 
         $scope.edit = function() {
             $scope.viewMode = "edit";
+        }
+
+        $scope.addComment = function() {
+            console.log("Adding Comment: " + $scope.commentBody);
+            if ($scope.commentBody === '') {return;}
+            
+            var comment = {
+                body: $scope.commentBody,
+                author: 'user'
+            }
+
+            $scope.task.comments.push(comment);
+            
+            $scope.body = '';
         }
 
         $scope.saveEdit = function() {
