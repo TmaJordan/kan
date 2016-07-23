@@ -109,6 +109,17 @@ h1 img {
     margin-right: 0.5em;
 }
 
+h2 {
+    font-size: 1.25em;
+    padding: 0.25em;
+    margin: 0;
+}
+
+a.back {
+    color: #4A90E2;
+    text-decoration: none;
+}
+
 .task-header {
     overflow: hidden;
     width: 50%;

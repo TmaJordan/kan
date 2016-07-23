@@ -115,6 +115,7 @@ kanApp.controller('TasksController', [
 
         $scope.addTask = function() {
             var task = {
+                _id: Date.now(),
                 title: 'New Task',
                 completed: false
             }
