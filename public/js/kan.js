@@ -9,16 +9,19 @@ kanApp.factory('tasks', [function(){
             {
                 _id: 1,
                 title: 'Build Basic App',
+                description: 'Need to develop basic app structure and learn MEAN stack',
                 completed: true
             },
             {
                 _id: 2,
                 title: 'Meet with Ruairi',
+                description: 'Need to meet with Ruairi once he is back from vacation',
                 completed: false
             },
             {
                 _id: 3,
                 title: 'Finish app',
+                description: 'Need to finish out app and test it against real users',
                 completed: false
             }
         ]
@@ -31,7 +34,9 @@ kanApp.factory('tasks', [function(){
                 return o.tasks[i];
             }
         }
-    }
+    };
+
+    o.newTaskTitle = "New Task";
     
     return o; 
 }]);
@@ -116,7 +121,7 @@ kanApp.controller('TasksController', [
         $scope.addTask = function() {
             var task = {
                 _id: Date.now(),
-                title: 'New Task',
+                title: tasks.newTaskTitle,
                 completed: false
             }
             $scope.tasks.unshift(task);
@@ -131,6 +136,17 @@ kanApp.controller('TaskController', [
     'tasks',
     function($scope, $routeParams, tasks) {
         $scope.task = tasks.get($routeParams.id);
+
+        if ($scope.task.title === tasks.newTaskTitle) {
+            $scope.viewMode = "edit";
+        }
+        else {
+            $scope.viewMode = "view";
+        }
+
+        $scope.edit = function() {
+            $scope.viewMode = "edit";
+        }
     }
 ])
 
