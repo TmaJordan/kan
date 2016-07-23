@@ -7,22 +7,31 @@ kanApp.factory('tasks', [function(){
     var o = {
         tasks: [
             {
-                id: 1,
+                _id: 1,
                 title: 'Build Basic App',
                 completed: true
             },
             {
-                id: 2,
+                _id: 2,
                 title: 'Meet with Ruairi',
                 completed: false
             },
             {
-                id: 3,
+                _id: 3,
                 title: 'Finish app',
                 completed: false
             }
         ]
     };
+
+    //Will be replaced by $http route when api is built
+    o.get = function(id) {
+        for (var i = 0; i < o.tasks.length; i++) {
+            if (o.tasks[i]._id == id) {
+                return o.tasks[i];
+            }
+        }
+    }
     
     return o; 
 }]);
@@ -118,8 +127,9 @@ kanApp.controller('TasksController', [
 kanApp.controller('TaskController', [
     '$scope',
     '$routeParams',
-    function($scope, $routeParams) {
-        $scope.id = $routeParams.id
+    'tasks',
+    function($scope, $routeParams, tasks) {
+        $scope.task = tasks.get($routeParams.id);
     }
 ])
 
