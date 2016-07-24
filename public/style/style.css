@@ -16,12 +16,20 @@ input[type=checkbox] {
     top: 0.5em;
 }
 
+input[type=text] {
+    font-size: 1em;
+    padding: 0.125em;
+    margin: 0.125em;
+    border-radius: 0.25em;
+}
+
 textarea {
-	width: 20em;
-	height: 5em;
+	width: 24em;
+	height: 6em;
 	border: 2px solid #cccccc;
 	padding: 0.25em;
 	font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Segoe UI', 'Verdana', sans-serif;
+    font-size: 0.875em;
 }
 
 option {
@@ -213,9 +221,17 @@ button.add {
 
 .comment-thread div {
     margin: 0.5em 2em 0.5em 0em;
-    background: #999;
+    background: #BBB;
     border-radius: 0.25em;
     box-shadow: 2px 2px 4px #555;
+}
+
+span.timestamp {
+    color: #fff;
+    display: block;
+    float:right;
+    font-size: 0.75em;
+    padding: 0.1em;
 }
 
 .comment-form input[type=submit] {
@@ -223,7 +239,10 @@ button.add {
 }
 
 .task-view, .task-edit {
-    width: 50%;
+    display: inline-block;
+    vertical-align:top;
+    margin-right: 2em;
+    max-width: 50%;
 }
 
 .task-edit * {

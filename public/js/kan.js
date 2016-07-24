@@ -1,6 +1,6 @@
 'use strict';
 
-var kanApp = angular.module('kanApp', ['ngRoute']);
+var kanApp = angular.module('kanApp', ['ngRoute', 'angularMoment']);
 
 kanApp.factory('tasks', [function(){
     //Tasks Service
@@ -11,21 +11,62 @@ kanApp.factory('tasks', [function(){
                 title: 'Build Basic App',
                 description: 'Need to develop basic app structure and learn MEAN stack',
                 comments: [],
-                completed: true
+                completed: true,
+                dateCreated: new Date(),
+                timeStarted: new Date(),
+                type: 'Development',
+                dependency: -1,
+                loe: '2 weeks',
+                dueDate: null,
+                assignee: 'tjordan',
+                createdBy: 'tjordan',
+                links: []
             },
             {
                 _id: 2,
                 title: 'Meet with Ruairi',
                 description: 'Need to meet with Ruairi once he is back from vacation',
                 comments: [],
-                completed: false
+                completed: false,
+                dateCreated: new Date(),
+                timeStarted: new Date(),
+                type: 'Development',
+                dependency: -1,
+                loe: '2 weeks',
+                dueDate: null,
+                assignee: 'tjordan',
+                createdBy: 'tjordan',
+                links: [
+                    {
+                        title: "Email from Ruari",
+                        link: "https://inbox.google.com/u/0/?pli=1"
+                    }
+                ]
             },
             {
                 _id: 3,
                 title: 'Finish app',
                 description: 'Need to finish out app and test it against real users',
                 comments: [],
-                completed: false
+                completed: false,
+                dateCreated: new Date(),
+                timeStarted: new Date(),
+                type: 'Development',
+                dependency: 1,
+                loe: '2 weeks',
+                dueDate: null,
+                assignee: 'tjordan',
+                createdBy: 'tjordan',
+                links: [
+                    {
+                        title: "Back end issue",
+                        link: "https://github.com/TmaJordan/kan/issues/2"
+                    },
+                    {
+                        title: "Angular Docs",
+                        link: "https://docs.angularjs.org/guide"
+                    }
+                ]
             }
         ]
     };
@@ -64,7 +105,7 @@ kanApp.config(function($routeProvider, $locationProvider) {
         })
         .when('/projects.html', {
             templateUrl: 'templates/projects.html',
-            controller: 'ProjectController'
+            controller: 'ProjectsController'
         })
         .when('/org.html', {
             templateUrl: 'templates/organisation.html',
@@ -129,6 +170,16 @@ kanApp.controller('TasksController', [
             var task = {
                 _id: Date.now(),
                 title: tasks.newTaskTitle,
+                dateCreated: new Date(),
+                timeStarted: new Date(),
+                type: '',
+                dependency: 0,
+                loe: '',
+                dueDate: null,
+                assignee: '',
+                createdBy: '',
+                comments: [],
+                links: [],
                 completed: false
             }
             $scope.tasks.unshift(task);
@@ -159,14 +210,16 @@ kanApp.controller('TaskController', [
             console.log("Adding Comment: " + $scope.commentBody);
             if ($scope.commentBody === '') {return;}
             
+            //Add in other comment info
             var comment = {
                 body: $scope.commentBody,
-                author: 'user'
+                author: 'currentuser',
+                dateCreated: new Date()
             }
 
             $scope.task.comments.push(comment);
             
-            $scope.body = '';
+            $scope.commentBody = '';
         }
 
         $scope.saveEdit = function() {
@@ -177,9 +230,9 @@ kanApp.controller('TaskController', [
     }
 ])
 
-kanApp.controller('ProjectController', [
+kanApp.controller('ProjectsController', [
     '$scope',
-    function ProjectController($scope) {
+    function ProjectsController($scope) {
         $scope.projects = [
             {
                 title: 'Kan App'

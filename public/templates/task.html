@@ -4,21 +4,41 @@
         <img ng-show="viewMode=='view'" src="images/edit.svg" alt="edit" ng-click="edit()" class="editButton" />
     </h2>
     <div ng-switch="viewMode">
-        <div class="task-view" ng-switch-when="view">
-            <h3>{{task.title}}</h3>
-            <div class="description">{{task.description}}</div>
-            <div class="comment-thread">
-                <div ng-repeat="comment in task.comments">{{comment.body}}</div>
+        <section ng-switch-when="view">
+            <div class="task-view">
+                <h3>{{task.title}}</h3>
+                <div class="description">{{task.description}}</div>
+                <div class="comment-thread">
+                    <div ng-repeat="comment in task.comments">
+                        <span class="timestamp" am-time-ago="comment.dateCreated"></span>
+                        {{comment.body}}
+                    </div>
+                </div>
+                <form ng-submit="addComment()" class ="comment-form">
+                    <textarea placeholder="Comment" ng-model="$parent.commentBody"></textarea>
+                    <input type="submit" value="Comment">
+                </form>
             </div>
-            <form ng-submit="addComment()" class ="comment-form">
-                <textarea placeholder="Comment" ng-model="$parent.commentBody"></textarea>
-                <input type="submit" value="Comment">
-            </form>
-        </div>
+            <div class="task-view">
+                <h3>Task Info</h3>
+                <ul class="task-info">
+                    <li>Type: {{task.type}}</li>
+                    <li>Assigned to: {{task.assignee}}</li>
+                    <li>LOE: {{task.loe}}</li>
+                    <li>Date created: {{task.dateCreated | amDateFormat:'MMMM Do YYYY'}}</li>
+                </ul>
+                <h3>Links</h3>
+                <ul class="links">
+                    <li ng-repeat="link in task.links">
+                        <a ng-href="{{link.link}}" target="_blank">{{link.title}}</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
         <form ng-switch-when="edit" ng-submit="saveEdit()">
             <fieldset class="task-edit">
                 <input type="text" ng-model="task.title" autofocus>
-                <textarea ng-model="task.description"></textarea>
+                <textarea placeholder="Description" ng-model="task.description"></textarea>
             </fieldset>
         </form>
     </div>
