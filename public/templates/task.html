@@ -26,6 +26,7 @@
                     <li>Assigned to: {{task.assignee}}</li>
                     <li>LOE: {{task.loe}}</li>
                     <li>Date created: {{task.dateCreated | amDateFormat:'MMMM Do YYYY'}}</li>
+                    <li>Due Date: {{task.dueDate | amDateFormat:'MMMM Do YYYY'}}</li>
                 </ul>
                 <h3>Links</h3>
                 <ul class="links">
@@ -39,6 +40,15 @@
             <fieldset class="task-edit">
                 <input type="text" ng-model="task.title" autofocus>
                 <textarea placeholder="Description" ng-model="task.description"></textarea>
+            </fieldset>
+            <fieldset class="task-edit">
+                <label>Type<input type="text" placeholder="Type" ng-model="task.type"></label>
+                <label>Assign to<input type="text" placeholder="Assign to" ng-model="task.assignee"></label>
+                <label>LOE<input type="text" placeholder="LOE" ng-model="task.loe"></label>
+                <datepicker date-format="mediumDate">
+                    <input placeholder="Due Date" ng-model="task.dueDate" type="text"/>
+                </datepicker>
+                <input type="submit" value="Save">
             </fieldset>
         </form>
     </div>

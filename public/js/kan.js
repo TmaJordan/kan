@@ -1,6 +1,6 @@
 'use strict';
 
-var kanApp = angular.module('kanApp', ['ngRoute', 'angularMoment']);
+var kanApp = angular.module('kanApp', ['ngRoute', 'angularMoment', '720kb.datepicker']);
 
 kanApp.factory('tasks', [function(){
     //Tasks Service

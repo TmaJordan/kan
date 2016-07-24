@@ -248,4 +248,8 @@ span.timestamp {
 .task-edit * {
     display: block;
 }
+
+.task-edit input {
+    width: 15em;
+}
 /* End of task styles */
