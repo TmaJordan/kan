@@ -3,11 +3,23 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var path = require('path');
+var passport = require('passport');
+
+var mongoose = require('mongoose');
+require('./models/Tasks');
+require('./models/Comments');
+require('./models/Links');
+
+var taskRoutes = require('./routes/tasks');
+
+mongoose.connect('mongodb://localhost/kan')
 
 var app = express();
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());    
+
+app.use('/api/tasks', taskRoutes);
 
 // Serve static files
 app.use(express.static(__dirname + '/public'));
