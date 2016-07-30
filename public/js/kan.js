@@ -2,106 +2,74 @@
 
 var kanApp = angular.module('kanApp', ['ngRoute', 'angularMoment', '720kb.datepicker']);
 
-kanApp.factory('tasks', [function(){
+kanApp.factory('Tasks', ['$http', function($http){
     //Tasks Service
-    var o = {
-        tasks: [
-            {
-                _id: 1,
-                title: 'Build Basic App',
-                description: 'Need to develop basic app structure and learn MEAN stack',
-                comments: [],
-                completed: true,
-                dateCreated: new Date(),
-                timeStarted: new Date(),
-                type: 'Development',
-                dependency: -1,
-                loe: '2 weeks',
-                dueDate: null,
-                assignee: 'tjordan',
-                createdBy: 'tjordan',
-                links: []
-            },
-            {
-                _id: 2,
-                title: 'Meet with Ruairi',
-                description: 'Need to meet with Ruairi once he is back from vacation',
-                comments: [],
-                completed: false,
-                dateCreated: new Date(),
-                timeStarted: new Date(),
-                type: 'Development',
-                dependency: -1,
-                loe: '2 weeks',
-                dueDate: null,
-                assignee: 'tjordan',
-                createdBy: 'tjordan',
-                links: [
-                    {
-                        title: "Email from Ruari",
-                        link: "https://inbox.google.com/u/0/?pli=1"
-                    }
-                ]
-            },
-            {
-                _id: 3,
-                title: 'Finish app',
-                description: 'Need to finish out app and test it against real users',
-                comments: [],
-                completed: false,
-                dateCreated: new Date(),
-                timeStarted: new Date(),
-                type: 'Development',
-                dependency: 1,
-                loe: '2 weeks',
-                dueDate: null,
-                assignee: 'tjordan',
-                createdBy: 'tjordan',
-                links: [
-                    {
-                        title: "Back end issue",
-                        link: "https://github.com/TmaJordan/kan/issues/2"
-                    },
-                    {
-                        title: "Angular Docs",
-                        link: "https://docs.angularjs.org/guide"
-                    }
-                ]
-            }
-        ]
+    var Tasks = {
+        tasks: []
+    };
+
+    Tasks.getAll = function() {
+        return $http.get('/api/tasks').success(function(data) {
+           angular.copy(data, Tasks.tasks);
+        });
     };
 
     //Will be replaced by $http route when api is built
-    o.get = function(id) {
-        for (var i = 0; i < o.tasks.length; i++) {
-            if (o.tasks[i]._id == id) {
-                return o.tasks[i];
-            }
-        }
+    Tasks.get = function(id) {
+        return $http.get('/api/tasks/' + id).then(function(res) {
+            return res.data;
+        });
     };
 
-    o.update = function(task) {
-        return task;
-    }
+    Tasks.create = function(task) {
+        return $http.post('/api/tasks', task).success(function(data) {
+           Tasks.tasks.unshift(data); 
+        });
+    };
 
-    o.newTaskTitle = "New Task";
+    Tasks.update = function(task) {
+        return $http.put('/api/tasks/' + task._id, task).success(function(data) {
+            for (var i = 0; i < Tasks.tasks.length; i++) {
+                if (Tasks.tasks[i]._id == data._id) {
+                    Tasks.tasks[i] = data;
+                }
+            }
+        });
+    };
+
+    Tasks.newTaskTitle = "New Task";
     
-    return o; 
+    return Tasks; 
 }]);
 
 kanApp.config(function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'templates/tasks.html',
-            controller: 'TasksController'
+            controller: 'TasksController',
+            resolve: {
+                tasks: ['Tasks', function(Tasks) {
+                    return Tasks.getAll();
+                }]
+            }
         })
         .when('/index.html', {
             templateUrl: 'templates/tasks.html',
-            controller: 'TasksController'
+            controller: 'TasksController',
+            resolve: {
+                tasks: ['Tasks', function(Tasks) {
+                    return Tasks.getAll();
+                }]
+            }
         })
         .when('/tasks/:id', {
             templateUrl: 'templates/task.html',
-            controller: 'TaskController'
+            controller: 'TaskController',
+            resolve: {
+                task: ['$route','Tasks', function($route, Tasks) {
+                    return Tasks.get($route.current.params.id);
+                }]
+            }
         })
         .when('/projects.html', {
             templateUrl: 'templates/projects.html',
@@ -122,8 +90,8 @@ kanApp.config(function($routeProvider, $locationProvider) {
 kanApp.controller('TasksController', [
     '$scope',
     '$timeout',
-    'tasks', 
-    function TasksController($scope, $timeout, tasks) {
+    'Tasks', 
+    function TasksController($scope, $timeout, Tasks) {
         $scope.views = [
             {title: "My Tasks"},
             {title: "Today's Tasks"},
@@ -137,7 +105,7 @@ kanApp.controller('TasksController', [
             console.log($scope.selectedView);
         }
         
-        $scope.tasks = tasks.tasks;
+        $scope.tasks = Tasks.tasks;
         $scope.task = {};
         
         $scope.popup = {
@@ -147,7 +115,9 @@ kanApp.controller('TasksController', [
         };
         var hidePromise;
         $scope.toggleCompleted = function(task) {
+            Tasks.update(task);
             $scope.task = task;
+            console.log(task._id + " is " + (task.completed ? "Complete": "Not Complete"));
             console.log(task.title + " is " + (task.completed ? "Complete": "Not Complete"));
             $scope.popup.text = task.title + " is " + (task.completed ? "Complete": "Not Complete");
             $scope.popup.show = true;
@@ -159,6 +129,7 @@ kanApp.controller('TasksController', [
         $scope.undo = function() {
             $scope.task.completed = !$scope.task.completed;
             $scope.popup.show = false;
+            Tasks.update($scope.task);
             $timeout.cancel(hidePromise)
         }
 
@@ -168,21 +139,9 @@ kanApp.controller('TasksController', [
 
         $scope.addTask = function() {
             var task = {
-                _id: Date.now(),
-                title: tasks.newTaskTitle,
-                dateCreated: new Date(),
-                timeStarted: new Date(),
-                type: '',
-                dependency: 0,
-                loe: '',
-                dueDate: null,
-                assignee: '',
-                createdBy: '',
-                comments: [],
-                links: [],
-                completed: false
+                title: Tasks.newTaskTitle,
             }
-            $scope.tasks.unshift(task);
+            Tasks.create(task);
             console.log("New Task Created")
         }
     }
@@ -191,11 +150,12 @@ kanApp.controller('TasksController', [
 kanApp.controller('TaskController', [
     '$scope',
     '$routeParams',
-    'tasks',
-    function($scope, $routeParams, tasks) {
-        $scope.task = tasks.get($routeParams.id);
-
-        if ($scope.task.title === tasks.newTaskTitle) {
+    'Tasks',
+    'task',
+    function($scope, $routeParams, Tasks, task) {
+        $scope.task = task;
+        console.log(JSON.stringify($scope.task));
+        if ($scope.task.title === Tasks.newTaskTitle) {
             $scope.viewMode = "edit";
         }
         else {
@@ -224,7 +184,7 @@ kanApp.controller('TaskController', [
 
         $scope.saveEdit = function() {
             //Need to save
-            tasks.update($scope.task);
+            Tasks.update($scope.task);
             $scope.viewMode = "view";
         }
     }
