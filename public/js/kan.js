@@ -1,8 +1,8 @@
 'use strict';
 
-var kanApp = angular.module('kanApp', ['ngRoute', 'angularMoment', '720kb.datepicker']);
+angular.module('kanApp', ['ngRoute', 'angularMoment', '720kb.datepicker']);
 
-kanApp.factory('Tasks', ['$http', function($http){
+angular.module('kanApp').factory('Tasks', ['$http', function($http){
     //Tasks Service
     var Tasks = {
         tasks: []
@@ -42,7 +42,7 @@ kanApp.factory('Tasks', ['$http', function($http){
     return Tasks; 
 }]);
 
-kanApp.config(function($routeProvider, $locationProvider) {
+angular.module('kanApp').config(function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'templates/tasks.html',
@@ -87,7 +87,7 @@ kanApp.config(function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
 });
 
-kanApp.controller('TasksController', [
+angular.module('kanApp').controller('TasksController', [
     '$scope',
     '$timeout',
     'Tasks', 
@@ -147,7 +147,7 @@ kanApp.controller('TasksController', [
     }
 ]);
 
-kanApp.controller('TaskController', [
+angular.module('kanApp').controller('TaskController', [
     '$scope',
     '$routeParams',
     'Tasks',
@@ -190,7 +190,7 @@ kanApp.controller('TaskController', [
     }
 ])
 
-kanApp.controller('ProjectsController', [
+angular.module('kanApp').controller('ProjectsController', [
     '$scope',
     function ProjectsController($scope) {
         $scope.projects = [
@@ -201,7 +201,7 @@ kanApp.controller('ProjectsController', [
     }
 ]);
 
-kanApp.controller('OrgController', [
+angular.module('kanApp').controller('OrgController', [
     '$scope',
     function OrgController($scope) {
         $scope.users = [
@@ -212,7 +212,7 @@ kanApp.controller('OrgController', [
     }
 ]);
 
-kanApp.controller('ReportsController', [
+angular.module('kanApp').controller('ReportsController', [
     '$scope',
     function ReportsController($scope) {
         $scope.reports = [
