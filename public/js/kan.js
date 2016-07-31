@@ -37,6 +37,10 @@ angular.module('kanApp').factory('Tasks', ['$http', function($http){
         });
     };
 
+    Tasks.addComment = function(id, comment) {
+        return $http.post('/api/tasks/' + id + '/comments', comment);
+    }
+
     Tasks.newTaskTitle = "New Task";
     
     return Tasks; 
@@ -173,11 +177,12 @@ angular.module('kanApp').controller('TaskController', [
             //Add in other comment info
             var comment = {
                 body: $scope.commentBody,
-                author: 'currentuser',
+                author: 'tjordan',
                 dateCreated: new Date()
             }
-
-            $scope.task.comments.push(comment);
+            Tasks.addComment(task._id, comment).success(function(comment) {
+               $scope.task.comments.push(comment); 
+            });
             
             $scope.commentBody = '';
         }

@@ -48,7 +48,6 @@ router.post('/', function(req, res, next) {
 router.post('/:task/comments', function(req, res, next) {
   var comment = new Comment(req.body);
   comment.task = req.task;
-  comment.author = 'tjordan';
   
   comment.save(function(err, comment) {
     if (err) {return next(err);}
