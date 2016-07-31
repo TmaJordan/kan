@@ -46,6 +46,20 @@ angular.module('kanApp').factory('Tasks', ['$http', function($http){
     return Tasks; 
 }]);
 
+angular.module('kanApp').factory('Sounds', [function(){
+    var Sounds = {
+        ding: new Audio('audio/ding.wav')
+    }
+    
+    Sounds.play = function(soundName) {
+        if (Sounds[soundName]) {
+            Sounds[soundName].play();
+        }
+    }
+
+    return Sounds;
+}]);
+
 angular.module('kanApp').config(function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
@@ -95,7 +109,8 @@ angular.module('kanApp').controller('TasksController', [
     '$scope',
     '$timeout',
     'Tasks', 
-    function TasksController($scope, $timeout, Tasks) {
+    'Sounds',
+    function TasksController($scope, $timeout, Tasks, Sounds) {
         $scope.views = [
             {title: "My Tasks"},
             {title: "Today's Tasks"},
@@ -112,6 +127,7 @@ angular.module('kanApp').controller('TasksController', [
         $scope.tasks = Tasks.tasks;
         $scope.task = {};
         
+        //Popup that will be displayed so that users can undo completing a task
         $scope.popup = {
             show: false,
             text: '',
@@ -121,8 +137,8 @@ angular.module('kanApp').controller('TasksController', [
         $scope.toggleCompleted = function(task) {
             Tasks.update(task);
             $scope.task = task;
-            console.log(task._id + " is " + (task.completed ? "Complete": "Not Complete"));
-            console.log(task.title + " is " + (task.completed ? "Complete": "Not Complete"));
+            Sounds.play('ding');
+            //Set contents of undo popup
             $scope.popup.text = task.title + " is " + (task.completed ? "Complete": "Not Complete");
             $scope.popup.show = true;
             hidePromise = $timeout(function(){
