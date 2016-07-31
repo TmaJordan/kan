@@ -6,10 +6,12 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var passport = require('passport');
 
-var mongoose = require('mongoose');
 require('./models/Tasks');
 require('./models/Comments');
 require('./models/Links');
+require('./models/Users');
+
+require('./config/passport');
 
 var taskRoutes = require('./routes/tasks');
 
@@ -24,6 +26,9 @@ app.use('/api/tasks', taskRoutes);
 
 // Serve static files
 app.use(express.static(__dirname + '/public'));
+//Initialise passport middleware
+app.use(passport.initialize());
+
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/index.html'));
 });
@@ -39,8 +44,7 @@ app.use('*', function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
+    res.status(err.status || 500).json({
       message: err.message,
       error: err
     });
@@ -50,8 +54,7 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
+  res.status(err.status || 500).json({
     message: err.message,
     error: {}
   });
