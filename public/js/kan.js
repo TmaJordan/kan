@@ -41,6 +41,10 @@ angular.module('kanApp').factory('Tasks', ['$http', function($http){
         return $http.post('/api/tasks/' + id + '/comments', comment);
     }
 
+    Tasks.addLink = function(id, link) {
+        return $http.post('/api/tasks/' + id + '/links', link);
+    }
+
     Tasks.newTaskTitle = "New Task";
     
     return Tasks; 
@@ -187,6 +191,8 @@ angular.module('kanApp').controller('TaskController', [
         $scope.task = task;
         console.log(JSON.stringify($scope.task));
         
+        $scope.link = {};
+        
         if ($scope.task.title === Tasks.newTaskTitle) {
             $scope.viewMode = "edit";
             $scope.backup = angular.copy($scope.task);
@@ -226,6 +232,29 @@ angular.module('kanApp').controller('TaskController', [
         $scope.cancel = function() {
             $scope.viewMode = "view";
             $scope.task = angular.copy($scope.backup);
+        }
+
+        $scope.addLink = function() {
+            $scope.addingLink = true;
+        }
+
+        $scope.checkLink = function(event) {
+            if(event.keyCode == 13) {
+                //Simple validation, will add more later
+                console.log($scope.link.title);
+                console.log($scope.link.url);
+                if ($scope.link.title && $scope.link.url) {
+                    var link = {
+                        title: $scope.link.title,
+                        link: $scope.link.url
+                    }
+
+                    Tasks.addLink(task._id, link).success(function(link) {
+                        $scope.task.links.push(link); 
+                    });
+                    $scope.addingLink = false;
+                }
+            }
         }
     }
 ])

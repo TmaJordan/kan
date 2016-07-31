@@ -32,7 +32,8 @@
                     Links 
                     <button class="add" ng-click="addLink()">+</button>
                 </h3>
-                <input type="text" ng-show="addingLink">
+                <input type="text" ng-show="addingLink" placeholder="Name" ng-keydown="checkLink($event)" ng-model="link.title">
+                <input type="url" ng-show="addingLink" placeholder="URL" ng-keydown="checkLink($event)" ng-model="link.url">
                 <ul class="links">
                     <li ng-repeat="link in task.links">
                         <a ng-href="{{link.link}}" target="_blank">{{link.title}}</a>

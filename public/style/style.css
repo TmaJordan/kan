@@ -168,6 +168,7 @@ a.back {
 button.add {
     border: none;
     color: #333;
+    background: none;
     margin: 0;
     padding: 0;
     font-size: 2em;
@@ -177,7 +178,6 @@ h3 button.add {
     display: inline-block;
     margin-left: 1em;
     line-height: 1;
-    background: #fff;
 }
 
 .task-header button {
@@ -255,6 +255,10 @@ span.timestamp {
     vertical-align:top;
     margin-right: 2em;
     max-width: 50%;
+}
+
+.task-view input {
+    display: block;
 }
 
 .task-edit * {

@@ -18,8 +18,10 @@ router.get('/', function(req, res, next) {
 router.get('/:task', function(req, res) {
   req.task.populate('comments', function(err, task) {
     if (err) {return next(err);}
-    
-    res.json(req.task);
+    req.task.populate('links', function(err, task) {
+        if (err) {return next(err);}
+        res.json(req.task);
+    });
   });
 });
 
@@ -57,6 +59,22 @@ router.post('/:task/comments', function(req, res, next) {
       if (err) {return next(err);}
       
       res.json(comment);
+    })
+  });
+});
+
+/*Link object routes */
+router.post('/:task/links', function(req, res, next) {
+  var link = new Link(req.body);
+  
+  link.save(function(err, link) {
+    if (err) {return next(err);}
+    
+    req.task.links.push(link);
+    req.task.save(function(err, post) {
+      if (err) {return next(err);}
+      
+      res.json(link);
     })
   });
 });
