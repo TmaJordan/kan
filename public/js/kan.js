@@ -113,16 +113,24 @@ angular.module('kanApp').controller('TasksController', [
     'Sounds',
     function TasksController($scope, $timeout, $location, Tasks, Sounds) {
         $scope.views = [
-            {title: "My Tasks"},
-            {title: "Today's Tasks"},
-            {title: "Other Tasks"},
-            {title: "Project Tasks"},
-            {title: "Completed Tasks"}
+            {value: "mytasks", title: "My Tasks"},
+            {value: "completed", title: "Completed Tasks"}
         ];
-        $scope.selectedView = $scope.views[0].title;
+        $scope.selectedView = $scope.views[0].value;
 
         $scope.updateView = function() {
             console.log($scope.selectedView);
+        }
+
+        $scope.taskFilter = function() {
+            return function(task) {
+                if ($scope.selectedView == 'mytasks') {
+                    return !task.completed;
+                }
+                else if ($scope.selectedView == 'completed') {
+                    return task.completed;
+                }
+            }
         }
         
         $scope.tasks = Tasks.tasks;
@@ -133,7 +141,7 @@ angular.module('kanApp').controller('TasksController', [
             show: false,
             text: '',
             action: ''
-        };
+        }
         var hidePromise;
         $scope.toggleCompleted = function(task) {
             Tasks.update(task);

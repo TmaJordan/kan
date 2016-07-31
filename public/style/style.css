@@ -171,7 +171,13 @@ button.add {
     margin: 0;
     padding: 0;
     font-size: 2em;
-    background: none;
+}
+
+h3 button.add {
+    display: inline-block;
+    margin-left: 1em;
+    line-height: 1;
+    background: #fff;
 }
 
 .task-header button {

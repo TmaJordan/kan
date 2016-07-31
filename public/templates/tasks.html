@@ -1,12 +1,12 @@
 <section>
     <header class="task-header">
         <select ng-model="selectedView" ng-change="updateView()">
-            <option ng-repeat="view in views" value="{{view.title}}">{{view.title}}</option>
+            <option ng-repeat="view in views" value="{{view.value}}">{{view.title}}</option>
         </select>
         <button class="add" ng-click="addTask()">+</button>
     </header>
     <ul class="task-list">
-        <li ng-repeat="task in tasks | filter:{completed:false}" class="task-item">
+        <li ng-repeat="task in tasks | filter:taskFilter()" class="task-item">
             <label ng-click="editTask(task)">
                 <input class="toggle" type="checkbox" ng-model="task.completed" ng-change="toggleCompleted(task)">
                 <a ng-href="tasks/{{task._id}}">{{task.title}}</a>
