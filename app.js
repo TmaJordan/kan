@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require('express');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
@@ -12,7 +13,7 @@ require('./models/Links');
 
 var taskRoutes = require('./routes/tasks');
 
-mongoose.connect('mongodb://localhost/kan')
+mongoose.connect(process.env.DB_HOST)
 
 var app = express();
 
