@@ -21,10 +21,11 @@ input[type=text] {
     padding: 0.125em;
     margin: 0.125em;
     border-radius: 0.25em;
+    min-width: 16em;
 }
 
 textarea {
-	width: 24em;
+	min-width: 24em;
 	height: 6em;
 	border: 2px solid #cccccc;
 	padding: 0.25em;
@@ -57,7 +58,7 @@ fieldset {
     margin: 0;
 }
 
-input[type=submit] {
+button, input[type=submit] {
     background: #4A90E2;
     color: #fff;
     font-size: 1.125em;
@@ -166,6 +167,7 @@ a.back {
 
 button.add {
     border: none;
+    color: #333;
     margin: 0;
     padding: 0;
     font-size: 2em;
@@ -235,7 +237,11 @@ span.timestamp {
 }
 
 .comment-form input[type=submit] {
-    margin-left: 12.375em;
+    float:right;
+}
+
+.comment-form textarea {
+    width: 100%;
 }
 
 .task-view, .task-edit {
@@ -250,6 +256,29 @@ span.timestamp {
 }
 
 .task-edit input {
-    width: 15em;
+    width: 100%;
+}
+
+.task-edit input[type=submit], .task-edit button {
+    margin-top: 1em;
+    float: right;
+}
+
+.task-edit input[type=submit] {
+    width: auto;
+}
+
+.task-edit button {
+    color: #333;
+    background: #BBB;
+}
+
+.task-edit textarea {
+    width: 100%;
+}
+
+label.date-label {
+    font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Segoe UI', 'Verdana', sans-serif;
+    font-size: 1rem;
 }
 /* End of task styles */

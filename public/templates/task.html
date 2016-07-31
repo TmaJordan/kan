@@ -38,17 +38,18 @@
         </section>
         <form ng-switch-when="edit" ng-submit="saveEdit()">
             <fieldset class="task-edit">
-                <input type="text" ng-model="task.title" autofocus>
-                <textarea placeholder="Description" ng-model="task.description"></textarea>
+                <label>Task Name<input type="text" ng-model="task.title" autofocus></label>
+                <label>Description<textarea placeholder="Description" ng-model="task.description"></textarea></label>
+                <input type="submit" value="Save">
+                <button ng-click="cancel()">Cancel</button>
             </fieldset>
             <fieldset class="task-edit">
                 <label>Type<input type="text" placeholder="Type" ng-model="task.type"></label>
                 <label>Assign to<input type="text" placeholder="Assign to" ng-model="task.assignee"></label>
                 <label>LOE<input type="text" placeholder="LOE" ng-model="task.loe"></label>
-                <datepicker date-format="mediumDate">
-                    <input placeholder="Due Date" ng-model="task.dueDate" type="text"/>
+                <datepicker date-format="mediumDate" selector="date-picker">
+                    <label class="date-label">Due Date<input class="date-picker" placeholder="Due Date" ng-model="task.dueDate" type="text"/></label>
                 </datepicker>
-                <input type="submit" value="Save">
             </fieldset>
         </form>
     </div>

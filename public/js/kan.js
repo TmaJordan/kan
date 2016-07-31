@@ -159,8 +159,10 @@ angular.module('kanApp').controller('TaskController', [
     function($scope, $routeParams, Tasks, task) {
         $scope.task = task;
         console.log(JSON.stringify($scope.task));
+        
         if ($scope.task.title === Tasks.newTaskTitle) {
             $scope.viewMode = "edit";
+            $scope.backup = angular.copy($scope.task);
         }
         else {
             $scope.viewMode = "view";
@@ -168,6 +170,7 @@ angular.module('kanApp').controller('TaskController', [
 
         $scope.edit = function() {
             $scope.viewMode = "edit";
+            $scope.backup = angular.copy($scope.task);
         }
 
         $scope.addComment = function() {
@@ -191,6 +194,11 @@ angular.module('kanApp').controller('TaskController', [
             //Need to save
             Tasks.update($scope.task);
             $scope.viewMode = "view";
+        }
+
+        $scope.cancel = function() {
+            $scope.viewMode = "view";
+            $scope.task = angular.copy($scope.backup);
         }
     }
 ])
