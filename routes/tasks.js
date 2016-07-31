@@ -44,6 +44,24 @@ router.post('/', function(req, res, next) {
   })
 });
 
+/*Comment object routes */
+router.post('/:task/comments', function(req, res, next) {
+  var comment = new Comment(req.body);
+  comment.task = req.task;
+  comment.author = 'tjordan';
+  
+  comment.save(function(err, comment) {
+    if (err) {return next(err);}
+    
+    req.task.comments.push(comment);
+    req.task.save(function(err, post) {
+      if (err) {return next(err);}
+      
+      res.json(comment);
+    })
+  });
+});
+
 /*Param method intercepts :post for above requests */
 router.param('task', function (req, res, next, id) {
   var query = Task.findById(id);
