@@ -108,9 +108,10 @@ angular.module('kanApp').config(function($routeProvider, $locationProvider) {
 angular.module('kanApp').controller('TasksController', [
     '$scope',
     '$timeout',
+    '$location',
     'Tasks', 
     'Sounds',
-    function TasksController($scope, $timeout, Tasks, Sounds) {
+    function TasksController($scope, $timeout, $location, Tasks, Sounds) {
         $scope.views = [
             {title: "My Tasks"},
             {title: "Today's Tasks"},
@@ -161,7 +162,9 @@ angular.module('kanApp').controller('TasksController', [
             var task = {
                 title: Tasks.newTaskTitle,
             }
-            Tasks.create(task);
+            Tasks.create(task).success(function(task) {
+                $location.path('/tasks/' + task._id);
+            });
             console.log("New Task Created")
         }
     }

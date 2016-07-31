@@ -9,7 +9,7 @@ var TaskSchema = new mongoose.Schema({
     timeStarted: Date,
     type: String,
     dependency: {type: mongoose.Schema.Types.ObjectId, ref: 'Task'},
-    loe: {type: Number, default: -1},
+    loe: {type: Number, default: 0},
     dueDate: Date,
     assignee: String,
     createdBy: String,
