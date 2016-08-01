@@ -365,7 +365,7 @@ angular.module('kanApp').controller('TaskController', [
         }
 
         $scope.addLink = function() {
-            $scope.addingLink = true;
+            $scope.addingLink = !$scope.addingLink;
         }
 
         $scope.checkLink = function(event) {

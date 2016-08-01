@@ -30,7 +30,7 @@
                 </ul>
                 <h3>
                     Links 
-                    <button class="add" ng-click="addLink()">+</button>
+                    <button class="add" ng-click="addLink()" ng-class="{remove:addingLink}">+</button>
                 </h3>
                 <input type="text" ng-show="addingLink" placeholder="Name" ng-keydown="checkLink($event)" ng-model="link.title">
                 <input type="url" ng-show="addingLink" placeholder="URL" ng-keydown="checkLink($event)" ng-model="link.url">
