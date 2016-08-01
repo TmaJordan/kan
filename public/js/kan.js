@@ -2,33 +2,41 @@
 
 angular.module('kanApp', ['ngRoute', 'angularMoment', '720kb.datepicker']);
 
-angular.module('kanApp').factory('Tasks', ['$http', function($http){
+angular.module('kanApp').factory('Tasks', ['$http', 'auth', function($http, auth){
     //Tasks Service
     var Tasks = {
         tasks: []
     };
 
     Tasks.getAll = function() {
-        return $http.get('/api/tasks').success(function(data) {
+        return $http.get('/api/tasks', {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        }).success(function(data) {
            angular.copy(data, Tasks.tasks);
         });
     };
 
     //Will be replaced by $http route when api is built
     Tasks.get = function(id) {
-        return $http.get('/api/tasks/' + id).then(function(res) {
+        return $http.get('/api/tasks/' + id, {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        }).then(function(res) {
             return res.data;
         });
     };
 
     Tasks.create = function(task) {
-        return $http.post('/api/tasks', task).success(function(data) {
+        return $http.post('/api/tasks', task, {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        }).success(function(data) {
            Tasks.tasks.unshift(data); 
         });
     };
 
     Tasks.update = function(task) {
-        return $http.put('/api/tasks/' + task._id, task).success(function(data) {
+        return $http.put('/api/tasks/' + task._id, task, {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        }).success(function(data) {
             for (var i = 0; i < Tasks.tasks.length; i++) {
                 if (Tasks.tasks[i]._id == data._id) {
                     Tasks.tasks[i] = data;
@@ -38,11 +46,15 @@ angular.module('kanApp').factory('Tasks', ['$http', function($http){
     };
 
     Tasks.addComment = function(id, comment) {
-        return $http.post('/api/tasks/' + id + '/comments', comment);
+        return $http.post('/api/tasks/' + id + '/comments', comment, {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        });
     }
 
     Tasks.addLink = function(id, link) {
-        return $http.post('/api/tasks/' + id + '/links', link);
+        return $http.post('/api/tasks/' + id + '/links', link, {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        });
     }
 
     Tasks.newTaskTitle = "New Task";
@@ -62,6 +74,58 @@ angular.module('kanApp').factory('Sounds', [function(){
     }
 
     return Sounds;
+}]);
+
+angular.module('kanApp').factory('auth', ['$http', '$window', function($http, $window){
+    var auth = {};
+        
+    auth.saveToken = function(token) {
+        $window.localStorage['kan-app-token'] = token;
+    }
+    
+    auth.getToken = function() {
+        return $window.localStorage['kan-app-token'];
+    }
+
+    auth.logOut = function(user) {
+        $window.localStorage.removeItem('kan-app-token');
+    }
+    
+    auth.isLoggedIn = function() {
+        var token = auth.getToken();
+        
+        if (token) {
+            var payload = JSON.parse($window.atob(token.split('.')[1]));
+            
+            return payload.exp > Date.now() / 1000;
+        }
+        else {
+            return false;
+        }
+    }
+
+    auth.currentUser = function() {
+        if (auth.isLoggedIn()) {
+            var token = auth.getToken();
+            var payload = JSON.parse($window.atob(token.split('.')[1]));
+
+            return payload.username;
+        }
+    }
+
+    auth.register = function(user) {
+        return $http.post('api/users/register', user).success(function(data) {
+            auth.saveToken(data.token);
+        });
+    }
+    
+    auth.logIn = function(user) {
+        return $http.post('api/users/login', user).success(function(data) {
+            auth.saveToken(data.token);
+        });
+    }
+
+    return auth;
 }]);
 
 angular.module('kanApp').config(function($routeProvider, $locationProvider) {
@@ -104,10 +168,57 @@ angular.module('kanApp').config(function($routeProvider, $locationProvider) {
         .when('/reports.html', {
             templateUrl: 'templates/reports.html',
             controller: 'ReportsController'
+        })
+        .when('/register.html', {
+            templateUrl: 'templates/register.html',
+            controller: 'AuthController'
+        })
+        .when('/login.html', {
+            templateUrl: 'templates/login.html',
+            controller: 'AuthController'
         });
 
     $locationProvider.html5Mode(true);
 });
+
+angular.module('kanApp').controller('AuthController', [
+    '$scope',
+    '$location',
+    'auth',
+    function($scope, $location, auth) {
+        $scope.user = {};
+
+        $scope.register = function() {
+            auth.register($scope.user).error(function(error) {
+                $scope.error = error;
+            }).then(function() {
+                $location.path('/index.html');
+            });
+        }
+
+        $scope.logIn = function() {
+            auth.logIn($scope.user).error(function(error){
+                $scope.error = error;
+            }).then(function(){
+                $location.path('/index.html');
+            });
+        }
+    }
+]);
+
+angular.module('kanApp').controller('NavController', [
+    '$scope',
+    '$location',
+    'auth',
+    function($scope, $location, auth) {
+        $scope.isLoggedIn = auth.isLoggedIn;
+        $scope.currentUser = auth.currentUser;
+        $scope.logOut = function() {
+            auth.logOut();
+            $location.path('/login.html');
+        }
+    }
+])
 
 angular.module('kanApp').controller('TasksController', [
     '$scope',

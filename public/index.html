@@ -20,15 +20,24 @@
         <script src="js/kan.js"></script>
     </head>
     <body>
-        <h1><img src="images/Kan Icon.svg" alt="App Logo"><span>Kan</span></h1>
-        <nav>
-            <ul>
-                <li><a href="index.html" ng-class="{'selected': index==0 || !index}" ng-click="index=0"><img src="images/tasks.svg" alt="Tasks" title="Tasks"></a></li>
-                <li><a href="projects.html" ng-class="{'selected': index==1}" ng-click="index=1"><img src="images/project.svg" alt="Projects" title="Projects"></a></li>
-                <li><a href="org.html" ng-class="{'selected': index==2}" ng-click="index=2"><img src="images/org.svg" alt="Organisation" title="Organisation"></a></li>
-                <li><a href="reports.html" ng-class="{'selected': index==3}" ng-click="index=3"><img src="images/stats.svg" alt="Reports" title="Reports"></a></li>
-            </ul>
-        </nav>
+        <header ng-controller="NavController">
+            <h1>
+                <img src="images/Kan Icon.svg" alt="App Logo">
+                <span>Kan</span>
+                <span ng-show="isLoggedIn()">{{ currentUser() }}</span>
+                <button ng-show="isLoggedIn()" ng-click="logOut()">Log Out</button>
+                <a ng-hide="isLoggedIn()" href="login.html">Log In</a>
+                <a ng-hide="isLoggedIn()" href="register.html">Register</a>
+            </h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html" ng-class="{'selected': index==0 || !index}" ng-click="index=0"><img src="images/tasks.svg" alt="Tasks" title="Tasks"></a></li>
+                    <li><a href="projects.html" ng-class="{'selected': index==1}" ng-click="index=1"><img src="images/project.svg" alt="Projects" title="Projects"></a></li>
+                    <li><a href="org.html" ng-class="{'selected': index==2}" ng-click="index=2"><img src="images/org.svg" alt="Organisation" title="Organisation"></a></li>
+                    <li><a href="reports.html" ng-class="{'selected': index==3}" ng-click="index=3"><img src="images/stats.svg" alt="Reports" title="Reports"></a></li>
+                </ul>
+            </nav>
+        </header>
         <main ng-view> 
         </main>
     </body>

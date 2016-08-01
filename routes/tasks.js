@@ -86,7 +86,7 @@ router.post('/:task/links', auth, function(req, res, next) {
 });
 
 /*Param method intercepts :post for above requests */
-router.param('task', auth, function (req, res, next, id) {
+router.param('task', function (req, res, next, id) {
   var query = Task.findById(id);
   
   query.exec(function(err, task) {

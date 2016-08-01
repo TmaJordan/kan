@@ -19,7 +19,9 @@ router.post('/register', function(req, res, next){
   user.save(function (err){
     if(err){ return next(err); }
 
-    return res.json({token: user.generateJWT()})
+    var token = user.generateJWT();
+    console.log(token);
+    return res.json({token: token})
   });
 });
 
@@ -32,7 +34,9 @@ router.post('/login', function(req, res, next) {
     if (err) {return next(err);}
     
     if (user) {
-      return res.json({token: user.generateJWT()});
+        var token = user.generateJWT();
+        console.log(token);
+        return res.json({token: token});
     }
     else {
       return res.status(401).json(info);

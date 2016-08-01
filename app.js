@@ -14,6 +14,7 @@ require('./models/Users');
 require('./config/passport');
 
 var taskRoutes = require('./routes/tasks');
+var userRoutes = require('./routes/users');
 
 mongoose.connect(process.env.DB_HOST)
 
@@ -23,6 +24,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());    
 
 app.use('/api/tasks', taskRoutes);
+app.use('/api/users', userRoutes);
 
 // Serve static files
 app.use(express.static(__dirname + '/public'));
@@ -44,6 +46,7 @@ app.use('*', function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
+    console.log(err.message);
     res.status(err.status || 500).json({
       message: err.message,
       error: err
@@ -54,6 +57,7 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+  console.log(err.message);
   res.status(err.status || 500).json({
     message: err.message,
     error: {}
