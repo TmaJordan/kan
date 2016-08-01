@@ -25,8 +25,8 @@
                     <li>Type: {{task.type}}</li>
                     <li>Assigned to: {{task.assignee}}</li>
                     <li>LOE: {{task.loe}}</li>
-                    <li>Date created: {{task.dateCreated | amDateFormat:'MMMM Do YYYY'}}</li>
-                    <li>Due Date: {{task.dueDate | amDateFormat:'MMMM Do YYYY'}}</li>
+                    <li>Date created: {{task.dateCreated | amDateFormat:'MMM Do YYYY'}}</li>
+                    <li>Due Date: {{task.dueDate | amDateFormat:'MMM Do YYYY'}}</li>
                 </ul>
                 <h3>
                     Links 
@@ -53,7 +53,7 @@
                 <label>Type<input type="text" placeholder="Type" ng-model="task.type"></label>
                 <label>Assign to<input type="text" placeholder="Assign to" ng-model="task.assignee"></label>
                 <label>LOE<input type="text" placeholder="LOE" ng-model="task.loe"></label>
-                <datepicker date-format="mediumDate" selector="date-picker">
+                <datepicker date-format="MMM d yyyy" selector="date-picker">
                     <label class="date-label">Due Date<input class="date-picker" placeholder="Due Date" ng-model="task.dueDate" type="text"/></label>
                 </datepicker>
             </fieldset>

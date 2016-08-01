@@ -26,7 +26,8 @@ input[type=text], input[type=password], input[type=url] {
 }
 
 textarea {
-	min-width: 24em;
+	width: 100%;
+    min-width: 20em;
 	height: 6em;
 	border: 2px solid #cccccc;
 	padding: 0.25em;
@@ -309,6 +310,7 @@ span.timestamp {
     vertical-align:top;
     margin-right: 2em;
     max-width: 50%;
+    min-width: 20em;
 }
 
 .task-view input {
