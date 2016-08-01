@@ -69,6 +69,12 @@ angular.module('kanApp').factory('Tasks', ['$http', 'auth', function($http, auth
         });
     }
 
+    Tasks.deleteLink = function(id, link) {
+        return $http.delete('/api/tasks/' + id + '/links/' + link._id, {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        });
+    }
+
     Tasks.newTaskTitle = "New Task";
     
     return Tasks; 
@@ -408,6 +414,16 @@ angular.module('kanApp').controller('TaskController', [
                     $scope.addingLink = false;
                 }
             }
+        }
+
+        $scope.deleteLink = function(link) {
+            Tasks.deleteLink(task._id, link).success(function() {
+                for (var i = 0; i < $scope.task.links.length; i++) {
+                    if ($scope.task.links[i]._id == link._id) {
+                        $scope.task.links.splice(i, 1);
+                    }
+                }
+            });
         }
     }
 ])

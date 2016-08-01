@@ -37,8 +37,9 @@
                 <input type="text" ng-show="addingLink" placeholder="Name" ng-keydown="checkLink($event)" ng-model="link.title">
                 <input type="url" ng-show="addingLink" placeholder="URL" ng-keydown="checkLink($event)" ng-model="link.url">
                 <ul class="links">
-                    <li ng-repeat="link in task.links">
+                    <li ng-repeat="link in task.links" ng-mouseenter="hover=true" ng-mouseleave="hover=false">
                         <a ng-href="{{link.link}}" target="_blank">{{link.title}}</a>
+                        <button type="button" class="delete" ng-show="hover" ng-click="deleteLink(link)">X</button>
                     </li>
                 </ul>
             </div>

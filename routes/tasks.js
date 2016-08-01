@@ -19,7 +19,7 @@ router.get('/', auth, function(req, res, next) {
   })
 });
 
-router.get('/:task', auth, function(req, res) {
+router.get('/:task', auth, function(req, res, next) {
   req.task.populate('comments', function(err, task) {
     if (err) {return next(err);}
     req.task.populate('links', function(err, task) {
@@ -29,7 +29,7 @@ router.get('/:task', auth, function(req, res) {
   });
 });
 
-router.delete('/:task', auth, function(req, res) {
+router.delete('/:task', auth, function(req, res, next) {
     req.task.remove(function(err) {
         if (err) {return next(err);}
         
@@ -37,7 +37,7 @@ router.delete('/:task', auth, function(req, res) {
     });
 });
 
-router.put('/:task', auth, function(req, res) {
+router.put('/:task', auth, function(req, res, next) {
     //var updateTask = Object.assign({}, req.task, req.body);
     for (var attrname in req.body) { req.task[attrname] = req.body[attrname]; }
 
@@ -93,6 +93,24 @@ router.post('/:task/links', auth, function(req, res, next) {
   });
 });
 
+router.delete('/:task/links/:link', auth, function(req, res, next) {
+  var linkId = req.link._id;
+  req.link.remove(function(err) {
+    if (err) {return next(err);}
+
+    for (var i = 0; i < req.task.links.length; i++) {
+        if (req.task.links[i] == linkId) {
+            req.task.links.splice(i, 1);
+        }
+    }
+    req.task.save(function(err, post) {
+      if (err) {return next(err);}
+      
+      res.json(req.link);
+    });
+  });
+});
+
 /*Param method intercepts :post for above requests */
 router.param('task', function (req, res, next, id) {
   var query = Task.findById(id);
@@ -103,6 +121,20 @@ router.param('task', function (req, res, next, id) {
     if (!task) {return next(new Error("Can't find task"));}
     
     req.task = task;
+    return next(); 
+  }); 
+});
+
+/*Param method intercepts :post for above requests */
+router.param('link', function (req, res, next, id) {
+  var query = Link.findById(id);
+  
+  query.exec(function(err, link) {
+    if (err) {return next(err);}
+    
+    if (!link) {return next(new Error("Can't find link"));}
+    
+    req.link = link;
     return next(); 
   }); 
 });
