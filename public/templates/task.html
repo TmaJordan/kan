@@ -27,6 +27,8 @@
                     <li>LOE: {{task.loe}}</li>
                     <li>Date created: {{task.dateCreated | amDateFormat:'MMM Do YYYY'}}</li>
                     <li>Due Date: {{task.dueDate | amDateFormat:'MMM Do YYYY'}}</li>
+                    <li>Priority: {{task.priority}}</li>
+                    <li>Status: {{task.status}}</li>
                 </ul>
                 <h3>
                     Links 
@@ -56,6 +58,8 @@
                 <datepicker date-format="MMM d yyyy" selector="date-picker">
                     <label class="date-label">Due Date<input class="date-picker" placeholder="Due Date" ng-model="task.dueDate" type="text"/></label>
                 </datepicker>
+                <label>Priority<input type="text" placeholder="Priority" ng-model="task.priority"></label>
+                <label>Status<input type="text" placeholder="Status" ng-model="task.status"></label>
             </fieldset>
         </form>
     </div>

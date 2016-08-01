@@ -13,7 +13,9 @@ var TaskSchema = new mongoose.Schema({
     dueDate: Date,
     assignee: String,
     createdBy: String,
-    links: [{type: mongoose.Schema.Types.ObjectId, ref: 'Link'}]
+    links: [{type: mongoose.Schema.Types.ObjectId, ref: 'Link'}],
+    priority: String,
+    status: String
 });
 
 mongoose.model('Task', TaskSchema);
