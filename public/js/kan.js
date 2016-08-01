@@ -16,11 +16,23 @@ angular.module('kanApp').factory('Tasks', ['$http', 'auth', function($http, auth
         });
     };
 
-    //Will be replaced by $http route when api is built
     Tasks.get = function(id) {
         return $http.get('/api/tasks/' + id, {
             headers: {Authorization: 'Bearer '+ auth.getToken()}
         }).then(function(res) {
+            return res.data;
+        });
+    };
+
+    Tasks.delete = function(id) {
+        return $http.delete('/api/tasks/' + id, {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        }).then(function(res) {
+            for (var i = 0; i < Tasks.tasks.length; i++) {
+                if (Tasks.tasks[i]._id == id) {
+                    Tasks.tasks.splice(i, 1);
+                }
+            }
             return res.data;
         });
     };
@@ -355,6 +367,7 @@ angular.module('kanApp').controller('TaskController', [
 
         $scope.saveEdit = function() {
             //Need to save
+            console.log("Saving task...");
             Tasks.update($scope.task);
             $scope.viewMode = "view";
         }
@@ -362,6 +375,15 @@ angular.module('kanApp').controller('TaskController', [
         $scope.cancel = function() {
             $scope.viewMode = "view";
             $scope.task = angular.copy($scope.backup);
+        }
+
+        $scope.delete = function() {
+            //Implement undo functionality similar to tasks controller
+            var prompt = confirm("This action cannot be undone, are you sure?");
+            if (prompt) {
+                Tasks.delete($scope.task._id);
+                history.back();
+            }
         }
 
         $scope.addLink = function() {

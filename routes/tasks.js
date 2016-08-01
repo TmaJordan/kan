@@ -29,6 +29,14 @@ router.get('/:task', auth, function(req, res) {
   });
 });
 
+router.delete('/:task', auth, function(req, res) {
+    req.task.remove(function(err) {
+        if (err) {return next(err);}
+        
+        res.json(req.task);
+    });
+});
+
 router.put('/:task', auth, function(req, res) {
     //var updateTask = Object.assign({}, req.task, req.body);
     for (var attrname in req.body) { req.task[attrname] = req.body[attrname]; }

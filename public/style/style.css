@@ -328,13 +328,22 @@ span.timestamp {
     float: right;
 }
 
+.task-edit button.delete {
+    margin-right: 1.5em;
+}
+
 .task-edit input[type=submit] {
     width: auto;
 }
 
-.task-edit button {
+button.cancel {
     color: #333;
     background: #BBB;
+}
+
+button.delete {
+    color: #fff;
+    background: #E55346;
 }
 
 .task-edit textarea {
