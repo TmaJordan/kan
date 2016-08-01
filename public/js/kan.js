@@ -181,6 +181,25 @@ angular.module('kanApp').config(function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
 });
 
+/**
+ * Intercept all route requests and redirect to login if not already logged in
+ */
+angular.module('kanApp').run([
+    '$rootScope', 
+    '$location', 
+    'auth', 
+    function ($rootScope, $location, auth) {
+        $rootScope.$on('$routeChangeStart', function (event, next, current) {
+            if (!auth.isLoggedIn()) {
+                if (next.templateUrl !== 'templates/login.html' && next.templateUrl !== 'templates/register.html') {
+                    console.log('Not logged in, redirecting to Login');
+                    $location.path('login.html');
+                }
+            }
+        });
+    }
+]);
+
 angular.module('kanApp').controller('AuthController', [
     '$scope',
     '$location',
@@ -361,7 +380,8 @@ angular.module('kanApp').controller('TaskController', [
                     }
 
                     Tasks.addLink(task._id, link).success(function(link) {
-                        $scope.task.links.push(link); 
+                        $scope.task.links.push(link);
+                        $scope.link = {};
                     });
                     $scope.addingLink = false;
                 }

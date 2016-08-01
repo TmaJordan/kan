@@ -24,12 +24,16 @@
             <h1>
                 <img src="images/Kan Icon.svg" alt="App Logo">
                 <span>Kan</span>
-                <span ng-show="isLoggedIn()">{{ currentUser() }}</span>
-                <button ng-show="isLoggedIn()" ng-click="logOut()">Log Out</button>
-                <a ng-hide="isLoggedIn()" href="login.html">Log In</a>
-                <a ng-hide="isLoggedIn()" href="register.html">Register</a>
+                <section class="login">
+                    <span ng-show="isLoggedIn()">{{ currentUser() }}</span>
+                    <span ng-show="isLoggedIn()"> | </span>
+                    <a ng-show="isLoggedIn()" ng-click="logOut()" href="login.html">Log Out</a>
+                    <a ng-hide="isLoggedIn()" href="login.html">Log In</a>
+                    <span ng-hide="isLoggedIn()"> | </span>
+                    <a ng-hide="isLoggedIn()" href="register.html">Register</a>
+                </section>
             </h1>
-            <nav>
+            <nav ng-show="isLoggedIn()">
                 <ul>
                     <li><a href="index.html" ng-class="{'selected': index==0 || !index}" ng-click="index=0"><img src="images/tasks.svg" alt="Tasks" title="Tasks"></a></li>
                     <li><a href="projects.html" ng-class="{'selected': index==1}" ng-click="index=1"><img src="images/project.svg" alt="Projects" title="Projects"></a></li>

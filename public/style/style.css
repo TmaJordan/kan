@@ -16,7 +16,8 @@ input[type=checkbox] {
     top: 0.5em;
 }
 
-input[type=text] {
+input[type=text], input[type=password], input[type=url] {
+    display: block;
     font-size: 1em;
     padding: 0.125em;
     margin: 0.125em;
@@ -94,6 +95,18 @@ button, input[type=submit] {
     text-decoration: underline;
 }
 /* End of notification styling */
+
+/*Styling for login/register sections*/
+section.login {
+    font-size: 0.75em;
+    float: right;
+}
+
+section.login a, section.login a:active, section.login a:focus, section.login a:hover, section.login a.selected {
+    color: #4A90E2;
+    text-decoration: none;
+}
+/*End of login styling
 
 /* Nav styling for buttons on left */
 nav {
