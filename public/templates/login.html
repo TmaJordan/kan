@@ -1,11 +1,11 @@
-<form ng-submit="logIn()">
-    <h3>Log In</h3>
+<form class="loginForm" ng-submit="logIn()">
+    <h3>Log In <a href="register.html">New User?</a></h3>
     <div ng-show="error" class="alert">
         <span>{{ error.message }}</span>
     </div>
     <fieldset>
-        <input type="text" placeholder="Username" ng-model="user.username" />
-        <input type="password" placeholder="Password" ng-model="user.password" />
+        <label>Username<input type="text" placeholder="Username" ng-model="user.username" /></label>
+        <label>Password<input type="password" placeholder="Password" ng-model="user.password" /></label>
+        <input type="submit" value="Log In">
     </fieldset>
-    <input type="submit" value="Log In">
 </form>

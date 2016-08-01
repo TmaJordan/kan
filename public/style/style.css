@@ -106,6 +106,39 @@ section.login a, section.login a:active, section.login a:focus, section.login a:
     color: #4A90E2;
     text-decoration: none;
 }
+
+.loginForm a, .loginForm a:active, .loginForm a:focus, .loginForm a:hover, .loginForm a.selected {
+    color: #4A90E2;
+    text-decoration: none;
+    display: block;
+    float: right;
+    font-size: 0.6em;
+}
+
+.loginForm {
+    width: 20em;
+    margin: auto;
+}
+
+.loginForm h3 {
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+
+.loginForm input {
+    width: 100%;
+}
+
+.loginForm input[type=submit] {
+    float: right;
+    width: auto;
+    margin-right: 0;
+}
+
+.alert {
+    color: #E55346;
+}
+
 /*End of login styling
 
 /* Nav styling for buttons on left */
