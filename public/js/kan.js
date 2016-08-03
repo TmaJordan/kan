@@ -290,9 +290,11 @@ angular.module('kanApp').controller('TasksController', [
 
         //Orders all of the tasks by priority
         $scope.taskOrder = function(task) {
-            console.log(JSON.stringify(task));
-            var time = (new Date(task.dueDate)).getTime() - Date.now();
-            return time;
+            var time = ((new Date(task.dueDate)).getTime() - Date.now()) / (1000 * 60 * 60);
+            var importance = Math.pow(5, Tasks.priorityList.indexOf(task.priority)) * task.loe;
+            var order = time > 0 ? time / importance : time * importance;
+            console.log(task.title + " - " + order);
+            return order;
         }
         
         $scope.tasks = Tasks.tasks;
