@@ -24,7 +24,10 @@ router.get('/:task', auth, function(req, res, next) {
     if (err) {return next(err);}
     req.task.populate('links', function(err, task) {
         if (err) {return next(err);}
-        res.json(req.task);
+        req.task.populate('dependency', function(err, task) {
+          if (err) {return next(err);}
+          res.json(req.task);
+        });
     });
   });
 });

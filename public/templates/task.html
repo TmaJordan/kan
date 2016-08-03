@@ -29,6 +29,7 @@
                     <li>Due Date: {{task.dueDate | amDateFormat:'MMM Do YYYY'}}</li>
                     <li>Priority: {{task.priority}}</li>
                     <li>Status: {{task.status}}</li>
+                    <li ng-show="task.dependency">Dependency: <a ng-href="/tasks/{{task.dependency._id}}">{{task.dependency.title}}</a></li>
                 </ul>
                 <h3>
                     Links 
@@ -71,6 +72,11 @@
                 <label>Status
                     <select ng-model="task.status">
                         <option ng-repeat="status in statuses" value="{{status}}">{{status}}</option>
+                    </select>
+                </label>
+                <label>Dependency
+                    <select ng-model="task.dependency">
+                        <option ng-repeat="taskDep in tasks" value="{{taskDep._id}}">{{taskDep.title}}</option>
                     </select>
                 </label>
             </fieldset>
