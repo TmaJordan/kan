@@ -76,7 +76,10 @@ angular.module('kanApp').factory('Tasks', ['$http', 'auth', function($http, auth
     }
 
     Tasks.newTaskTitle = "New Task";
-    
+
+    Tasks.statusList = ["New", "Open", "In Progress", "Completed"];
+    Tasks.priorityList = ["Low", "Normal", "High", "Urgent", "Critical"];
+    Tasks.typeList = ["Development", "Design", "Testing"];
     return Tasks; 
 }]);
 
@@ -284,6 +287,13 @@ angular.module('kanApp').controller('TasksController', [
                 }
             }
         }
+
+        //Orders all of the tasks by priority
+        $scope.taskOrder = function(task) {
+            console.log(JSON.stringify(task));
+            var time = (new Date(task.dueDate)).getTime() - Date.now();
+            return time;
+        }
         
         $scope.tasks = Tasks.tasks;
         $scope.task = {};
@@ -338,6 +348,10 @@ angular.module('kanApp').controller('TaskController', [
     function($scope, $routeParams, Tasks, task) {
         $scope.task = task;
         console.log(JSON.stringify($scope.task));
+
+        $scope.types = Tasks.typeList;
+        $scope.priorities = Tasks.priorityList;
+        $scope.statuses = Tasks.statusList;
         
         $scope.link = {};
         

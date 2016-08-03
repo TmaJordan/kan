@@ -44,9 +44,13 @@ option {
 }
 
 select {
+    margin: 0em;
+    padding: 0.25em;
+}
+
+header select {
     margin: 0.5em;
     margin-left:1em; 
-    padding: 0.25em;
 }
 
 button, input[type=submit] {

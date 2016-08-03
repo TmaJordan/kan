@@ -53,14 +53,26 @@
                 <button type="button" class="delete" ng-click="delete()">Delete</button>
             </fieldset>
             <fieldset class="task-edit">
-                <label>Type<input type="text" placeholder="Type" ng-model="task.type"></label>
+                <label>Type
+                    <select ng-model="task.type">
+                        <option ng-repeat="type in types" value="{{type}}">{{type}}</option>
+                    </select>
+                </label>
                 <label>Assign to<input type="text" placeholder="Assign to" ng-model="task.assignee"></label>
                 <label>LOE<input type="text" placeholder="LOE" ng-model="task.loe"></label>
                 <datepicker date-format="MMM d yyyy" selector="date-picker">
                     <label class="date-label">Due Date<input class="date-picker" placeholder="Due Date" ng-model="task.dueDate" type="text"/></label>
                 </datepicker>
-                <label>Priority<input type="text" placeholder="Priority" ng-model="task.priority"></label>
-                <label>Status<input type="text" placeholder="Status" ng-model="task.status"></label>
+                <label>Priority
+                    <select ng-model="task.priority">
+                        <option ng-repeat="priority in priorities" value="{{priority}}">{{priority}}</option>
+                    </select>
+                </label>
+                <label>Status
+                    <select ng-model="task.status">
+                        <option ng-repeat="status in statuses" value="{{status}}">{{status}}</option>
+                    </select>
+                </label>
             </fieldset>
         </form>
     </div>
