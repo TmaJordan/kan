@@ -105,6 +105,16 @@ angular.module('kanApp').factory('Projects', ['$http', 'auth', function($http, a
         });
     };
 
+    Projects.create = function(project) {
+        return $http.post('/api/projects', project, {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        }).success(function(data) {
+           Projects.projects.push(data); 
+        });
+    };
+
+    Projects.newProjectTitle = "New Project";
+
     return Projects; 
 }]);
 
@@ -208,7 +218,21 @@ angular.module('kanApp').config(function($routeProvider, $locationProvider) {
         })
         .when('/projects.html', {
             templateUrl: 'templates/projects.html',
-            controller: 'ProjectsController'
+            controller: 'ProjectsController',
+            resolve: {
+                projects: ['Projects', function(Projects) {
+                    return Projects.getAll();
+                }]
+            }
+        })
+        .when('/projects/:id', {
+            templateUrl: 'templates/project.html',
+            controller: 'ProjectController',
+            resolve: {
+                project: ['$route','Projects', function($route, Projects) {
+                    return Projects.get($route.current.params.id);
+                }],
+            }
         })
         .when('/org.html', {
             templateUrl: 'templates/organisation.html',
@@ -477,12 +501,40 @@ angular.module('kanApp').controller('TaskController', [
 
 angular.module('kanApp').controller('ProjectsController', [
     '$scope',
-    function ProjectsController($scope) {
-        $scope.projects = [
-            {
-                title: 'Kan App'
-            }
-        ]
+    'Projects',
+    'projects',
+    function ProjectsController($scope, Projects, projects) {
+        console.log(JSON.stringify(projects));
+        $scope.projects = projects.data;
+    }
+]);
+
+angular.module('kanApp').controller('ProjectController', [
+    '$scope',
+    'Projects',
+    'project',
+    function ProjectController($scope, Projects, project) {
+        $scope.project = project;
+
+        if ($scope.project.name === Projects.newProjectTitle) {
+            $scope.viewMode = "edit";
+            $scope.backup = angular.copy($scope.project);
+        }
+        else {
+            $scope.viewMode = "view";
+        }
+
+        $scope.edit = function() {
+            $scope.viewMode = "edit";
+            $scope.backup = angular.copy($scope.task);
+        }
+
+        $scope.saveEdit = function() {
+            //Need to save
+            console.log("Saving task...");
+            //Tasks.update($scope.task);
+            $scope.viewMode = "view";
+        }
     }
 ]);
 
