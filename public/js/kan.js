@@ -164,7 +164,6 @@ angular.module('kanApp').factory('auth', ['$http', '$window', function($http, $w
         if (auth.isLoggedIn()) {
             var token = auth.getToken();
             var payload = JSON.parse($window.atob(token.split('.')[1]));
-
             return payload.username;
         }
     }
@@ -345,7 +344,7 @@ angular.module('kanApp').controller('TasksController', [
             var time = ((new Date(task.dueDate)).getTime() - Date.now()) / (1000 * 60 * 60);
             var importance = Math.pow(5, Tasks.priorityList.indexOf(task.priority)) * task.loe;
             var order = time > 0 ? time / importance : time * importance;
-            console.log(task.title + " - " + order);
+            //console.log(task.title + " - " + order);
             return order;
         }
         
