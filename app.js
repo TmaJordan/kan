@@ -10,11 +10,13 @@ require('./models/Tasks');
 require('./models/Comments');
 require('./models/Links');
 require('./models/Users');
+require('./models/Projects');
 
 require('./config/passport');
 
 var taskRoutes = require('./routes/tasks');
 var userRoutes = require('./routes/users');
+var projectRoutes = require('./routes/projects');
 
 mongoose.connect(process.env.DB_HOST)
 
@@ -25,6 +27,7 @@ app.use(bodyParser.json());
 
 app.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/projects', projectRoutes);
 
 // Serve static files
 app.use(express.static(__dirname + '/public'));

@@ -77,10 +77,35 @@ angular.module('kanApp').factory('Tasks', ['$http', 'auth', function($http, auth
 
     Tasks.newTaskTitle = "New Task";
 
-    Tasks.statusList = ["New", "Open", "In Progress", "Completed"];
+    Tasks.statusList = ["New", "Open", "In Progress", "On Hold", "Completed"];
     Tasks.priorityList = ["Low", "Normal", "High", "Urgent", "Critical"];
     Tasks.typeList = ["Development", "Design", "Testing"];
     return Tasks; 
+}]);
+
+angular.module('kanApp').factory('Projects', ['$http', 'auth', function($http, auth){
+    //Tasks Service
+    var Projects = {
+        projects: []
+    };
+
+    Projects.getAll = function() {
+        return $http.get('/api/projects', {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        }).success(function(data) {
+           angular.copy(data, Projects.projects);
+        });
+    };
+
+    Projects.get = function(id) {
+        return $http.get('/api/projects/' + id, {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        }).then(function(res) {
+            return res.data;
+        });
+    };
+
+    return Projects; 
 }]);
 
 angular.module('kanApp').factory('Sounds', [function(){

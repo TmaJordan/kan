@@ -114,7 +114,7 @@ router.delete('/:task/links/:link', auth, function(req, res, next) {
   });
 });
 
-/*Param method intercepts :post for above requests */
+/*Param method intercepts :task for above requests */
 router.param('task', function (req, res, next, id) {
   var query = Task.findById(id);
   
@@ -128,7 +128,7 @@ router.param('task', function (req, res, next, id) {
   }); 
 });
 
-/*Param method intercepts :post for above requests */
+/*Param method intercepts :link for above requests */
 router.param('link', function (req, res, next, id) {
   var query = Link.findById(id);
   
