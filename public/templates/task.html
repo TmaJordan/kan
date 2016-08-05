@@ -23,6 +23,7 @@
                 <h3>Task Info</h3>
                 <ul class="task-info">
                     <li>Type: {{task.type}}</li>
+                    <li ng-show="task.project">Project: <a ng-href="/projects/{{task.project._id}}">{{task.project.name}}</a></li>
                     <li>Assigned to: {{task.assignee}}</li>
                     <li>LOE: {{task.loe}}</li>
                     <li>Date created: {{task.dateCreated | amDateFormat:'MMM Do YYYY'}}</li>
@@ -57,6 +58,11 @@
                 <label>Type
                     <select ng-model="task.type">
                         <option ng-repeat="type in types" value="{{type}}">{{type}}</option>
+                    </select>
+                </label>
+                <label>Project
+                    <select ng-model="task.project">
+                        <option ng-repeat="project in projects" value="{{project._id}}">{{project.name}}</option>
                     </select>
                 </label>
                 <label>Assign to<input type="text" placeholder="Assign to" ng-model="task.assignee"></label>

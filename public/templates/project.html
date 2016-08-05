@@ -3,4 +3,9 @@
         <a href="javascript:history.back()" ng-click="saveEdit()" class="back">&lt; {{project.name}}</a>
         <img ng-show="viewMode=='view'" src="images/edit.svg" alt="edit" ng-click="edit()" class="editButton" />
     </h2>
+    <ul>
+        <li ng-repeat="task in project.tasks">
+            {{task.title}}
+        </li>
+    </ul>
 </section>

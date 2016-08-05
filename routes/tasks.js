@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var Task = mongoose.model('Task');
 var Comment = mongoose.model('Comment');
 var Link = mongoose.model('Link');
+var Project = mongoose.model('Project');
 
 var auth = jwt({secret: process.env.JWT_SECRET, userProperty: 'payload'});
 
@@ -26,7 +27,10 @@ router.get('/:task', auth, function(req, res, next) {
         if (err) {return next(err);}
         req.task.populate('dependency', function(err, task) {
           if (err) {return next(err);}
-          res.json(req.task);
+          req.task.populate('project', function(err, task) {
+            if (err) {return next(err);}
+            res.json(req.task);
+          });
         });
     });
   });
@@ -43,7 +47,7 @@ router.delete('/:task', auth, function(req, res, next) {
 router.put('/:task', auth, function(req, res, next) {
     //var updateTask = Object.assign({}, req.task, req.body);
     for (var attrname in req.body) { req.task[attrname] = req.body[attrname]; }
-
+    
     req.task.save(function(err, task) {
         if (err) {return next(err);}
         

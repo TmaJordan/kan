@@ -212,6 +212,9 @@ angular.module('kanApp').config(function($routeProvider, $locationProvider) {
                 }],
                 tasks: ['Tasks', function(Tasks) {
                     return Tasks.getAll();
+                }],
+                projects: ['Projects', function(Projects) {
+                    return Projects.getAll();
                 }]
             }
         })
@@ -399,10 +402,12 @@ angular.module('kanApp').controller('TaskController', [
     'Tasks',
     'task',
     'tasks',
-    function($scope, $routeParams, Tasks, task, tasks) {
+    'projects',
+    function($scope, $routeParams, Tasks, task, tasks, projects) {
         $scope.task = task;
         $scope.tasks = tasks.data;
-        //console.log(JSON.stringify($scope.tasks));
+        $scope.projects = projects.data;
+        console.log(JSON.stringify($scope.projects));
         console.log(JSON.stringify($scope.task));
 
         $scope.types = Tasks.typeList;

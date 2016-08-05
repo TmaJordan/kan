@@ -6,7 +6,7 @@ var ProjectSchema = new mongoose.Schema({
     owner: String,
     dateCreated: {type: Date, default: Date.now},
     dueDate: Date,
-    tasks: [{type: mongoose.Schema.Types.ObjectId, ref: 'Task'}]
+    tasks: []
 });
 
 mongoose.model('Project', ProjectSchema);

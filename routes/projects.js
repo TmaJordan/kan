@@ -30,11 +30,7 @@ router.post('/', auth, function(req, res, next) {
 });
 
 router.get('/:project', auth, function(req, res, next) {
-    req.project.populate('tasks', function(err, project) {
-        if (err) {return next(err);}
-
-        res.json(req.project);
-    });
+    res.json(req.project);
 });
 
 /*Param method intercepts :project for above requests */
@@ -45,9 +41,14 @@ router.param('project', function (req, res, next, id) {
     if (err) {return next(err);}
     
     if (!project) {return next(new Error("Can't find project"));}
+
+    Task.find({project: project._id}).exec(function(err, tasks) {
+      if (err) {return next(err);}
+      project.tasks = tasks;
+      req.project = project;
+      return next(); 
+    }); 
     
-    req.project = project;
-    return next(); 
   }); 
 });
 
