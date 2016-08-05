@@ -272,7 +272,7 @@ h3 button.add {
 .editButton {
     cursor: pointer;
     width: 1em;
-    margin-left: 3em;
+    margin-left: 1em;
 }
 
 .description {
@@ -350,6 +350,22 @@ button.cancel {
 button.delete {
     color: #fff;
     background: #E55346;
+}
+
+button.complete, button.incomplete {
+    display: inline-block;
+    font-size: 0.75em;
+    margin-left: 1em;
+}
+
+button.complete {
+    color: #333;
+    background: #BBB;
+}
+
+button.incomplete {
+    color: #fff;
+    background: #4A90E2;
 }
 
 .task-edit textarea {

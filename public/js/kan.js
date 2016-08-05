@@ -471,6 +471,11 @@ angular.module('kanApp').controller('TaskController', [
             $scope.addingLink = !$scope.addingLink;
         }
 
+        $scope.toggleCompleted = function() {
+            console.log($scope.task.completed);
+            $scope.task.completed = !$scope.task.completed;
+        }
+
         $scope.checkLink = function(event) {
             if(event.keyCode == 13) {
                 //Simple validation, will add more later
