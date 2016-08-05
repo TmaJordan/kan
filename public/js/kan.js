@@ -370,14 +370,18 @@ angular.module('kanApp').controller('TasksController', [
             $scope.popup.show = true;
             hidePromise = $timeout(function(){
                 $scope.popup.show = false; 
-            }, 5000);
+            }, 10000);
         }
 
         $scope.undo = function() {
             $scope.task.completed = !$scope.task.completed;
             $scope.popup.show = false;
             Tasks.update($scope.task);
-            $timeout.cancel(hidePromise)
+            $timeout.cancel(hidePromise);
+        }
+
+        $scope.cancelToastHide = function() {
+            $timeout.cancel(hidePromise);
         }
 
         $scope.editTask = function(task) {
@@ -472,7 +476,6 @@ angular.module('kanApp').controller('TaskController', [
         }
 
         $scope.toggleCompleted = function() {
-            console.log($scope.task.completed);
             $scope.task.completed = !$scope.task.completed;
         }
 

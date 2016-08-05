@@ -13,7 +13,7 @@
             </label>
         </li>
     </ul>
-    <div ng-show="popup.show" class="toast">
+    <div ng-show="popup.show" class="toast" ng-mouseenter="cancelToastHide()">
         {{popup.text}}
         <button ng-click="undo()">Undo</button>
     </div>
