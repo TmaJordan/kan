@@ -33,6 +33,17 @@ router.get('/:project', auth, function(req, res, next) {
     res.json(req.project);
 });
 
+router.put('/:project', auth, function(req, res, next) {
+    //var updateTask = Object.assign({}, req.task, req.body);
+    for (var attrname in req.body) { req.project[attrname] = req.body[attrname]; }
+    
+    req.project.save(function(err, project) {
+        if (err) {return next(err);}
+        
+        res.json(project);
+    });
+});
+
 /*Param method intercepts :project for above requests */
 router.param('project', function (req, res, next, id) {
   var query = Project.findById(id);

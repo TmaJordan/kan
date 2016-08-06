@@ -27,7 +27,7 @@ input[type=text], input[type=password], input[type=url] {
 
 textarea {
 	width: 100%;
-    min-width: 20em;
+    min-width: 16em;
 	height: 6em;
 	border: 2px solid #cccccc;
 	padding: 0.25em;
@@ -387,6 +387,21 @@ label.date-label {
 /* End of task styles */
 
 /* Project view styles */
+section.projectView {
+
+}
+
+section.projectView fieldset {
+    margin: 0;
+    max-width: 30%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.projectView button, .projectView input[type="submit"] {
+    display: inline-block;
+}
+
 .project-header {
     overflow: hidden;
     width: 50%;
@@ -395,11 +410,6 @@ label.date-label {
 .project-header h2 {
     display: inline-block;
     margin-left: 0.5em;
-}
-
-.project-header button {
-    display: inline-block;
-    margin-left: 0.25em;
 }
 
 .projectTile {

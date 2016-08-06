@@ -105,6 +105,18 @@ angular.module('kanApp').factory('Projects', ['$http', 'auth', function($http, a
         });
     };
 
+    Projects.update = function(project) {
+        return $http.put('/api/projects/' + project._id, project, {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        }).success(function(data) {
+            for (var i = 0; i < Projects.projects.length; i++) {
+                if (Projects.projects[i]._id == data._id) {
+                    Projects.projects[i] = data;
+                }
+            }
+        });
+    };
+
     Projects.create = function(project) {
         return $http.post('/api/projects', project, {
             headers: {Authorization: 'Bearer '+ auth.getToken()}
@@ -551,13 +563,18 @@ angular.module('kanApp').controller('ProjectController', [
 
         $scope.edit = function() {
             $scope.viewMode = "edit";
-            $scope.backup = angular.copy($scope.task);
+            $scope.backup = angular.copy($scope.project);
+        }
+
+        $scope.cancel = function() {
+            $scope.viewMode = "view";
+            $scope.project = angular.copy($scope.backup);
         }
 
         $scope.saveEdit = function() {
             //Need to save
-            console.log("Saving task...");
-            //Tasks.update($scope.task);
+            console.log("Saving project...");
+            Projects.update($scope.project);
             $scope.viewMode = "view";
         }
     }

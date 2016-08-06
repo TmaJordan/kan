@@ -1,8 +1,25 @@
-<section>
-    <h2>
-        <a href="javascript:history.back()" ng-click="saveEdit()" class="back">&lt; {{project.name}}</a>
-        <img ng-show="viewMode=='view'" src="images/edit.svg" alt="edit" ng-click="edit()" class="editButton" />
-    </h2>
+<section class="projectView">
+     <div ng-switch="viewMode">
+        <h2 ng-switch-when="view">
+            <a href="javascript:history.back()" ng-click="saveEdit()" class="back">&lt; {{project.name}}</a>
+            <img src="images/edit.svg" alt="edit" ng-click="edit()" class="editButton" />
+        </h2>
+        <form ng-switch-when="edit" ng-submit="saveEdit()">
+            <fieldset>
+                <label>Project Name<input type="text" placeholder="Project Name" ng-model="project.name" autofocus></label>
+                <label>Description<textarea placeholder="Description" ng-model="project.description"></textarea></label>
+            </fieldset>
+            <fieldset>
+                <datepicker date-format="MMM d yyyy" selector="date-picker">
+                    <label class="date-label">Due Date<input class="date-picker" placeholder="Due Date" ng-model="project.dueDate" type="text"/></label>
+                </datepicker>
+            </fieldset>
+            <fieldset>
+                <button type="button" class="cancel" ng-click="cancel()">Cancel</button>
+                <input type="submit" value="Save">
+            </fieldset>
+        </form>
+     </div>
     <ul>
         <li ng-repeat="task in project.tasks">
             <a ng-href="/tasks/{{task._id}}">{{task.title}}</a>
