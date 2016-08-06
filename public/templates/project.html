@@ -5,7 +5,7 @@
     </h2>
     <ul>
         <li ng-repeat="task in project.tasks">
-            {{task.title}}
+            <a ng-href="/tasks/{{task._id}}">{{task.title}}</a>
         </li>
     </ul>
 </section>

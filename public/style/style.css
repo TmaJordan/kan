@@ -385,3 +385,42 @@ label.date-label {
     margin-right: 3em;
 }
 /* End of task styles */
+
+/* Project view styles */
+.project-header {
+    overflow: hidden;
+    width: 50%;
+}
+
+.project-header h2 {
+    display: inline-block;
+    margin-left: 0.5em;
+}
+
+.project-header button {
+    display: inline-block;
+    margin-left: 0.25em;
+}
+
+.projectTile {
+    padding: 0.5em;
+    margin: 1em;
+    border: 1px solid #555;
+    width: 25%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.projectTile h3 {
+    margin-bottom: 1em;
+}
+
+.owner {
+    font-size: 0.5em;
+    padding-left: 2em;
+}
+
+.projectTile a, .projectTile a:active, .projectTile a:focus, .projectTile a:hover, .projectTile a.selected {
+    color: #4A90E2;
+    text-decoration: none;
+}
