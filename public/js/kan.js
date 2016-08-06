@@ -403,11 +403,12 @@ angular.module('kanApp').controller('TasksController', [
 angular.module('kanApp').controller('TaskController', [
     '$scope',
     '$routeParams',
+    'Sounds',
     'Tasks',
     'task',
     'tasks',
     'projects',
-    function($scope, $routeParams, Tasks, task, tasks, projects) {
+    function($scope, $routeParams, Sounds, Tasks, task, tasks, projects) {
         $scope.task = task;
         $scope.tasks = tasks.data;
         $scope.projects = projects.data;
@@ -477,6 +478,7 @@ angular.module('kanApp').controller('TaskController', [
 
         $scope.toggleCompleted = function() {
             $scope.task.completed = !$scope.task.completed;
+            Sounds.play('ding');
         }
 
         $scope.checkLink = function(event) {
@@ -513,11 +515,22 @@ angular.module('kanApp').controller('TaskController', [
 
 angular.module('kanApp').controller('ProjectsController', [
     '$scope',
+    '$location',
     'Projects',
     'projects',
-    function ProjectsController($scope, Projects, projects) {
+    function ProjectsController($scope, $location, Projects, projects) {
         console.log(JSON.stringify(projects));
         $scope.projects = projects.data;
+
+        $scope.addProject = function() {
+            var project = {
+                name: Projects.newProjectTitle,
+            }
+            Projects.create(project).success(function(project) {
+                $location.path('/projects/' + project._id);
+            });
+            console.log("New Project Created")
+        }
     }
 ]);
 
