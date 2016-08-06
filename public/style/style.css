@@ -388,7 +388,7 @@ label.date-label {
 
 /* Project view styles */
 section.projectView {
-
+    padding-left: 1em;
 }
 
 section.projectView fieldset {
@@ -429,6 +429,11 @@ section.projectView fieldset {
 
 .projectTile h3 {
     margin-bottom: 1em;
+}
+
+.projectTile .dueDate {
+    font-size: 0.75em;
+    float: right;
 }
 
 .owner {
