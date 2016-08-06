@@ -412,6 +412,12 @@ section.projectView fieldset {
     margin-left: 0.5em;
 }
 
+.project-header button {
+    display: inline-block;
+    margin-left: 0.25em;
+}
+
+
 .projectTile {
     padding: 0.5em;
     margin: 1em;
