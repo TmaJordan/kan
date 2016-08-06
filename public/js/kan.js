@@ -440,9 +440,7 @@ angular.module('kanApp').controller('TaskController', [
         $scope.task = task;
         $scope.tasks = tasks.data;
         $scope.projects = projects.data;
-        console.log(JSON.stringify($scope.projects));
-        console.log(JSON.stringify($scope.task));
-
+        
         $scope.types = Tasks.typeList;
         $scope.priorities = Tasks.priorityList;
         $scope.statuses = Tasks.statusList;
@@ -505,7 +503,6 @@ angular.module('kanApp').controller('TaskController', [
         }
 
         $scope.toggleCompleted = function() {
-            $scope.task.completed = !$scope.task.completed;
             Sounds.play('ding');
         }
 

@@ -384,6 +384,11 @@ label.date-label {
     font-size: 1em;
     margin-right: 3em;
 }
+
+h2 .toggle {
+    width: 3em;
+    height: 3em;
+}
 /* End of task styles */
 
 /* Project view styles */
