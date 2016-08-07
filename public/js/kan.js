@@ -80,6 +80,15 @@ angular.module('kanApp').factory('Tasks', ['$http', 'auth', function($http, auth
     Tasks.statusList = ["New", "Open", "In Progress", "On Hold", "Completed"];
     Tasks.priorityList = ["Low", "Normal", "High", "Urgent", "Critical"];
     Tasks.typeList = ["Development", "Design", "Testing"];
+
+    Tasks.orderFn = function(task) {
+        var time = ((new Date(task.dueDate)).getTime() - Date.now()) / (1000 * 60 * 60);
+        var importance = Math.pow(5, Tasks.priorityList.indexOf(task.priority)) * task.loe;
+        var order = time > 0 ? time / importance : time * importance;
+        //console.log(task.title + " - " + order);
+        return order;
+    }
+
     return Tasks; 
 }]);
 
@@ -384,13 +393,7 @@ angular.module('kanApp').controller('TasksController', [
         }
 
         //Orders all of the tasks by priority
-        $scope.taskOrder = function(task) {
-            var time = ((new Date(task.dueDate)).getTime() - Date.now()) / (1000 * 60 * 60);
-            var importance = Math.pow(5, Tasks.priorityList.indexOf(task.priority)) * task.loe;
-            var order = time > 0 ? time / importance : time * importance;
-            //console.log(task.title + " - " + order);
-            return order;
-        }
+        $scope.taskOrder = Tasks.orderFn;
         
         $scope.tasks = Tasks.tasks;
         $scope.task = {};
@@ -589,9 +592,11 @@ angular.module('kanApp').controller('ProjectController', [
     'Tasks',
     'Projects',
     'project',
-    function ProjectController($scope, Tasks, Projects, project) {
+    'Sounds',
+    function ProjectController($scope, Tasks, Projects, project, Sounds) {
         $scope.project = project;
         $scope.stages = Tasks.statusList;
+        $scope.taskOrder = Tasks.orderFn;
 
         if ($scope.project.name === Projects.newProjectTitle) {
             $scope.viewMode = "edit";
@@ -604,6 +609,10 @@ angular.module('kanApp').controller('ProjectController', [
         $scope.edit = function() {
             $scope.viewMode = "edit";
             $scope.backup = angular.copy($scope.project);
+        }
+
+        $scope.editTask = function(task) {
+            console.log("Edit: " + task.title);
         }
 
         $scope.cancel = function() {
@@ -625,6 +634,17 @@ angular.module('kanApp').controller('ProjectController', [
             console.log("Saving project...");
             Projects.update($scope.project);
             $scope.viewMode = "view";
+        }
+
+        $scope.toggleCompleted = function(task) {
+            if (task.completed) {
+                task.status = Tasks.statusList[Tasks.statusList.length - 1];
+            }
+            else {
+                task.status = Tasks.statusList[1];
+            }
+            Tasks.update(task);
+            Sounds.play('ding');
         }
     }
 ]);

@@ -24,8 +24,11 @@
     <div class="swimlane" ng-repeat="stage in stages">
         <h3>{{stage}}</h3>
         <ul>
-            <li ng-repeat="task in project.tasks | filter: {status: stage}">
-                <a ng-href="/tasks/{{task._id}}">{{task.title}}</a>
+            <li ng-repeat="task in project.tasks | filter: {status: stage} | orderBy:taskOrder" class="task-item">
+                <label ng-click="editTask(task)">
+                    <input class="toggle" type="checkbox" ng-model="task.completed" ng-change="toggleCompleted(task)">
+                    <a ng-href="/tasks/{{task._id}}">{{task.title}}</a>
+                </label>
             </li>
         </ul>
     </div>

@@ -454,5 +454,11 @@ section.projectView fieldset {
 .swimlane {
     display: inline-block;
     vertical-align: top;
+    width: 20%;
+}
+
+.swimlane ul {
+    list-style-type: none;
+    padding: 0;
 }
 /* End of Project styles */
