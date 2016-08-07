@@ -20,10 +20,13 @@
                 <button type="button" class="delete" ng-click="delete()">Delete</button>
             </fieldset>
         </form>
-     </div>
-    <ul>
-        <li ng-repeat="task in project.tasks">
-            <a ng-href="/tasks/{{task._id}}">{{task.title}}</a>
-        </li>
-    </ul>
+    </div>
+    <div class="swimlane" ng-repeat="stage in stages">
+        <h3>{{stage}}</h3>
+        <ul>
+            <li ng-repeat="task in project.tasks | filter: {status: stage}">
+                <a ng-href="/tasks/{{task._id}}">{{task.title}}</a>
+            </li>
+        </ul>
+    </div>
 </section>

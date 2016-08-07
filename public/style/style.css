@@ -450,3 +450,9 @@ section.projectView fieldset {
     color: #4A90E2;
     text-decoration: none;
 }
+
+.swimlane {
+    display: inline-block;
+    vertical-align: top;
+}
+/* End of Project styles */

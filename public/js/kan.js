@@ -403,6 +403,12 @@ angular.module('kanApp').controller('TasksController', [
         }
         var hidePromise;
         $scope.toggleCompleted = function(task) {
+            if (task.completed) {
+                task.status = Tasks.statusList[Tasks.statusList.length - 1];
+            }
+            else {
+                task.status = Tasks.statusList[1];
+            }
             Tasks.update(task);
             $scope.task = task;
             Sounds.play('ding');
@@ -516,6 +522,12 @@ angular.module('kanApp').controller('TaskController', [
         }
 
         $scope.toggleCompleted = function() {
+            if ($scope.task.completed) {
+                $scope.task.status = Tasks.statusList[Tasks.statusList.length - 1];
+            }
+            else {
+                $scope.task.status = Tasks.statusList[1];
+            }
             Sounds.play('ding');
         }
 
@@ -574,10 +586,12 @@ angular.module('kanApp').controller('ProjectsController', [
 
 angular.module('kanApp').controller('ProjectController', [
     '$scope',
+    'Tasks',
     'Projects',
     'project',
-    function ProjectController($scope, Projects, project) {
+    function ProjectController($scope, Tasks, Projects, project) {
         $scope.project = project;
+        $scope.stages = Tasks.statusList;
 
         if ($scope.project.name === Projects.newProjectTitle) {
             $scope.viewMode = "edit";
