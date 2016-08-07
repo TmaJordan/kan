@@ -66,6 +66,22 @@ router.put('/:project', auth, function(req, res, next) {
     });
 });
 
+router.delete('/:project', auth, function(req, res, next) {
+    req.project.remove(function(err) {
+        if (err) {return next(err);}
+        new Action({
+          user: req.payload.username,
+          action: "DELETE",
+          actionDescription: "DELETE: " + req.project.name,
+          target: req.project._id,
+          targetType: 'Project'
+        }).save();
+        
+        res.json(req.project);
+    });
+});
+
+
 /*Param method intercepts :project for above requests */
 router.param('project', function (req, res, next, id) {
   var query = Project.findById(id);

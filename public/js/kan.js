@@ -117,6 +117,19 @@ angular.module('kanApp').factory('Projects', ['$http', 'auth', function($http, a
         });
     };
 
+    Projects.delete = function(id) {
+        return $http.delete('/api/projects/' + id, {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        }).then(function(res) {
+            for (var i = 0; i < Projects.projects.length; i++) {
+                if (Projects.projects[i]._id == id) {
+                    Projects.projects.splice(i, 1);
+                }
+            }
+            return res.data;
+        });
+    };
+
     Projects.create = function(project) {
         return $http.post('/api/projects', project, {
             headers: {Authorization: 'Bearer '+ auth.getToken()}
@@ -544,8 +557,8 @@ angular.module('kanApp').controller('ProjectsController', [
     'Projects',
     'projects',
     function ProjectsController($scope, $location, Projects, projects) {
-        console.log(JSON.stringify(projects));
-        $scope.projects = projects.data;
+        //console.log(JSON.stringify(projects));
+        $scope.projects = Projects.projects;
 
         $scope.addProject = function() {
             var project = {
@@ -582,6 +595,15 @@ angular.module('kanApp').controller('ProjectController', [
         $scope.cancel = function() {
             $scope.viewMode = "view";
             $scope.project = angular.copy($scope.backup);
+        }
+
+        $scope.delete = function() {
+            //Implement undo functionality similar to tasks controller
+            var prompt = confirm("This action cannot be undone, are you sure?");
+            if (prompt) {
+                Projects.delete($scope.project._id);
+                history.back();
+            }
         }
 
         $scope.saveEdit = function() {
