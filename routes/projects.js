@@ -6,6 +6,7 @@ var jwt = require('express-jwt');
 var mongoose = require('mongoose');
 var Project = mongoose.model('Project');
 var Task = mongoose.model('Task');
+var Action = mongoose.model('Action');
 
 var auth = jwt({secret: process.env.JWT_SECRET, userProperty: 'payload'});
 
@@ -24,6 +25,14 @@ router.post('/', auth, function(req, res, next) {
   
   project.save(function(err, project) {
     if (err) {return next(err);}
+
+    new Action({
+      user: req.payload.username,
+      action: "CREATE",
+      actionDescription: "Create: " + project.name,
+      target: project._id,
+      targetType: 'Project'
+    }).save();
     
     res.json(project);
   })
@@ -35,7 +44,20 @@ router.get('/:project', auth, function(req, res, next) {
 
 router.put('/:project', auth, function(req, res, next) {
     //var updateTask = Object.assign({}, req.task, req.body);
-    for (var attrname in req.body) { req.project[attrname] = req.body[attrname]; }
+    for (var attrname in req.body) { 
+      req.project[attrname] = req.body[attrname];
+      if (req.project[attrname] != req.body[attrname]) {
+        new Action({
+          user: req.payload.username,
+          action: attrname + "_UPDATED",
+          actionDescription: req.project[attrname] + " -> " + req.body[attrname],
+          target: req.project._id,
+          targetType: 'Project'
+        }).save();
+
+        req.project[attrname] = req.body[attrname];
+      } 
+    }
     
     req.project.save(function(err, project) {
         if (err) {return next(err);}

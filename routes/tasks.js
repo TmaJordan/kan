@@ -8,6 +8,7 @@ var Task = mongoose.model('Task');
 var Comment = mongoose.model('Comment');
 var Link = mongoose.model('Link');
 var Project = mongoose.model('Project');
+var Action = mongoose.model('Action');
 
 var auth = jwt({secret: process.env.JWT_SECRET, userProperty: 'payload'});
 
@@ -39,14 +40,32 @@ router.get('/:task', auth, function(req, res, next) {
 router.delete('/:task', auth, function(req, res, next) {
     req.task.remove(function(err) {
         if (err) {return next(err);}
-        
+        new Action({
+          user: req.payload.username,
+          action: "DELETE",
+          actionDescription: "DELETE: " + req.task.title,
+          target: req.task._id,
+          targetType: 'Task'
+        }).save();
         res.json(req.task);
     });
 });
 
 router.put('/:task', auth, function(req, res, next) {
     //var updateTask = Object.assign({}, req.task, req.body);
-    for (var attrname in req.body) { req.task[attrname] = req.body[attrname]; }
+    for (var attrname in req.body) {
+      if (req.task[attrname] != req.body[attrname]) {
+        new Action({
+          user: req.payload.username,
+          action: attrname + "_UPDATED",
+          actionDescription: req.task[attrname] + " -> " + req.body[attrname],
+          target: req.task._id,
+          targetType: 'Task'
+        }).save();
+
+        req.task[attrname] = req.body[attrname];
+      } 
+    }
     
     req.task.save(function(err, task) {
         if (err) {return next(err);}
@@ -62,6 +81,14 @@ router.post('/', auth, function(req, res, next) {
   task.save(function(err, task) {
     if (err) {return next(err);}
     
+    new Action({
+      user: req.payload.username,
+      action: "CREATE",
+      actionDescription: "Create: " + task.title,
+      target: task._id,
+      targetType: 'Task'
+    }).save();
+
     res.json(task);
   })
 });
@@ -76,8 +103,16 @@ router.post('/:task/comments', auth, function(req, res, next) {
     if (err) {return next(err);}
     
     req.task.comments.push(comment);
-    req.task.save(function(err, post) {
+    req.task.save(function(err, task) {
       if (err) {return next(err);}
+
+      new Action({
+        user: req.payload.username,
+        action: "ADD_COMMENT",
+        actionDescription: "Add Comment: " + task.title,
+        target: task._id,
+        targetType: 'Task'
+      }).save();
       
       res.json(comment);
     })
@@ -92,9 +127,17 @@ router.post('/:task/links', auth, function(req, res, next) {
     if (err) {return next(err);}
     
     req.task.links.push(link);
-    req.task.save(function(err, post) {
+    req.task.save(function(err, task) {
       if (err) {return next(err);}
       
+      new Action({
+        user: req.payload.username,
+        action: "ADD_LINK",
+        actionDescription: "Add Link: " + task.title,
+        target: task._id,
+        targetType: 'Task'
+      }).save();
+
       res.json(link);
     })
   });
@@ -110,9 +153,17 @@ router.delete('/:task/links/:link', auth, function(req, res, next) {
             req.task.links.splice(i, 1);
         }
     }
-    req.task.save(function(err, post) {
+    req.task.save(function(err, task) {
       if (err) {return next(err);}
       
+      new Action({
+        user: req.payload.username,
+        action: "DELETE_LINK",
+        actionDescription: "Delete Link: " + task.title,
+        target: task._id,
+        targetType: 'Task'
+      }).save();
+
       res.json(req.link);
     });
   });
