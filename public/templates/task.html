@@ -83,7 +83,7 @@
                 </label>
                 <label>Dependency
                     <select ng-model="task.dependency">
-                        <option ng-repeat="taskDep in tasks" value="{{taskDep._id}}">{{taskDep.title}}</option>
+                        <option ng-repeat="taskDep in tasks | orderBy: 'title'" value="{{taskDep._id}}">{{taskDep.title}}</option>
                     </select>
                 </label>
             </fieldset>

@@ -9,7 +9,8 @@
         <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
 
         <!--link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700" rel="stylesheet"--> 
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet"> 
+        <!--link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet"--> 
+        <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,700" rel="stylesheet"> 
         <link rel="stylesheet" href="style/lib/angular-datepicker.min.css" />
         <link rel="stylesheet" href="style/style.css" />
 
@@ -36,10 +37,10 @@
             </h1>
             <nav ng-show="isLoggedIn()">
                 <ul>
-                    <li><a href="index.html" ng-class="{'selected': index==0}" ng-click="index=0"><img src="images/tasks.svg" alt="Tasks" title="Tasks"></a></li>
-                    <li><a href="projects.html" ng-class="{'selected': index==1}" ng-click="index=1"><img src="images/project.svg" alt="Projects" title="Projects"></a></li>
-                    <li><a href="org.html" ng-class="{'selected': index==2}" ng-click="index=2"><img src="images/org.svg" alt="Organisation" title="Organisation"></a></li>
-                    <li><a href="reports.html" ng-class="{'selected': index==3}" ng-click="index=3"><img src="images/stats.svg" alt="Reports" title="Reports"></a></li>
+                    <li><a href="index.html" ng-class="{'selected': index==0}" ng-click="index=0"><img src="images/tasks.svg" alt="Tasks" title="Tasks"><span>Tasks</span></a></li>
+                    <li><a href="projects.html" ng-class="{'selected': index==1}" ng-click="index=1"><img src="images/project.svg" alt="Projects" title="Projects"><span>Projects</span></a></li>
+                    <li><a href="org.html" ng-class="{'selected': index==2}" ng-click="index=2"><img src="images/org.svg" alt="Organisation" title="Organisation"><span>Users</span></a></li>
+                    <li><a href="reports.html" ng-class="{'selected': index==3}" ng-click="index=3"><img src="images/stats.svg" alt="Reports" title="Reports"><span>Reports</span></a></li>
                 </ul>
             </nav>
         </header>
