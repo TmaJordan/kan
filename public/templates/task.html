@@ -78,7 +78,7 @@
                 </label>
                 <label>Status
                     <select ng-model="task.status">
-                        <option ng-repeat="status in statuses" value="{{status}}">{{status}}</option>
+                        <option ng-repeat="status in statuses" value="{{status.name}}">{{status.name}}</option>
                     </select>
                 </label>
                 <label>Dependency

@@ -77,7 +77,25 @@ angular.module('kanApp').factory('Tasks', ['$http', 'auth', function($http, auth
 
     Tasks.newTaskTitle = "New Task";
 
-    Tasks.statusList = ["New", "Open", "In Progress", "On Hold", "Completed"];
+    Tasks.statusList = [
+        {
+            class: "open",
+            name: "Open"
+        },
+        {
+            class: "progress",
+            name: "In Progress"
+        },
+        {
+            class: "complete",
+            name: "Completed"
+        },
+        {
+            class: "hold",
+            name: "On Hold"
+        }
+    ];
+
     Tasks.priorityList = ["Low", "Normal", "High", "Urgent", "Critical"];
     Tasks.typeList = ["Development", "Design", "Testing"];
 
@@ -407,10 +425,10 @@ angular.module('kanApp').controller('TasksController', [
         var hidePromise;
         $scope.toggleCompleted = function(task) {
             if (task.completed) {
-                task.status = Tasks.statusList[Tasks.statusList.length - 1];
+                task.status = Tasks.statusList[Tasks.statusList.length - 2].name;
             }
             else {
-                task.status = Tasks.statusList[1];
+                task.status = Tasks.statusList[1].name;
             }
             Tasks.update(task);
             $scope.task = task;
@@ -526,10 +544,10 @@ angular.module('kanApp').controller('TaskController', [
 
         $scope.toggleCompleted = function() {
             if ($scope.task.completed) {
-                $scope.task.status = Tasks.statusList[Tasks.statusList.length - 1];
+                $scope.task.status = Tasks.statusList[Tasks.statusList.length - 2].name;
             }
             else {
-                $scope.task.status = Tasks.statusList[1];
+                $scope.task.status = Tasks.statusList[1].name;
             }
             Sounds.play('ding');
         }
@@ -638,10 +656,10 @@ angular.module('kanApp').controller('ProjectController', [
 
         $scope.toggleCompleted = function(task) {
             if (task.completed) {
-                task.status = Tasks.statusList[Tasks.statusList.length - 1];
+                task.status = Tasks.statusList[Tasks.statusList.length - 2].name;
             }
             else {
-                task.status = Tasks.statusList[1];
+                task.status = Tasks.statusList[1].name;
             }
             Tasks.update(task);
             Sounds.play('ding');

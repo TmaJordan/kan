@@ -21,10 +21,10 @@
             </fieldset>
         </form>
     </div>
-    <div class="swimlane" ng-repeat="stage in stages">
-        <h3>{{stage}}</h3>
+    <div class="swimlane" ng-class="stage.class" ng-repeat="stage in stages">
+        <h3 ng-class="stage.class">{{stage.name}}</h3>
         <ul>
-            <li ng-repeat="task in project.tasks | filter: {status: stage} | orderBy:taskOrder" class="task-item">
+            <li ng-repeat="task in project.tasks | filter: {status: stage.name} | orderBy:taskOrder" class="task-item" draggable="true">
                 <label ng-click="editTask(task)">
                     <input class="toggle" type="checkbox" ng-model="task.completed" ng-change="toggleCompleted(task)">
                     <a ng-href="/tasks/{{task._id}}">{{task.title}}</a>
