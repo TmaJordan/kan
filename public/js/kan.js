@@ -607,11 +607,12 @@ angular.module('kanApp').controller('ProjectsController', [
 
 angular.module('kanApp').controller('ProjectController', [
     '$scope',
+    '$location',
     'Tasks',
     'Projects',
     'project',
     'Sounds',
-    function ProjectController($scope, Tasks, Projects, project, Sounds) {
+    function ProjectController($scope, $location, Tasks, Projects, project, Sounds) {
         $scope.project = project;
         $scope.stages = Tasks.statusList;
         $scope.taskOrder = Tasks.orderFn;
@@ -631,6 +632,19 @@ angular.module('kanApp').controller('ProjectController', [
 
         $scope.editTask = function(task) {
             console.log("Edit: " + task.title);
+        }
+
+        $scope.addTask = function(status) {
+            console.log("Add Task in " + status);
+            var task = {
+                title: Tasks.newTaskTitle,
+                status: status,
+                project: project._id
+            }
+            Tasks.create(task).success(function(task) {
+                $location.path('/tasks/' + task._id);
+            });
+            console.log("New Task Created")
         }
 
         $scope.cancel = function() {

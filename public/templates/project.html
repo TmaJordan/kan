@@ -22,7 +22,10 @@
         </form>
     </div>
     <div class="swimlane" ng-class="stage.class" ng-repeat="stage in stages">
-        <h3 ng-class="stage.class">{{stage.name}}</h3>
+        <h3 ng-class="stage.class">
+            {{stage.name}}
+            <button class="add" ng-click="addTask(stage.name)">+</button>
+        </h3>
         <ul ui-on-Drop="onDrop(stage, $data)" ng-class="stage.class">
             <li ng-repeat="task in project.tasks | filter: {status: stage.name} | orderBy:taskOrder" class="task-item" ui-draggable="true" drag="task">
                 <label ng-click="editTask(task)">
