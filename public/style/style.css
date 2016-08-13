@@ -275,6 +275,7 @@ h3 button.add {
     margin: 0.75em;
     box-shadow: 1px 1px 2px #555;
     border-radius: 0.25em;
+    background: #fff;
 }
 
 .task-item a {
@@ -416,10 +417,6 @@ h2 .toggle {
 /* End of task styles */
 
 /* Project view styles */
-section.projectView {
-    padding-left: 1em;
-}
-
 section.projectView fieldset {
     margin: 0;
     max-width: 30%;
@@ -485,7 +482,9 @@ section.projectView fieldset {
 
 .swimlane ul {
     list-style-type: none;
+    min-height: 50%;
     padding: 0;
+    margin: 0;
 }
 
 .swimlane h3 {
@@ -509,6 +508,11 @@ section.projectView fieldset {
 
 .swimlane h3.hold {
     background: #666;
+}
+
+.swimlane .hold .task-item {
+    display: inline-block;
+    width: 30%;
 }
 
 .swimlane.hold {

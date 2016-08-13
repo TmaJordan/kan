@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kanApp', ['ngRoute', 'angularMoment', '720kb.datepicker']);
+angular.module('kanApp', ['ngRoute', 'angularMoment', '720kb.datepicker', 'ang-drag-drop']);
 
 angular.module('kanApp').factory('Tasks', ['$http', 'auth', function($http, auth){
     //Tasks Service
@@ -664,6 +664,24 @@ angular.module('kanApp').controller('ProjectController', [
             Tasks.update(task);
             Sounds.play('ding');
         }
+
+        $scope.onDrop = function(stage, $data){
+            $data.status = stage.name;
+            if ($data.status == 'Completed') {
+                $data.completed = true;
+                Sounds.play('ding');
+            }
+            else {
+                $data.completed = false;
+            }
+
+            for (var i = 0; i < $scope.project.tasks.length; i++) {
+                if ($scope.project.tasks[i]._id == $data._id) {
+                    $scope.project.tasks[i] = $data;
+                }
+            }
+            Tasks.update($data);
+        };
     }
 ]);
 
