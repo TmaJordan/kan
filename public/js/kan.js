@@ -388,13 +388,14 @@ angular.module('kanApp').controller('TasksController', [
     '$location',
     'Tasks', 
     'Sounds',
-    function TasksController($scope, $timeout, $location, Tasks, Sounds) {
+    'auth',
+    function TasksController($scope, $timeout, $location, Tasks, Sounds, auth) {
         $scope.views = [
             {value: "mytasks", title: "My Tasks"},
             {value: "completed", title: "Completed Tasks"}
         ];
         $scope.selectedView = $scope.views[0].value;
-
+        
         $scope.updateView = function() {
             console.log($scope.selectedView);
         }
@@ -460,6 +461,15 @@ angular.module('kanApp').controller('TasksController', [
             var task = {
                 title: Tasks.newTaskTitle,
             }
+
+            if ($scope.selectedView == 'mytasks') {
+                task.assignee = auth.currentUser();
+            }
+            else if ($scope.selectedView == 'completed') {
+                task.completed = true;
+                task.status = Tasks.statusList[Tasks.statusList.length - 2].name;
+            }
+
             Tasks.create(task).success(function(task) {
                 $location.path('/tasks/' + task._id);
             });
@@ -520,6 +530,13 @@ angular.module('kanApp').controller('TaskController', [
         $scope.saveEdit = function() {
             //Need to save
             console.log("Saving task...");
+            if ($scope.task.status == Tasks.statusList[Tasks.statusList.length - 2].name) {
+                $scope.task.completed = true;
+            }
+            else {
+                $scope.task.completed = false;
+            }
+
             Tasks.update($scope.task);
             $scope.viewMode = "view";
         }
