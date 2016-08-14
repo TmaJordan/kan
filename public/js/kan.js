@@ -744,9 +744,11 @@ angular.module('kanApp').controller('OrgController', [
     function OrgController($scope, users) {
         $scope.users = users.data;
         $scope.selectedUser = {};
+        $scope.selectedIndex;
 
-        $scope.selectUser = function(user) {
+        $scope.selectUser = function(user, index) {
             $scope.selectedUser = user;
+            $scope.selectedIndex = index;
         }
     }
 ]);

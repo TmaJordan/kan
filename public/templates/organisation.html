@@ -1,10 +1,10 @@
-<section>
+<section class="user-page">
     <ul>
-        <li ng-repeat="user in users">
-            <label><input type="radio" name="user" ng-click="selectUser(user)">{{user.username}}</label>
+        <li ng-repeat="user in users" class="user-item" ng-click="selectUser(user, $index)" ng-class="{'selected': selectedIndex==$index}">
+            {{user.username}}
         </li>
     </ul>
-    <div>
+    <div class="user-info">
         {{selectedUser | json}}
     </div>
 </section>
