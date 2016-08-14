@@ -1,7 +1,10 @@
 <section>
     <ul>
         <li ng-repeat="user in users">
-            <span>{{user.username}}</span>
+            <label><input type="radio" name="user" ng-click="selectUser(user)">{{user.username}}</label>
         </li>
     </ul>
+    <div>
+        {{selectedUser | json}}
+    </div>
 </section>

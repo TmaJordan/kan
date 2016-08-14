@@ -14,6 +14,11 @@ router.get('/', auth, function(req, res, next) {
   User.find(function(err, users) {
     if (err) {return next(err);}
     
+    users = users.map(function(user) {
+      user.hash = undefined;
+      user.salt = undefined;
+      return user;
+    });
     res.json(users);
   })
 });
