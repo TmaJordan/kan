@@ -2,10 +2,23 @@ var express = require('express');
 var router = express.Router();
 
 var passport = require('passport');
+var jwt = require('express-jwt');
 
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
+var auth = jwt({secret: process.env.JWT_SECRET, userProperty: 'payload'});
+
+//User Routes
+router.get('/', auth, function(req, res, next) {
+  User.find(function(err, users) {
+    if (err) {return next(err);}
+    
+    res.json(users);
+  })
+});
+
+//Login and register functions left with no auth intentionally
 router.post('/register', function(req, res, next){
   if(!req.body.username || !req.body.password){
     return res.status(400).json({message: 'Please fill out all fields'});

@@ -170,6 +170,23 @@ angular.module('kanApp').factory('Projects', ['$http', 'auth', function($http, a
     return Projects; 
 }]);
 
+angular.module('kanApp').factory('Users', ['$http', 'auth', function($http, auth){
+    //Tasks Service
+    var Users = {
+        users: []
+    };
+
+    Users.getAll = function() {
+        return $http.get('/api/users', {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        }).success(function(data) {
+           angular.copy(data, Users.users);
+        });
+    };
+
+    return Users; 
+}]);
+
 angular.module('kanApp').factory('Sounds', [function(){
     var Sounds = {
         ding: new Audio('audio/ding.wav')
@@ -290,7 +307,12 @@ angular.module('kanApp').config(function($routeProvider, $locationProvider) {
         })
         .when('/org.html', {
             templateUrl: 'templates/organisation.html',
-            controller: 'OrgController'
+            controller: 'OrgController',
+            resolve: {
+                users: ['Users', function(Users) {
+                    return Users.getAll();
+                }]
+            }
         })
         .when('/reports.html', {
             templateUrl: 'templates/reports.html',
@@ -718,12 +740,9 @@ angular.module('kanApp').controller('ProjectController', [
 
 angular.module('kanApp').controller('OrgController', [
     '$scope',
-    function OrgController($scope) {
-        $scope.users = [
-            {
-                username: 'tjordan'
-            }
-        ]
+    'users',
+    function OrgController($scope, users) {
+        $scope.users = users.data;
     }
 ]);
 
