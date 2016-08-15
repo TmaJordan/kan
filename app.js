@@ -25,7 +25,7 @@ mongoose.connect(process.env.DB_HOST)
 var app = express();
 
 app.use(morgan('dev'));
-app.use(bodyParser.json());    
+app.use(bodyParser.json());
 
 app.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
@@ -70,6 +70,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(3000, function () {
-  console.log('Server listening on port 3000');
+var port = process.env.PORT || 3000
+app.listen(port, function () {
+  console.log('Server listening on port: ' + port);
 });

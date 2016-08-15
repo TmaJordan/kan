@@ -16,7 +16,7 @@ input[type=checkbox] {
     top: 0.5em;
 }
 
-input[type=text], input[type=password], input[type=url] {
+input[type=text], input[type=password], input[type=url], input[type=email], input[type=file] {
     display: block;
     font-size: 1em;
     padding: 0.125em;
@@ -186,6 +186,10 @@ nav a span {
 nav a:active, nav a:focus, nav a:hover, a.selected {
     background: rgba(220,220,220, 0.5);
     border-radius: 0em 0em 2em 0em;
+}
+
+nav a:active {
+    outline: none;
 }
 /* End of nav styling */
 
@@ -546,7 +550,9 @@ section.projectView fieldset {
     margin: 0;
     padding: 0;
     list-style-type: none;
-    width: 50%;
+    width: 55%;
+    height: 100%;
+    float: left;
 }
 
 input[type="radio"] {
@@ -568,6 +574,35 @@ input[type="radio"] {
 .user-item.selected {
     background: #4A90E2;
     color: #fff;
+}
+
+.user-info {
+    width: 45%;
+    float: left;
+    position: relative;
+}
+
+.user-info img.profile {
+    width: 60%;
+    border-radius: 60%;
+    margin-left: 20%;
+    margin-top: 1em;
+    border: 1px solid #555;
+}
+
+.user-info .editButton {
+    position: absolute;
+    width: 2em;
+    top: 1em;
+    right: 1em;
+}
+
+.user-info button, .user-info input[type="submit"] {
+    float: left;
+}
+
+.user-info h2, .user-info h3 {
+    text-align: center;
 }
 /* End of User Styles */
 

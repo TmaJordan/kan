@@ -185,6 +185,32 @@ angular.module('kanApp').factory('Users', ['$http', 'auth', function($http, auth
         });
     };
 
+    Users.update = function(user) {
+        return $http.put('/api/users/' + user._id, user, {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        }).success(function(data) {
+            for (var i = 0; i < Users.users.length; i++) {
+                if (Users.users[i]._id == data._id) {
+                    Users.users[i] = data;
+                }
+            }
+            return data;
+        });
+    };
+
+    Users.delete = function(id) {
+        return $http.delete('/api/users/' + id, {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        }).then(function(res) {
+            for (var i = 0; i < Users.users.length; i++) {
+                if (Users.users[i]._id == id) {
+                    Users.users.splice(i, 1);
+                }
+            }
+            return res.data;
+        });
+    };
+
     return Users; 
 }]);
 
@@ -759,15 +785,44 @@ angular.module('kanApp').controller('ProjectController', [
 
 angular.module('kanApp').controller('OrgController', [
     '$scope',
-    'users',
-    function OrgController($scope, users) {
-        $scope.users = users.data;
-        $scope.selectedUser = {};
+    'Users',
+    function OrgController($scope, Users) {
+        $scope.users = Users.users;
+        $scope.selectedUser = undefined;
         $scope.selectedIndex;
-
+        $scope.viewMode = "view";
+        
         $scope.selectUser = function(user, index) {
             $scope.selectedUser = user;
             $scope.selectedIndex = index;
+        }
+
+        $scope.edit = function() {
+            $scope.viewMode = "edit";
+            $scope.backup = angular.copy($scope.selectedUser);
+        }
+
+        $scope.saveEdit = function() {
+            //Need to save
+            console.log("Saving user...");
+            Users.update($scope.selectedUser);
+            $scope.viewMode = "view";
+        }
+
+        $scope.cancel = function() {
+            $scope.viewMode = "view";
+            $scope.selectedUser = angular.copy($scope.backup);
+        }
+
+        $scope.delete = function() {
+            //Implement undo functionality similar to tasks controller
+            var prompt = confirm("This action cannot be undone, are you sure?");
+            if (prompt) {
+                Users.delete($scope.selectedUser._id);
+                $scope.selectedUser = undefined;
+                $scope.selectedIndex = undefined;
+                $scope.viewMode = "view";
+            }
         }
     }
 ]);

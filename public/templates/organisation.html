@@ -4,7 +4,26 @@
             {{user.username}}
         </li>
     </ul>
-    <div class="user-info">
-        {{selectedUser | json}}
-    </div>
+    <aside ng-show="selectedUser" class="user-info">
+        <img ng-show="viewMode=='view'" src="images/edit.svg" alt="edit" ng-click="edit()" class="editButton" />
+        <div ng-switch="viewMode">
+            <section ng-switch-when="view">
+                <img class="profile" ng-src="selectedUser.profileImage" />
+                <h2>{{selectedUser.fullname}}</h2>
+                <h3>{{selectedUser.email}}</h3>
+                <div class="user-stats">
+                </div>
+            </section>
+            <form ng-switch-when="edit" ng-submit="saveEdit()">
+                <label>Profile Picture<input type="file" id="file" name="pic" accept="image/*"></label>
+
+                <label>Name<input type="text" placeholder="Name" ng-model="selectedUser.fullname"></label>
+                <label>Email<input type="email" placeholder="Email" ng-model="selectedUser.email"></label>
+                
+                <input type="submit" value="Save">
+                <button type="button" class="cancel" ng-click="cancel()">Cancel</button>
+                <button type="button" class="delete" ng-click="delete()">Delete</button>
+            </form>
+        </div>
+    </aside>
 </section>

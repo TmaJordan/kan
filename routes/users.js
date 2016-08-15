@@ -6,6 +6,7 @@ var jwt = require('express-jwt');
 
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Action = mongoose.model('Action');
 
 var auth = jwt({secret: process.env.JWT_SECRET, userProperty: 'payload'});
 
@@ -21,6 +22,44 @@ router.get('/', auth, function(req, res, next) {
     });
     res.json(users);
   })
+});
+
+router.put('/:user', auth, function(req, res, next) {
+    console.log('file info: ', JSON.stringify(req.files));
+
+    for (var attrname in req.body) {
+      if (req.user[attrname] != req.body[attrname]) {
+        new Action({
+          user: req.payload.username,
+          action: attrname + "_UPDATED",
+          actionDescription: req.user[attrname] + " -> " + req.body[attrname],
+          target: req.user._id,
+          targetType: 'User'
+        }).save();
+
+        req.user[attrname] = req.body[attrname];
+      } 
+    }
+    
+    req.user.save(function(err, user) {
+        if (err) {return next(err);}
+        
+        res.json(user);
+    });
+});
+
+router.delete('/:user', auth, function(req, res, next) {
+    req.user.remove(function(err) {
+        if (err) {return next(err);}
+        new Action({
+          user: req.payload.username,
+          action: "DELETE",
+          actionDescription: "DELETE: " + req.user.title,
+          target: req.user._id,
+          targetType: 'User'
+        }).save();
+        res.json(req.user);
+    });
 });
 
 //Login and register functions left with no auth intentionally
@@ -60,6 +99,20 @@ router.post('/login', function(req, res, next) {
       return res.status(401).json(info);
     }
   })(req, res, next);
+});
+
+/*Param method intercepts :user for above requests */
+router.param('user', function (req, res, next, id) {
+  var query = User.findById(id);
+  
+  query.exec(function(err, user) {
+    if (err) {return next(err);}
+    
+    if (!user) {return next(new Error("Can't find user"));}
+    
+    req.user = user;
+    return next(); 
+  }); 
 });
 
 module.exports = router;
