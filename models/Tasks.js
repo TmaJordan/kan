@@ -7,6 +7,7 @@ var TaskSchema = new mongoose.Schema({
     completed: {type: Boolean, default: false},
     dateCreated: {type: Date, default: Date.now},
     timeStarted: Date,
+    timeTaken: Number,
     type: String,
     dependency: {type: mongoose.Schema.Types.ObjectId, ref: 'Task'},
     loe: {type: Number, default: 0},

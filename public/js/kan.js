@@ -453,6 +453,7 @@ angular.module('kanApp').controller('TasksController', [
         $scope.toggleCompleted = function(task) {
             if (task.completed) {
                 task.status = Tasks.statusList[Tasks.statusList.length - 2].name;
+                task.timeTaken = Date.now() - (new Date(task.timeStarted)).getTime();
             }
             else {
                 task.status = Tasks.statusList[1].name;
@@ -591,11 +592,21 @@ angular.module('kanApp').controller('TaskController', [
         $scope.toggleCompleted = function() {
             if ($scope.task.completed) {
                 $scope.task.status = Tasks.statusList[Tasks.statusList.length - 2].name;
+                $scope.task.timeTaken = Date.now() - (new Date($scope.task.timeStarted)).getTime();
             }
             else {
                 $scope.task.status = Tasks.statusList[1].name;
             }
             Sounds.play('ding');
+        }
+
+        $scope.startTask = function() {
+            if ($scope.task.timeStarted) {
+                $scope.task.timeStarted = undefined;
+            }
+            else {
+                $scope.task.timeStarted = new Date();
+            }
         }
 
         $scope.checkLink = function(event) {
@@ -717,6 +728,7 @@ angular.module('kanApp').controller('ProjectController', [
         $scope.toggleCompleted = function(task) {
             if (task.completed) {
                 task.status = Tasks.statusList[Tasks.statusList.length - 2].name;
+                task.timeTaken = Date.now() - (new Date(task.timeStarted)).getTime();
             }
             else {
                 task.status = Tasks.statusList[1].name;

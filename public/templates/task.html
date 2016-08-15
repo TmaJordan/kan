@@ -3,6 +3,7 @@
         <a href="javascript:history.back()" ng-click="saveEdit()" class="back">&lt; {{task.title}}</a>
         <input class="toggle" type="checkbox" ng-model="task.completed" ng-change="toggleCompleted()">
         <img ng-show="viewMode=='view'" src="images/edit.svg" alt="edit" ng-click="edit()" class="editButton" />
+        <img ng-show="viewMode=='view'" ng-src="{{task.timeStarted && 'images/stopwatch-started.svg' || 'images/stopwatch.svg'}}" class="stopwatchButton" ng-click="startTask()" />
     </h2>
     <div ng-switch="viewMode">
         <section ng-switch-when="view">
@@ -27,6 +28,7 @@
                     <li ng-show="task.project">Project: <a ng-href="/projects/{{task.project._id}}">{{task.project.name}}</a></li>
                     <li>Assigned to: {{task.assignee}}</li>
                     <li>LOE: {{task.loe}}</li>
+                    <li>Started: <span am-time-ago="task.timeStarted"></span></li>
                     <li>Date created: {{task.dateCreated | amDateFormat:'MMM Do YYYY'}}</li>
                     <li>Due Date: {{task.dueDate | amDateFormat:'MMM Do YYYY'}}</li>
                     <li>Priority: {{task.priority}}</li>
