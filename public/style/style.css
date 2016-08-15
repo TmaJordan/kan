@@ -564,3 +564,25 @@ input[type="radio"] {
     color: #fff;
 }
 /* End of User Styles */
+
+/* Animation Styles */
+.task-item.ng-move,
+.task-item.ng-enter,
+.task-item.ng-leave {
+  transition:all ease-in 0.2s;
+}
+
+.task-item.ng-leave.ng-leave-active,
+.task-item.ng-move,
+.task-item.ng-enter {
+  opacity:0;
+  max-height:0em;
+}
+
+.task-item.ng-leave,
+.task-item.ng-move.ng-move-active,
+.task-item.ng-enter.ng-enter-active {
+  opacity:1;
+  max-height:2em;
+}
+/* End of Animation Styles */

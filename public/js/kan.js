@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kanApp', ['ngRoute', 'angularMoment', '720kb.datepicker', 'ang-drag-drop']);
+angular.module('kanApp', ['ngRoute', 'ngAnimate', 'angularMoment', '720kb.datepicker', 'ang-drag-drop']);
 
 angular.module('kanApp').factory('Tasks', ['$http', 'auth', function($http, auth){
     //Tasks Service
