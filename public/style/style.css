@@ -512,6 +512,7 @@ section.projectView fieldset {
 
 .swimlane .hold .task-item {
     display: inline-block;
+    vertical-align: top;
     width: 30%;
 }
 

@@ -30,6 +30,7 @@
                     <li>Date created: {{task.dateCreated | amDateFormat:'MMM Do YYYY'}}</li>
                     <li>Due Date: {{task.dueDate | amDateFormat:'MMM Do YYYY'}}</li>
                     <li>Priority: {{task.priority}}</li>
+                    <li>Difficulty: {{task.difficulty}}</li>
                     <li>Status: {{task.status}}</li>
                     <li ng-show="task.dependency">Dependency: <a ng-href="/tasks/{{task.dependency._id}}">{{task.dependency.title}}</a></li>
                 </ul>
@@ -78,6 +79,11 @@
                 <label>Priority
                     <select ng-model="task.priority">
                         <option ng-repeat="priority in priorities" value="{{priority}}">{{priority}}</option>
+                    </select>
+                </label>
+                <label>Difficulty
+                    <select ng-model="task.difficulty">
+                        <option ng-repeat="difficulty in difficulties" value="{{difficulty}}">{{difficulty}}</option>
                     </select>
                 </label>
                 <label>Status

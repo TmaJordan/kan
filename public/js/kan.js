@@ -98,6 +98,7 @@ angular.module('kanApp').factory('Tasks', ['$http', 'auth', function($http, auth
 
     Tasks.priorityList = ["Low", "Normal", "High", "Urgent", "Critical"];
     Tasks.typeList = ["Development", "Design", "Testing"];
+    Tasks.difficultyList = ["Easy", "Moderate", "Hard", "Unknown"];
 
     Tasks.orderFn = function(task) {
         var time = ((new Date(task.dueDate)).getTime() - Date.now()) / (1000 * 60 * 60);
@@ -521,6 +522,7 @@ angular.module('kanApp').controller('TaskController', [
         $scope.types = Tasks.typeList;
         $scope.priorities = Tasks.priorityList;
         $scope.statuses = Tasks.statusList;
+        $scope.difficulties = Tasks.difficultyList;
         
         $scope.link = {};
         

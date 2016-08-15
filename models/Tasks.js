@@ -16,7 +16,8 @@ var TaskSchema = new mongoose.Schema({
     links: [{type: mongoose.Schema.Types.ObjectId, ref: 'Link'}],
     priority: String,
     status: String,
-    project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project'}
+    project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project'},
+    difficulty: String
 });
 
 mongoose.model('Task', TaskSchema);
