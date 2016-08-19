@@ -15,6 +15,8 @@ require('./models/Actions');
 
 require('./config/passport');
 
+sendMail = require('./config/mailer');
+
 var taskRoutes = require('./routes/tasks');
 var userRoutes = require('./routes/users');
 var projectRoutes = require('./routes/projects');

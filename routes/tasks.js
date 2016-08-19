@@ -89,6 +89,8 @@ router.post('/', auth, function(req, res, next) {
       targetType: 'Task'
     }).save();
 
+    //sendMail('tmajordan@gmail.com', 'Task Created', 'Task Created', 'Task Created');
+
     res.json(task);
   })
 });
