@@ -1,9 +1,9 @@
 body {
-    font-family: 'Work Sans', 'Source Sans Pro', 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Segoe UI', 'Verdana', sans-serif;
+    font-family: 'Work Sans', 'Helvetica Neue', 'Helvetica', 'Segoe UI', 'Verdana', sans-serif;
     padding: 0;
     margin: 0;
     line-height: 1.6;
-    color: #333;
+    color: #555;
     background: #fff;
     box-sizing: border-box;
 }
@@ -19,7 +19,7 @@ input[type=checkbox] {
 input[type=text], input[type=password], input[type=url], input[type=email], input[type=file] {
     display: block;
     font-size: 1em;
-    padding: 0.125em;
+    padding: 0.5em;
     margin: 0.125em;
     border-radius: 0.25em;
     min-width: 16em;
@@ -30,7 +30,7 @@ textarea {
     min-width: 16em;
 	height: 6em;
 	border: 2px solid #cccccc;
-	padding: 0.25em;
+	padding: 0.5em;
 	font-family: 'Work Sans', 'Source Sans Pro', 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Segoe UI', 'Verdana', sans-serif;
     font-size: 0.875em;
 }
@@ -67,8 +67,8 @@ fieldset {
 button, input[type=submit] {
     background: #4A90E2;
     color: #fff;
-    font-size: 1.125em;
-    padding: 0.25em;
+    font-size: 1em;
+    padding: 0.5em;
     margin: 0.25em;
     border: none;
     border-radius: 0.25em;
@@ -83,7 +83,7 @@ button, input[type=submit] {
     margin: auto;
     text-align: center;
     border-radius: 0.25em;
-    box-shadow: 2px 2px 4px #555;
+    box-shadow: 1px 1px 2px #888;
     position: absolute;
     top: 3.75em;
     left: 20%;
@@ -277,7 +277,7 @@ h3 button.add {
     padding: 0.25em;
     padding-bottom: 0.5em;
     margin: 0.75em;
-    box-shadow: 1px 1px 2px #555;
+    box-shadow: 1px 1px 2px #888;
     border-radius: 0.25em;
     background: #fff;
 }
@@ -320,7 +320,7 @@ h3 button.add {
     background: #6CB2F6;
     color: #fff;
     border-radius: 0.25em;
-    box-shadow: 1px 1px 2px #555;
+    box-shadow: 1px 1px 2px #888;
 }
 
 span.timestamp {
@@ -457,7 +457,8 @@ section.projectView fieldset {
 .projectTile {
     padding: 0.5em;
     margin: 1em;
-    box-shadow: 1px 1px 2px #555;
+    border-radius: 0.25em;
+    box-shadow: 1px 1px 2px #888;
     width: 25%;
     display: inline-block;
     vertical-align: top;
@@ -565,7 +566,7 @@ input[type="radio"] {
     padding-bottom: 0.5em;
     padding-left: 1em;
     margin: 0.75em;
-    box-shadow: 1px 1px 2px #555;
+    box-shadow: 1px 1px 2px #888;
     border-radius: 0.25em;
     background: #fff;
     cursor: pointer;
