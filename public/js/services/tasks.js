@@ -96,7 +96,7 @@ angular.module('kanApp').factory('Tasks', ['$http', 'auth', function($http, auth
     ];
 
     Tasks.priorityList = ["Low", "Normal", "High", "Urgent", "Critical"];
-    Tasks.typeList = ["Development", "Design", "Testing"];
+    Tasks.typeList = ["Development", "Design", "Testing", "Documentation"];
     Tasks.difficultyList = ["Easy", "Moderate", "Hard", "Unknown"];
 
     //Used to automatically prioritise tasks so that overdue and important tasks receive a lower number and appear towards the top of the list.

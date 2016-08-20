@@ -19,10 +19,10 @@ angular.module('kanApp').controller('TasksController', [
         $scope.taskFilter = function() {
             return function(task) {
                 if ($scope.selectedView == 'mytasks') {
-                    return !task.completed;
+                    return !task.completed && task.assignee == auth.currentUser();
                 }
                 else if ($scope.selectedView == 'completed') {
-                    return task.completed;
+                    return task.completed && task.assignee == auth.currentUser();
                 }
             }
         }
