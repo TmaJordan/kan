@@ -12,6 +12,14 @@ angular.module('kanApp').factory('Users', ['$http', 'auth', function($http, auth
         });
     };
 
+    Users.get = function(username) {
+        return $http.get('/api/users/' + username, {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        }).then(function(res) {
+            return res.data;
+        });
+    };
+
     Users.update = function(user) {
         return $http.put('/api/users/' + user._id, user, {
             headers: {Authorization: 'Bearer '+ auth.getToken()}

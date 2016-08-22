@@ -24,20 +24,27 @@ router.get('/users/:username', auth, function(req, res, next) {
             total: 0,
             completed: 0,
             open: 0,
-            overdue: 0
+            overdue: 0,
+            totalEffort: 0,
+            statuses: {},
+            types: {}
         },
         actions: {}
     }
 
     for (var i = 0; i < req.tasks.length; i++) {
-        if (!stats.tasks[req.tasks[i].status]) stats.tasks[req.tasks[i].status] = 0;
+        if (!stats.tasks.statuses[req.tasks[i].status]) stats.tasks.statuses[req.tasks[i].status] = 0;
+        if (!stats.tasks.types[req.tasks[i].type]) stats.tasks.types[req.tasks[i].type] = 0;
+
         stats.tasks.total++;
         if (req.tasks[i].completed) {
             stats.tasks.completed++;
         }
         else {
             stats.tasks.open++;
-            stats.tasks[req.tasks[i].status]++;
+            stats.tasks.statuses[req.tasks[i].status]++;
+            stats.tasks.types[req.tasks[i].type]++;
+            stats.tasks.totalEffort += req.tasks[i].loe;
             if (req.tasks[i].dueDate < Date.now()) {
                 stats.tasks.overdue++;
             }

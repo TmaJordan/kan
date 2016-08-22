@@ -234,7 +234,7 @@ a.back {
 
 .task-header {
     overflow: hidden;
-    width: 50%;
+    width: 55%;
 }
 
 button.add {
@@ -269,9 +269,10 @@ h3 button.add {
     margin: 0;
     padding: 0;
     list-style-type: none;
-    width: 50%;
+    width: 55%;
     height: 95%;
     overflow: auto;
+    float:left;
 }
 
 .task-item {

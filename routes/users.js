@@ -24,6 +24,10 @@ router.get('/', auth, function(req, res, next) {
   })
 });
 
+router.get('/:username', auth, function(req, res, next) {
+  res.json(req.user);
+});
+
 router.put('/:user', auth, function(req, res, next) {
     console.log('file info: ', JSON.stringify(req.files));
 
@@ -104,6 +108,20 @@ router.post('/login', function(req, res, next) {
 /*Param method intercepts :user for above requests */
 router.param('user', function (req, res, next, id) {
   var query = User.findById(id);
+  
+  query.exec(function(err, user) {
+    if (err) {return next(err);}
+    
+    if (!user) {return next(new Error("Can't find user"));}
+    
+    req.user = user;
+    return next(); 
+  }); 
+});
+
+/*Param method intercepts :user for above requests */
+router.param('username', function (req, res, next, username) {
+  var query = User.find({username: username});
   
   query.exec(function(err, user) {
     if (err) {return next(err);}
