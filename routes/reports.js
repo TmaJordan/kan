@@ -20,13 +20,28 @@ router.get('/actions', auth, function(req, res, next) {
 
 router.get('/users/:username', auth, function(req, res, next) {
     var stats = {
-        tasks: {},
+        tasks: {
+            total: 0,
+            completed: 0,
+            open: 0,
+            overdue: 0
+        },
         actions: {}
     }
 
     for (var i = 0; i < req.tasks.length; i++) {
         if (!stats.tasks[req.tasks[i].status]) stats.tasks[req.tasks[i].status] = 0;
-        stats.tasks[req.tasks[i].status]++;
+        stats.tasks.total++;
+        if (req.tasks[i].completed) {
+            stats.tasks.completed++;
+        }
+        else {
+            stats.tasks.open++;
+            stats.tasks[req.tasks[i].status]++;
+            if (req.tasks[i].dueDate < Date.now()) {
+                stats.tasks.overdue++;
+            }
+        }
     }
 
     for (var i = 0; i < req.actions.length; i++) {
