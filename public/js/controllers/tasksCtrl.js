@@ -6,7 +6,8 @@ angular.module('kanApp').controller('TasksController', [
     'Sounds',
     'auth',
     'user',
-    function TasksController($scope, $timeout, $location, Tasks, Sounds, auth, user) {
+    'stats',
+    function TasksController($scope, $timeout, $location, Tasks, Sounds, auth, user, stats) {
         $scope.views = [
             {value: "mytasks", title: "My Tasks"},
             {value: "completed", title: "Completed Tasks"}
@@ -30,6 +31,9 @@ angular.module('kanApp').controller('TasksController', [
 
         console.log(JSON.stringify(user));
         $scope.user = user[0];
+
+        console.log(JSON.stringify(stats));
+        $scope.stats = stats;
 
         //Orders all of the tasks by priority
         $scope.taskOrder = Tasks.orderFn;

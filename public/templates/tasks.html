@@ -18,6 +18,11 @@
         <h2>{{user.fullname}}</h2>
         <h3>{{user.email}}</h3>
         <div class="user-stats">
+            <ul>
+                <li>{{stats.tasks.open}} Tasks</li>
+                <li>{{stats.tasks.overdue}} Overdue</li>
+                <li>{{stats.tasks.completed}} Completed</li>
+            </ul>
         </div>
     </aside>
     <div ng-show="popup.show" class="toast" ng-mouseenter="cancelToastHide()">

@@ -25,6 +25,9 @@ angular.module('kanApp').config(function($routeProvider, $locationProvider) {
                 }],
                 user: ['Users', 'auth', function(Users, auth) {
                     return Users.get(auth.currentUser());
+                }],
+                stats: ['Reports', 'auth', function(Reports, auth) {
+                    return Reports.getUserStats(auth.currentUser());
                 }]
             }
         })
@@ -37,6 +40,9 @@ angular.module('kanApp').config(function($routeProvider, $locationProvider) {
                 }],
                 user: ['Users', 'auth', function(Users, auth) {
                     return Users.get(auth.currentUser());
+                }],
+                stats: ['Reports', 'auth', function(Reports, auth) {
+                    return Reports.getUserStats(auth.currentUser());
                 }]
             }
         })
