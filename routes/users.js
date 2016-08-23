@@ -11,6 +11,9 @@ var Action = mongoose.model('Action');
 
 var auth = jwt({secret: process.env.JWT_SECRET, userProperty: 'payload'});
 
+//checks for list of common passwords
+var checkPassword = require('../config/passwords');
+
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './public/uploads/');
@@ -89,6 +92,10 @@ router.post('/upload', auth, multer({storage: storage}).single('file'), function
 router.post('/register', function(req, res, next){
   if(!req.body.username || !req.body.password){
     return res.status(400).json({message: 'Please fill out all fields'});
+  }
+
+  if (checkPassword(req.body.password)) {
+    return res.status(400).json({message: 'You should never choose this password, here or anywhere else.'});
   }
 
   var user = new User();
