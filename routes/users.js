@@ -98,8 +98,14 @@ router.post('/register', function(req, res, next){
     return res.status(400).json({message: 'You should never choose this password, here or anywhere else.'});
   }
 
+  if (req.body.password.length < 8) {
+    return res.status(400).json({message: 'The password must be at least 8 characters long.'});
+  }
+
   var user = new User();
 
+  user.fullname = req.body.fullname;
+  user.email = req.body.email;
   user.username = req.body.username;
   user.setPassword(req.body.password)
 
@@ -110,6 +116,8 @@ router.post('/register', function(req, res, next){
     console.log(token);
     return res.json({token: token})
   });
+
+  //Need to create onboarding tasks from template
 });
 
 router.post('/login', function(req, res, next) {

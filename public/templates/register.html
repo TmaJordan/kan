@@ -4,8 +4,10 @@
         <span>{{error.message}}</span>
     </div>
     <fieldset>
+        <label>Full Name<input type="text" class="form-control" placeholder="Full Name" ng-model="user.fullname"></label>
+        <label>Email<input type="email" class="form-control" placeholder="Email" ng-model="user.email"></label>
         <label>Username<input type="text" class="form-control" placeholder="Username" ng-model="user.username"></label>
-        <label>Password<input type="password" class="form-control" placeholder="Password" ng-model="user.password"></label>
+        <label>Password (At least eight numbers/letters)<input type="password" class="form-control" placeholder="Password" ng-model="user.password"></label>
         <input type="submit" value="Register">
     </fieldset>
 </form>
