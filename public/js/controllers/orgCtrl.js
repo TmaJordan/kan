@@ -1,15 +1,18 @@
 angular.module('kanApp').controller('OrgController', [
     '$scope',
     'Users',
-    function OrgController($scope, Users) {
+    'Reports',
+    function OrgController($scope, Users, Reports) {
         $scope.users = Users.users;
         $scope.selectedUser = undefined;
         $scope.selectedIndex;
         $scope.viewMode = "view";
+        $scope.stats = Reports.userStats;
         
         $scope.selectUser = function(user, index) {
             $scope.selectedUser = user;
             $scope.selectedIndex = index;
+            Reports.getUserStats(user.username);
         }
 
         $scope.edit = function() {

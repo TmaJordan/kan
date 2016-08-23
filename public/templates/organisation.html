@@ -12,6 +12,12 @@
                 <h2>{{selectedUser.fullname}}</h2>
                 <h3>{{selectedUser.email}}</h3>
                 <div class="user-stats">
+                    <ul>
+                        <li>{{stats.tasks.open}} Tasks</li>
+                        <li>{{stats.tasks.overdue}} Overdue</li>
+                        <li>{{stats.tasks.completed}} Completed</li>
+                        <li>{{stats.tasks.totalEffort | number:1}} Days Total LOE</li>
+                    </ul>
                 </div>
             </section>
             <form ng-switch-when="edit" ng-submit="saveEdit()">
