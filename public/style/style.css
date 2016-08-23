@@ -635,10 +635,23 @@ input[type="radio"] {
   opacity:1;
   max-height:2em;
 }
+
+main.ng-leave {
+    transition:all ease-in 0.2s;
+}
+
+main.ng-leave.ng-leave-active {
+    opacity:0;
+}
+
+main.ng-enter.ng-enter-active {
+    opacity:1;
+}
 /* End of Animation Styles */
 
 /* Media Query styles for small screens < 650px */
 @media (max-width: 650px) {
+    /* Make nav width of screen and remove left margin of main */
     nav {
         float: none;
         width: 100%;
@@ -651,6 +664,7 @@ input[type="radio"] {
         margin-left: 0em;
     }
 
+    /* Adapt views & lists to appear on top of each other when screen is narrow */
     .swimlane {
         width: 100%;
         height: auto;
@@ -684,3 +698,4 @@ input[type="radio"] {
         float: none;
     }
 }
+/* End of Media Query styles for small screens < 650px */
