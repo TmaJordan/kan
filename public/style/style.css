@@ -583,6 +583,7 @@ input[type="radio"] {
 .user-info {
     width: 45%;
     float: left;
+    padding-top: 1em;
     position: relative;
 }
 
@@ -602,6 +603,11 @@ input[type="radio"] {
 
 .user-info button, .user-info input[type="submit"] {
     float: left;
+}
+
+.user-info button[type="file"] {
+    float: none;
+    display: block;
 }
 
 .user-info h2, .user-info h3 {

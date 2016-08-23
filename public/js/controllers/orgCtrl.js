@@ -2,7 +2,9 @@ angular.module('kanApp').controller('OrgController', [
     '$scope',
     'Users',
     'Reports',
-    function OrgController($scope, Users, Reports) {
+    'Upload',
+    'auth',
+    function OrgController($scope, Users, Reports, Upload, auth) {
         $scope.users = Users.users;
         $scope.selectedUser = undefined;
         $scope.selectedIndex;
@@ -13,6 +15,7 @@ angular.module('kanApp').controller('OrgController', [
             $scope.selectedUser = user;
             $scope.selectedIndex = index;
             Reports.getUserStats(user.username);
+            $scope.uploadComplete = false;
         }
 
         $scope.edit = function() {
@@ -41,5 +44,23 @@ angular.module('kanApp').controller('OrgController', [
                 $scope.viewMode = "view";
             }
         }
+
+        // upload on file select or drop
+        $scope.upload = function (file) {
+            Upload.upload({
+                url: '/api/users/upload',
+                data: {file: file, 'username': $scope.selectedUser.username},
+                headers: {'Authorization': 'Bearer '+ auth.getToken()}, // only for html5
+            }).then(function (resp) {
+                console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + JSON.stringify(resp.data));
+                $scope.uploadComplete = true;
+                $scope.selectedUser.profileImage = '/uploads/' + resp.data.filename;
+            }, function (resp) {
+                console.log('Error status: ' + resp.status);
+            }, function (evt) {
+                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+            });
+        };
     }
 ]);

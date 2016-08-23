@@ -9,7 +9,7 @@
  *  Datepicker from 720kb
  *  Angular Drag and Drop
  */
-angular.module('kanApp', ['ngRoute', 'ngAnimate', 'angularMoment', '720kb.datepicker', 'ang-drag-drop']);
+angular.module('kanApp', ['ngRoute', 'ngAnimate', 'angularMoment', '720kb.datepicker', 'ang-drag-drop', 'ngFileUpload']);
 
 /**
  * Handles all of the routing and templating client-side using ng-route

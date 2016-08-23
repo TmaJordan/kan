@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var multer  = require('multer');
 
 var passport = require('passport');
 var jwt = require('express-jwt');
@@ -9,6 +10,16 @@ var User = mongoose.model('User');
 var Action = mongoose.model('Action');
 
 var auth = jwt({secret: process.env.JWT_SECRET, userProperty: 'payload'});
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/uploads/');
+  },
+  filename: function (req, file, cb) {
+    console.log(req);
+    cb(null, req.payload.username + '-' + file.originalname);
+  }
+})
 
 //User Routes
 router.get('/', auth, function(req, res, next) {
@@ -64,6 +75,14 @@ router.delete('/:user', auth, function(req, res, next) {
         }).save();
         res.json(req.user);
     });
+});
+
+router.post('/upload', auth, multer({storage: storage}).single('file'), function(req, res, next) {
+    //console.log(req);
+    console.log(req.body);
+    console.log(req.file.filename);
+    console.log(req.file.path);
+    res.json(req.file);
 });
 
 //Login and register functions left with no auth intentionally
