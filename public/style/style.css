@@ -636,3 +636,51 @@ input[type="radio"] {
   max-height:2em;
 }
 /* End of Animation Styles */
+
+/* Media Query styles for small screens < 650px */
+@media (max-width: 650px) {
+    nav {
+        float: none;
+        width: 100%;
+        overflow: hidden;
+        height:auto;
+        background: #4A90E2;
+    }
+
+    main {
+        margin-left: 0em;
+    }
+
+    .swimlane {
+        width: 100%;
+        height: auto;
+    }
+
+    .projectTile {
+        width: auto;
+        display: block;
+        overflow: auto;
+    }
+
+    .swimlane .hold .task-item {
+        display: block;
+        width: auto;
+    }
+
+    .task-list {
+        width: 100%;
+        height: auto;
+        float:none;
+    }
+
+    .user-info {
+        width: 100%;
+        float: none;
+    }
+
+    .user-page ul {
+        width: 100%;
+        height: auto;
+        float: none;
+    }
+}
