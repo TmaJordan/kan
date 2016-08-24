@@ -110,5 +110,9 @@ angular.module('kanApp').factory('Tasks', ['$http', 'auth', function($http, auth
         return order;
     }
 
+    Tasks.checkOverdue = function(time) {
+        return (new Date(time)).getTime() < Date.now();
+    }
+
     return Tasks; 
 }]);

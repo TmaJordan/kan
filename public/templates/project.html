@@ -31,6 +31,8 @@
                 <label ng-click="editTask(task)">
                     <input class="toggle" type="checkbox" ng-model="task.completed" ng-change="toggleCompleted(task)">
                     <a ng-href="/tasks/{{task._id}}">{{task.title}}</a>
+                    <div ng-show="checkOverdue(task.dueDate) && !task.completed" class="overdue" title="Overdue">!</div>
+                    <img ng-show="task.timeStarted && !task.completed" src="images/stopwatch-started.svg" class="stopwatch" title="Started">
                 </label>
             </li>
         </ul>

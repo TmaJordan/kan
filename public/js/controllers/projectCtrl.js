@@ -9,6 +9,7 @@ angular.module('kanApp').controller('ProjectController', [
         $scope.project = project;
         $scope.stages = Tasks.statusList;
         $scope.taskOrder = Tasks.orderFn;
+        $scope.checkOverdue = Tasks.checkOverdue;
 
         //If new Project, default to edit view, else view mode
         if ($scope.project.name === Projects.newProjectTitle) {

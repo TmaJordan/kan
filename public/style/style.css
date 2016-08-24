@@ -293,6 +293,7 @@ img.remove {
     box-shadow: 1px 1px 2px #888;
     border-radius: 0.25em;
     background: #fff;
+    overflow: auto;
 }
 
 .task-item a {
@@ -300,8 +301,43 @@ img.remove {
     text-decoration: none;
 }
 
-.task-item * {
+.task-item label {
     cursor: pointer;
+}
+
+.status-indicator, .overdue, .stopwatch {
+    float: right;
+    max-width: 1.5em;
+    margin: 0.5em;
+}
+
+.status-indicator {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 0.75em;
+    margin-top: 0.7em; 
+}
+
+.status-indicator.Open {
+    background: #E55346;
+}
+
+.status-indicator.Progress {
+    background: #F8E71C;
+}
+
+.status-indicator.Hold {
+    background: #666;
+}
+
+.status-indicator.Complete {
+    display: none;
+}
+
+.overdue {
+    font-size: 2em;
+    line-height: 0.4;
+    color: #E55346;
 }
 
 .editButton {

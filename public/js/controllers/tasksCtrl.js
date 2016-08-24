@@ -37,6 +37,7 @@ angular.module('kanApp').controller('TasksController', [
 
         //Orders all of the tasks by priority
         $scope.taskOrder = Tasks.orderFn;
+        $scope.checkOverdue = Tasks.checkOverdue;
         
         $scope.tasks = Tasks.tasks;
         $scope.task = {};
