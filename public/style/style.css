@@ -237,7 +237,7 @@ a.back {
     width: 55%;
 }
 
-button.add {
+button.add, img.add {
     border: none;
     color: #333;
     background: none;
@@ -248,16 +248,26 @@ button.add {
     transition: transform 0.3s;
 }
 
-button.remove {
+button.remove, img.remove {
     -ms-transform: rotate(45deg); /* IE 9 */
     -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
     transform: rotate(45deg);
 }
 
-h3 button.add {
+h3 button.add, h3 img.add {
     display: inline-block;
     margin-left: 1em;
     line-height: 1;
+}
+
+img.add {
+    height: 0.6em;
+    cursor: pointer;
+    outline: none;
+}
+
+img.remove {
+    height: 0.65em;
 }
 
 .task-header button {
