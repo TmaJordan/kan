@@ -1,5 +1,8 @@
 var nodemailer = require('nodemailer');
 
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
+
 var smtpConfig = {
     host: 'smtp.gmail.com',
     port: 465,
@@ -18,15 +21,25 @@ var mailOptions = {
 
 // send mail with defined transport object
 module.exports = function (to, subject, html, text) {
-    mailOptions.to = to;
-    mailOptions.subject = subject;
-    mailOptions.html = html;
-    mailOptions.text = text;
-    
-    transporter.sendMail(mailOptions, function(error, info){
-        if(error){
-            return console.log(error);
-        }
-        console.log('Message sent: ' + info.response);
+    var query = User.findOne({username: to});
+  
+    query.exec(function(err, user) {
+        if (err) {return next(err);}
+        
+        if (!user) {return next(new Error("Can't find user"));}
+        console.log(user);
+        console.log('Sending mail to: ' + user.email);
+        mailOptions.to = user.email;
+
+        mailOptions.subject = subject;
+        mailOptions.html = html;
+        mailOptions.text = text;
+        
+        transporter.sendMail(mailOptions, function(error, info){
+            if(error){
+                return console.log(error);
+            }
+            console.log('Message sent: ' + info.response);
+        }); 
     });
 }

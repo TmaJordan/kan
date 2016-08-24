@@ -64,6 +64,12 @@ router.put('/:task', auth, function(req, res, next) {
         }).save();
 
         req.task[attrname] = req.body[attrname];
+
+        //Send mail for assignment
+        if (attrname == 'assignee' && req.task.assignee != req.payload.username) {
+          console.log('Sending assign mail to: ' + req.body.assignee);
+          sendMail(req.body.assignee, req.body.title + ' has been assigned to you', req.body.description, req.body.description);
+        }
       } 
     }
     
@@ -88,8 +94,6 @@ router.post('/', auth, function(req, res, next) {
       target: task._id,
       targetType: 'Task'
     }).save();
-
-    //sendMail('tmajordan@gmail.com', 'Task Created', 'Task Created', 'Task Created');
 
     res.json(task);
   })
