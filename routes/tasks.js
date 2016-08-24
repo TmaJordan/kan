@@ -68,7 +68,7 @@ router.put('/:task', auth, function(req, res, next) {
         //Send mail for assignment
         if (attrname == 'assignee' && req.task.assignee != req.payload.username) {
           console.log('Sending assign mail to: ' + req.body.assignee);
-          sendMail(req.body.assignee, req.body.title + ' has been assigned to you', req.body.description, req.body.description);
+          mailer.sendTaskMail(req.body.assignee, req.body.title + ' has been assigned to you', req.body);
         }
       } 
     }
@@ -120,6 +120,12 @@ router.post('/:task/comments', auth, function(req, res, next) {
         targetType: 'Task'
       }).save();
       
+      //Send mail for assignment
+      if (req.task.assignee != req.payload.username) {
+        console.log('Sending comment notification mail to: ' + req.task.assignee);
+        mailer.sendCommentMail(req.task.assignee, req.payload.username + ' has commented on your task', comment);
+      }
+
       res.json(comment);
     })
   });
