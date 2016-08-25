@@ -67,6 +67,25 @@ var mailer = {
             '">Open Task</a></html>';
 
         this.sendMail(to, subject, html, comment.body);
+    },
+
+    sendVerifyMail: function(user) {
+        var html = 
+            '<html>' + 
+            'An account has been created for you with Kan Task Management. Please click on the link below to activate your account. If you did not create an account, please respond to this email and let me know.' + 
+            '<br><br><a href="' + 
+            process.env.SERVER_LOC + 
+            'api/users/verify/' + 
+           user._id + 
+            '">Verify Account</a></html>';
+
+        var text = 
+            'An account has been created for you with Kan Task Management. Please open the link below in a browser to activate your account. If you did not create an account, please respond to this email and let me know.\n\n' +
+             process.env.SERVER_LOC + 
+            'api/users/verify/' + 
+            user._id;
+        console.log('Sending verify mail to: ' + user.email);
+        this.sendMail(user.username, 'Please verify your account', html, text);
     }
 }
 

@@ -102,5 +102,5 @@ var list = [
 ]
 
 module.exports = function(password) {
-    return list.indexOf(password) > -1;
+    return list.indexOf(password.toLowerCase()) > -1;
 }

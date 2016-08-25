@@ -8,7 +8,8 @@ var UserSchema = new mongoose.Schema({
     salt: String,
     fullname: String,
     email: String,
-    profileImage: String
+    profileImage: String,
+    verified: {type: Boolean, default: false}
 });
 
 UserSchema.methods.setPassword = function(password) {
@@ -31,6 +32,7 @@ UserSchema.methods.generateJWT = function() {
     return jwt.sign({
         _id: this._id,
         username: this.username,
+        verified: this.verified,
         exp: parseInt(exp.getTime() / 1000)        
     }, process.env.JWT_SECRET);
 }

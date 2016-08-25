@@ -1,4 +1,5 @@
 var express = require('express');
+var path = require('path');
 var router = express.Router();
 var multer  = require('multer');
 
@@ -43,8 +44,6 @@ router.get('/:username', auth, function(req, res, next) {
 });
 
 router.put('/:user', auth, function(req, res, next) {
-    console.log('file info: ', JSON.stringify(req.files));
-
     for (var attrname in req.body) {
       if (req.user[attrname] != req.body[attrname]) {
         new Action({
@@ -94,6 +93,14 @@ router.post('/register', function(req, res, next){
     return res.status(400).json({message: 'Please fill out all fields'});
   }
 
+  if (!req.body.email) {
+    return res.status(400).json({message: 'Please enter an email address'});
+  }
+
+  if (!req.body.email.endsWith(process.env.ORG_DOMAIN || '')) {
+    return res.status(400).json({message: 'This version of Kan is locked down to: ' + process.env.ORG_DOMAIN});
+  }
+
   if (checkPassword(req.body.password)) {
     return res.status(400).json({message: 'You should never choose this password, here or anywhere else.'});
   }
@@ -109,15 +116,32 @@ router.post('/register', function(req, res, next){
   user.username = req.body.username;
   user.setPassword(req.body.password)
 
-  user.save(function (err){
+  user.save(function (err, user){
     if(err){ return next(err); }
 
     var token = user.generateJWT();
     console.log(token);
+    mailer.sendVerifyMail(user);
     return res.json({token: token})
   });
 
   //Need to create onboarding tasks from template
+});
+
+router.get('/verify/:user', function(req, res, next) {
+    new Action({
+          user: req.user.username,
+          action: "USER_VERIFIED",
+          actionDescription: req.user.username + " verified",
+          target: req.user._id,
+          targetType: 'User'
+        }).save(); 
+    req.user.verified = true;
+    req.user.save(function(err, user) {
+        if (err) {return next(err);}
+        
+        res.sendFile(path.resolve(__dirname, '../public/index.html'));
+    });
 });
 
 router.post('/login', function(req, res, next) {

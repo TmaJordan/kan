@@ -144,6 +144,12 @@ section.login a, section.login a:active, section.login a:focus, section.login a:
     color: #E55346;
 }
 
+.registered {
+    padding: 1em;
+    width: 25em;
+    margin: 0 auto;
+}
+
 /*End of login styling
 
 /* Nav styling for buttons on left */

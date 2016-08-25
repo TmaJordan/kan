@@ -22,7 +22,7 @@ angular.module('kanApp').factory('auth', ['$http', '$window', function($http, $w
         if (token) {
             var payload = JSON.parse($window.atob(token.split('.')[1]));
             
-            return payload.exp > Date.now() / 1000;
+            return payload.exp > Date.now() / 1000 && payload.verified;
         }
         else {
             return false;

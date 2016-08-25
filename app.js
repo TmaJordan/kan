@@ -52,7 +52,7 @@ app.use('*', function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+if (process.env.ENVIRONMENT === 'dev') {
   app.use(function(err, req, res, next) {
     console.log(err.message);
     res.status(err.status || 500).json({

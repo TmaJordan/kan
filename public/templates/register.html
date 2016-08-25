@@ -1,4 +1,4 @@
-<form class="loginForm" ng-submit="register()">
+<form ng-hide="registered" class="loginForm" ng-submit="register()">
     <h3>Register <a href="login.html">Already registered?</a></h3>
     <div ng-show="error" class="alert">
         <span>{{error.message}}</span>
@@ -11,3 +11,6 @@
         <input type="submit" value="Register">
     </fieldset>
 </form>
+<div ng-show="registered" class="registered">
+    You have been successfully registered and an email has been sent to you. Please click on the link within the email to verify your account and start using Kan.
+</div>

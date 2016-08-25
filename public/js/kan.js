@@ -102,7 +102,8 @@ angular.module('kanApp').config(function($routeProvider, $locationProvider) {
         .when('/login.html', {
             templateUrl: 'templates/login.html',
             controller: 'AuthController'
-        });
+        })
+        .otherwise({redirectTo : '/index.html'});
 
     $locationProvider.html5Mode(true);
 });

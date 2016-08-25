@@ -4,12 +4,13 @@ angular.module('kanApp').controller('AuthController', [
     'auth',
     function($scope, $location, auth) {
         $scope.user = {};
+        $scope.registered = false;
 
         $scope.register = function() {
             auth.register($scope.user).error(function(error) {
                 $scope.error = error;
             }).then(function() {
-                $location.path('/index.html');
+                $scope.registered = true;
             });
         }
 
