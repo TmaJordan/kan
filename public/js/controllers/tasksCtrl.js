@@ -30,7 +30,7 @@ angular.module('kanApp').controller('TasksController', [
         }
 
         console.log(JSON.stringify(user));
-        $scope.user = user[0];
+        $scope.user = user;
 
         console.log(JSON.stringify(stats));
         $scope.stats = stats;

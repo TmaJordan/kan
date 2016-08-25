@@ -179,7 +179,7 @@ router.param('user', function (req, res, next, id) {
 
 /*Param method intercepts :user for above requests */
 router.param('username', function (req, res, next, username) {
-  var query = User.find({username: username});
+  var query = User.findOne({username: username});
   
   query.exec(function(err, user) {
     if (err) {return next(err);}
