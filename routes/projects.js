@@ -10,7 +10,13 @@ var Action = mongoose.model('Action');
 
 var auth = jwt({secret: process.env.JWT_SECRET, userProperty: 'payload'});
 
-/* Routes for projects */
+/**
+ * @api {get} /api/projects Get all projects
+ * @apiName GetProjects
+ * @apiGroup Projects
+ *
+ * @apiSuccess {Project[]} List of Projects.
+ */
 router.get('/', auth, function(req, res, next) {
     Project.find().lean().exec(function(err, projects) {
         if (err) {return next(err);}
@@ -38,6 +44,13 @@ router.get('/', auth, function(req, res, next) {
     })
 });
 
+/**
+ * @api {post} /api/projects Create new project
+ * @apiName CreateProject
+ * @apiGroup Projects
+ *
+ * @apiSuccess {Project} Newly created project
+ */
 router.post('/', auth, function(req, res, next) {
   var project = new Project(req.body);
   project.owner = req.payload.username;
@@ -57,10 +70,28 @@ router.post('/', auth, function(req, res, next) {
   })
 });
 
+/**
+ * @api {get} /api/projects/:project Get all projects
+ * @apiName GetProject
+ * @apiGroup Projects
+ * 
+ * @apiParam {project} id of project
+ *
+ * @apiSuccess {Project} Project
+ */
 router.get('/:project', auth, function(req, res, next) {
     res.json(req.project);
 });
 
+/**
+ * @api {put} /api/projects/:project Update project
+ * @apiName UpdateProject
+ * @apiGroup Projects
+ * 
+ * @apiParam {project} id of project
+ *
+ * @apiSuccess {Project} Project
+ */
 router.put('/:project', auth, function(req, res, next) {
     //var updateTask = Object.assign({}, req.task, req.body);
     for (var attrname in req.body) { 
@@ -85,6 +116,15 @@ router.put('/:project', auth, function(req, res, next) {
     });
 });
 
+/**
+ * @api {delete} /api/projects/:project Delete project
+ * @apiName DeleteProject
+ * @apiGroup Projects
+ * 
+ * @apiParam {project} id of project
+ *
+ * @apiSuccess {Project} Project
+ */
 router.delete('/:project', auth, function(req, res, next) {
     req.project.remove(function(err) {
         if (err) {return next(err);}
