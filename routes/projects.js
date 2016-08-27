@@ -12,9 +12,28 @@ var auth = jwt({secret: process.env.JWT_SECRET, userProperty: 'payload'});
 
 /* Routes for projects */
 router.get('/', auth, function(req, res, next) {
-    Project.find(function(err, projects) {
+    Project.find().lean().exec(function(err, projects) {
         if (err) {return next(err);}
     
+        //Add in high level stats for project
+        for (var i = 0; i < projects.length; i++) {
+            projects[i].completed = 0;
+            projects[i].total = 0;
+            projects[i].open = 0;
+            for (var j = 0; j < projects[i].tasks.length; j++) {
+                
+                projects[i].total++;
+                if (projects[i].tasks[j].completed) {
+                    projects[i].completed++;
+                }
+                else {
+                    projects[i].open++;
+                }
+            }
+            console.log(projects[i].total + ' Tasks in Project ' + i);
+        }
+
+        console.log(projects[0]);
         res.json(projects);
     })
 });

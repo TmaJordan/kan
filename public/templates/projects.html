@@ -8,6 +8,9 @@
             <a ng-href="projects/{{project._id}}">{{project.name}}</a>
             <span class="owner">{{project.owner}}</span>    
         </h3>
+        <div class="project-stats">{{project.total}} Tasks</div>
+        <div class="project-stats">{{project.completed}} Completed</div>
+        <div class="project-stats">{{project.open}} Open</div>
         <div class="description">{{project.description}}</div>
         <div class="dueDate">{{project.dueDate | date:'MMM d yyyy'}}</div>
     </div>
