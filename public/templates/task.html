@@ -1,9 +1,9 @@
 <section>
     <h2>
         <a href="javascript:history.back()" ng-click="saveEdit()" class="back">&lt; {{task.title}}</a>
-        <input class="toggle" type="checkbox" ng-model="task.completed" ng-change="toggleCompleted()">
-        <img ng-show="viewMode=='view'" src="images/edit.svg" alt="edit" ng-click="edit()" class="editButton" />
-        <img ng-show="viewMode=='view'" ng-src="{{task.timeStarted && 'images/stopwatch-started.svg' || 'images/stopwatch.svg'}}" class="stopwatchButton" ng-click="startTask()" />
+        <input class="toggle" type="checkbox" title="Complete Task" ng-model="task.completed" ng-change="toggleCompleted()">
+        <img ng-show="viewMode=='view'" src="images/edit.svg" title="Edit" alt="edit" ng-click="edit()" class="editButton" />
+        <img ng-show="viewMode=='view'" title="Start Task" ng-src="{{task.timeStarted && 'images/stopwatch-started.svg' || 'images/stopwatch.svg'}}" class="stopwatchButton" ng-click="startTask()" />
     </h2>
     <div ng-switch="viewMode">
         <section ng-switch-when="view">
@@ -38,7 +38,7 @@
                 </ul>
                 <h3>
                     Links 
-                    <img src="images/plus.svg" class="add" ng-click="addLink()" ng-class="{remove:addingLink}">
+                    <img src="images/plus.svg" title="Add Link" class="add" ng-click="addLink()" ng-class="{remove:addingLink}">
                 </h3>
                 <input type="text" ng-show="addingLink" placeholder="Name" ng-keydown="checkLink($event)" ng-model="link.title">
                 <input type="url" ng-show="addingLink" placeholder="URL" ng-keydown="checkLink($event)" ng-model="link.url">

@@ -2,7 +2,7 @@
      <div ng-switch="viewMode">
         <h2 ng-switch-when="view">
             <a href="javascript:history.back()" ng-click="saveEdit()" class="back">&lt; {{project.name}}</a>
-            <img src="images/edit.svg" alt="edit" ng-click="edit()" class="editButton" />
+            <img src="images/edit.svg" alt="edit" title="Edit" ng-click="edit()" class="editButton" />
         </h2>
         <form ng-switch-when="edit" ng-submit="saveEdit()">
             <fieldset>
@@ -24,7 +24,7 @@
     <div class="swimlane" ng-class="stage.class" ng-repeat="stage in stages">
         <h3 ng-class="stage.class">
             {{stage.name}}
-            <button class="add" ng-click="addTask(stage.name)">+</button>
+            <button class="add" title="Add Task" ng-click="addTask(stage.name)">+</button>
         </h3>
         <ul ui-on-Drop="onDrop(stage, $data)" ng-class="stage.class">
             <li ng-repeat="task in project.tasks | filter: {status: stage.name} | orderBy:taskOrder" class="task-item" ui-draggable="true" drag="task">

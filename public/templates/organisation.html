@@ -5,7 +5,7 @@
         </li>
     </ul>
     <aside ng-show="selectedUser" class="user-info">
-        <img ng-show="viewMode=='view'" src="images/edit.svg" alt="edit" ng-click="edit()" class="editButton" />
+        <img ng-show="viewMode=='view'" src="images/edit.svg" alt="edit" title="Edit" ng-click="edit()" class="editButton" />
         <div ng-switch="viewMode">
             <section ng-switch-when="view">
                 <img class="profile" ng-src="{{selectedUser.profileImage}}" />

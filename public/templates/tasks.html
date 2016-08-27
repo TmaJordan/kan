@@ -3,7 +3,7 @@
         <select ng-model="selectedView" ng-change="updateView()">
             <option ng-repeat="view in views" value="{{view.value}}">{{view.title}}</option>
         </select>
-        <button class="add" ng-click="addTask()">+</button>
+        <button class="add" title="Add Task" ng-click="addTask()">+</button>
     </header>
     <ul class="task-list">
         <li ng-repeat="task in tasks | filter:taskFilter() | orderBy:taskOrder" class="task-item">
