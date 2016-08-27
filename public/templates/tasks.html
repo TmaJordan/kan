@@ -6,7 +6,7 @@
         <button class="add" title="Add Task" ng-click="addTask()">+</button>
     </header>
     <ul class="task-list">
-        <li ng-repeat="task in tasks | filter:taskFilter() | orderBy:taskOrder" class="task-item">
+        <li ng-repeat="task in (filteredTasks = (tasks | filter:taskFilter() | orderBy:taskOrder))" class="task-item">
             <label ng-click="editTask(task)">
                 <input class="toggle" type="checkbox" ng-model="task.completed" ng-change="toggleCompleted(task)">
                 <a ng-href="tasks/{{task._id}}">{{task.title}}</a>

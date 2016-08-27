@@ -1,10 +1,16 @@
 require('dotenv').config();
+var fs = require('fs');
+var https = require('https');
 var express = require('express');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var path = require('path');
 var passport = require('passport');
+var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
+var certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
 
 require('./models/Tasks');
 require('./models/Comments');
@@ -77,7 +83,9 @@ app.use(function(err, req, res, next) {
   });
 });
 
+var httpsServer = https.createServer(credentials, app);
+
 var port = process.env.PORT || 3000
-app.listen(port, function () {
+httpsServer.listen(port, function () {
   console.log('Server listening on port: ' + port);
 });

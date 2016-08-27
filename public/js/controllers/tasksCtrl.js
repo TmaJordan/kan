@@ -1,13 +1,14 @@
 angular.module('kanApp').controller('TasksController', [
     '$scope',
     '$timeout',
+    '$interval',
     '$location',
     'Tasks', 
     'Sounds',
     'auth',
     'user',
     'stats',
-    function TasksController($scope, $timeout, $location, Tasks, Sounds, auth, user, stats) {
+    function TasksController($scope, $timeout, $interval, $location, Tasks, Sounds, auth, user, stats) {
         $scope.views = [
             {value: "mytasks", title: "My Tasks"},
             {value: "completed", title: "Completed Tasks"}
@@ -39,6 +40,16 @@ angular.module('kanApp').controller('TasksController', [
         $scope.taskOrder = Tasks.orderFn;
         $scope.checkOverdue = Tasks.checkOverdue;
         
+        //Automatically update first task to autostart it
+        $interval(function() {
+            if ($scope.selectedView == "mytasks" && !$scope.filteredTasks[0].timeStarted) {
+                console.log('Starting - ' + $scope.filteredTasks[0]);
+                $scope.filteredTasks[0].timeStarted = new Date();
+                $scope.filteredTasks[0].status = Tasks.statusList[1];
+                Tasks.update($scope.filteredTasks[0]);
+            }
+        }, 5000);
+
         $scope.tasks = Tasks.tasks;
         $scope.task = {};
         
