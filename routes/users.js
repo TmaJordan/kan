@@ -116,6 +116,7 @@ router.post('/register', function(req, res, next){
   user.fullname = req.body.fullname;
   user.email = req.body.email;
   user.username = req.body.username;
+  user.profileImage = 'https://github.com/identicons/' + req.body.username + '.png'
   user.setPassword(req.body.password);
 
   for (var i = 0; i < onboardingTasks.length; i++) {
