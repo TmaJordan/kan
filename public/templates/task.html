@@ -12,8 +12,8 @@
                 <div class="description">{{task.description}}</div>
                 <div class="comment-thread">
                     <div ng-repeat="comment in task.comments">
+                        <span marked="comment.body"></span>
                         <span class="timestamp" am-time-ago="comment.dateCreated"></span>
-                        {{comment.body}}
                     </div>
                 </div>
                 <form ng-submit="addComment()" class ="comment-form">

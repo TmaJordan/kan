@@ -9,11 +9,13 @@ var jwt = require('express-jwt');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Action = mongoose.model('Action');
+var Task = mongoose.model('Task');
 
 var auth = jwt({secret: process.env.JWT_SECRET, userProperty: 'payload'});
 
 //checks for list of common passwords
 var checkPassword = require('../config/passwords');
+var onboardingTasks = require('../config/onboardingTasks');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -114,7 +116,15 @@ router.post('/register', function(req, res, next){
   user.fullname = req.body.fullname;
   user.email = req.body.email;
   user.username = req.body.username;
-  user.setPassword(req.body.password)
+  user.setPassword(req.body.password);
+
+  for (var i = 0; i < onboardingTasks.length; i++) {
+    var task = new Task(onboardingTasks[i]);
+    task.createdBy = req.body.username;
+    task.assignee = req.body.username;
+    task.dueDate = new Date();
+    task.save();
+  }
 
   user.save(function (err, user){
     if(err){ return next(err); }

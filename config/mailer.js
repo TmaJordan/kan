@@ -72,7 +72,7 @@ var mailer = {
     sendVerifyMail: function(user) {
         var html = 
             '<html>' + 
-            'An account has been created for you with Kan Task Management. Please click on the link below to activate your account. If you did not create an account, please respond to this email and let me know.' + 
+            'An account has been created for you with Kan Task Management. Please click on the link below to activate your account (You will have to log in again). If you did not create an account, please respond to this email and let me know.' + 
             '<br><br><a href="' + 
             process.env.SERVER_LOC + 
             'api/users/verify/' + 
