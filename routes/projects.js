@@ -15,7 +15,7 @@ var auth = jwt({secret: process.env.JWT_SECRET, userProperty: 'payload'});
  * @apiName GetProjects
  * @apiGroup Projects
  *
- * @apiSuccess {Project[]} List of Projects.
+ * @apiSuccess {Project[]} Projects[] List of Projects.
  */
 router.get('/', auth, function(req, res, next) {
     Project.find().lean().exec(function(err, projects) {
@@ -48,8 +48,10 @@ router.get('/', auth, function(req, res, next) {
  * @api {post} /api/projects Create new project
  * @apiName CreateProject
  * @apiGroup Projects
+ * 
+ * @apiParam {project} project Project to create
  *
- * @apiSuccess {Project} Newly created project
+ * @apiSuccess {Project} Project Newly created project
  */
 router.post('/', auth, function(req, res, next) {
   var project = new Project(req.body);
@@ -71,11 +73,11 @@ router.post('/', auth, function(req, res, next) {
 });
 
 /**
- * @api {get} /api/projects/:project Get all projects
+ * @api {get} /api/projects/:project Get project
  * @apiName GetProject
  * @apiGroup Projects
  * 
- * @apiParam {project} id of project
+ * @apiParam {project} project._id ID of project
  *
  * @apiSuccess {Project} Project
  */
@@ -88,7 +90,8 @@ router.get('/:project', auth, function(req, res, next) {
  * @apiName UpdateProject
  * @apiGroup Projects
  * 
- * @apiParam {project} id of project
+ * @apiParam {project} project._id ID of project
+ * @apiParam {project} project Project with updated info
  *
  * @apiSuccess {Project} Project
  */
@@ -121,7 +124,7 @@ router.put('/:project', auth, function(req, res, next) {
  * @apiName DeleteProject
  * @apiGroup Projects
  * 
- * @apiParam {project} id of project
+ * @apiParam {project} project._id ID of project
  *
  * @apiSuccess {Project} Project
  */

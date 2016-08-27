@@ -12,7 +12,13 @@ var Action = mongoose.model('Action');
 
 var auth = jwt({secret: process.env.JWT_SECRET, userProperty: 'payload'});
 
-/* Routes for tasks */
+/**
+ * @api {get} /api/tasks Get all tasks
+ * @apiName GetTasks
+ * @apiGroup Tasks
+ *
+ * @apiSuccess {Tasks[]} Tasks[] List of Tasks.
+ */
 router.get('/', auth, function(req, res, next) {
   Task.find(function(err, tasks) {
     if (err) {return next(err);}
@@ -21,6 +27,15 @@ router.get('/', auth, function(req, res, next) {
   })
 });
 
+/**
+ * @api {get} /api/tasks/:task Get task
+ * @apiName GetTask
+ * @apiGroup Tasks
+ * 
+ * @apiParam {task} task._id ID of task
+ *
+ * @apiSuccess {Task} Task
+ */
 router.get('/:task', auth, function(req, res, next) {
   req.task.populate('comments', function(err, task) {
     if (err) {return next(err);}
@@ -37,6 +52,15 @@ router.get('/:task', auth, function(req, res, next) {
   });
 });
 
+/**
+ * @api {delete} /api/tasks/:task Delete task
+ * @apiName DeleteTask
+ * @apiGroup Tasks
+ * 
+ * @apiParam {task} task._id ID of task
+ *
+ * @apiSuccess {Task} Task
+ */
 router.delete('/:task', auth, function(req, res, next) {
     req.task.remove(function(err) {
         if (err) {return next(err);}
@@ -51,6 +75,16 @@ router.delete('/:task', auth, function(req, res, next) {
     });
 });
 
+/**
+ * @api {put} /api/tasks/:task Update task
+ * @apiName UpdateTask
+ * @apiGroup Tasks
+ * 
+ * @apiParam {task} task._id ID of task
+ * @apiParam {task} task Task with updated info
+ *
+ * @apiSuccess {Task} Task
+ */
 router.put('/:task', auth, function(req, res, next) {
     //var updateTask = Object.assign({}, req.task, req.body);
     for (var attrname in req.body) {
@@ -80,6 +114,15 @@ router.put('/:task', auth, function(req, res, next) {
     });
 });
 
+/**
+ * @api {post} /api/tasks Create new task
+ * @apiName CreateTask
+ * @apiGroup Tasks
+ * 
+ * @apiParam {task} task New task to create
+ *
+ * @apiSuccess {Tasks} Tasks Newly created task
+ */
 router.post('/', auth, function(req, res, next) {
   var task = new Task(req.body);
   task.createdBy = req.payload.username;
@@ -99,7 +142,16 @@ router.post('/', auth, function(req, res, next) {
   })
 });
 
-/*Comment object routes */
+/**
+ * @api {post} /api/tasks/:task/comments Add comment to task
+ * @apiName AddComment
+ * @apiGroup Tasks
+ * 
+ * @apiParam {task} task._id ID of task
+ * @apiParam {comment} comment Comment to add to task
+ *
+ * @apiSuccess {Comment} Comment
+ */
 router.post('/:task/comments', auth, function(req, res, next) {
   var comment = new Comment(req.body);
   comment.task = req.task;
@@ -131,7 +183,16 @@ router.post('/:task/comments', auth, function(req, res, next) {
   });
 });
 
-/*Link object routes */
+/**
+ * @api {put} /api/tasks/:task/links Add link to task
+ * @apiName AddLink
+ * @apiGroup Tasks
+ * 
+ * @apiParam {task} task._id ID of task
+ * @apiParam {link} link Link to add to task
+ *
+ * @apiSuccess {Link} Link
+ */
 router.post('/:task/links', auth, function(req, res, next) {
   var link = new Link(req.body);
   
@@ -155,6 +216,16 @@ router.post('/:task/links', auth, function(req, res, next) {
   });
 });
 
+/**
+ * @api {delete} /api/tasks/:task/links/:link Delete link to task
+ * @apiName DeleteLink
+ * @apiGroup Tasks
+ * 
+ * @apiParam {task} task._id ID of task
+ * @apiParam {link} link._id ID of link to delete
+ *
+ * @apiSuccess {Link} Link
+ */
 router.delete('/:task/links/:link', auth, function(req, res, next) {
   var linkId = req.link._id;
   req.link.remove(function(err) {

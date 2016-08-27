@@ -1,0 +1,1 @@
+define({  "title": "API documentation of Kan app",  "url": "http://localhost:3000",  "name": "kan",  "version": "1.0.0",  "description": "A simple task and project management tool",  "sampleUrl": false,  "apidoc": "0.2.0",  "generator": {    "name": "apidoc",    "time": "2016-08-27T14:57:16.057Z",    "url": "http://apidocjs.com",    "version": "0.16.1"  }});

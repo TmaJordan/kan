@@ -36,11 +36,16 @@ app.use('/api/reports', reportRoutes);
 
 // Serve static files
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/apidoc'));
 //Initialise passport middleware
 app.use(passport.initialize());
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/index.html'));
+});
+
+app.get('/api', function(req, res) {
+  res.sendFile(path.join(__dirname + '/apidoc/index.html'));
 });
 
 //Nothing matches so send index file

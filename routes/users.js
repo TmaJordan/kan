@@ -27,7 +27,13 @@ var storage = multer.diskStorage({
   }
 })
 
-//User Routes
+/**
+ * @api {get} /api/users Get all users
+ * @apiName GetUsers
+ * @apiGroup Users
+ *
+ * @apiSuccess {Users[]} Users[] List of Users.
+ */
 router.get('/', auth, function(req, res, next) {
   User.find(function(err, users) {
     if (err) {return next(err);}
@@ -41,10 +47,28 @@ router.get('/', auth, function(req, res, next) {
   })
 });
 
+/**
+ * @api {get} /api/users/:username Get user
+ * @apiName GetUser
+ * @apiGroup Users
+ * 
+ * @apiParam {username} username Username of User
+ *
+ * @apiSuccess {User} User
+ */
 router.get('/:username', auth, function(req, res, next) {
   res.json(req.user);
 });
 
+/**
+ * @api {put} /api/users/:user Update user
+ * @apiName UpdateUser
+ * @apiGroup Users
+ * 
+ * @apiParam {user} user._id ID of User
+ *
+ * @apiSuccess {User} User
+ */
 router.put('/:user', auth, function(req, res, next) {
     for (var attrname in req.body) {
       if (req.user[attrname] != req.body[attrname]) {
@@ -67,6 +91,15 @@ router.put('/:user', auth, function(req, res, next) {
     });
 });
 
+/**
+ * @api {delete} /api/users/:user Delete user
+ * @apiName DeleteUser
+ * @apiGroup Users
+ * 
+ * @apiParam {user} user._id ID of User
+ *
+ * @apiSuccess {User} User
+ */
 router.delete('/:user', auth, function(req, res, next) {
     req.user.remove(function(err) {
         if (err) {return next(err);}
@@ -81,6 +114,15 @@ router.delete('/:user', auth, function(req, res, next) {
     });
 });
 
+/**
+ * @api {post} /api/users/upload Upload image for profile pic
+ * @apiName UploadProfilePic
+ * @apiGroup Users
+ * 
+ * @apiParam {file} File image file uploaded with name 'file'
+ *
+ * @apiSuccess {File} File Returns file info
+ */
 router.post('/upload', auth, multer({storage: storage}).single('file'), function(req, res, next) {
     //console.log(req);
     console.log(req.body);
@@ -89,7 +131,15 @@ router.post('/upload', auth, multer({storage: storage}).single('file'), function
     res.json(req.file);
 });
 
-//Login and register functions left with no auth intentionally
+/**
+ * @api {post} /api/users/register Register new user
+ * @apiName RegisterUser
+ * @apiGroup Users
+ * 
+ * @apiParam {user} user New user to register
+ *
+ * @apiSuccess {JWT} JWT JSON Web Token used for further authentication
+ */
 router.post('/register', function(req, res, next){
   if(!req.body.username || !req.body.password){
     return res.status(400).json({message: 'Please fill out all fields'});
@@ -139,6 +189,15 @@ router.post('/register', function(req, res, next){
   //Need to create onboarding tasks from template
 });
 
+/**
+ * @api {get} /api/users/verify/:user Verify user
+ * @apiName VerifyUser
+ * @apiGroup Users
+ * 
+ * @apiParam {user} user._id User ID of User to verify
+ *
+ * @apiSuccess {Application} App Returns index.html of application
+ */
 router.get('/verify/:user', function(req, res, next) {
     new Action({
           user: req.user.username,
@@ -155,6 +214,15 @@ router.get('/verify/:user', function(req, res, next) {
     });
 });
 
+/**
+ * @api {post} /api/users/login Login user
+ * @apiName LoginUser
+ * @apiGroup Users
+ * 
+ * @apiParam {user} user Username and Password for authentication
+ *
+ * @apiSuccess {JWT} JWT JSON Web Token used for further authentication
+ */
 router.post('/login', function(req, res, next) {
   if (!req.body.username || !req.body.password) {
     return res.status(400).json({message: 'Please fill out all fields'});

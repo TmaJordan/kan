@@ -18,6 +18,10 @@
     "url": "https://github.com/TmaJordan/kan/issues"
   },
   "homepage": "https://github.com/TmaJordan/kan#readme",
+  "apidoc": {
+    "title": "API documentation of Kan app",
+    "url" : "http://localhost:3000"
+  },
   "dependencies": {
     "body-parser": "^1.15.2",
     "dotenv": "^2.0.0",

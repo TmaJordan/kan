@@ -9,7 +9,13 @@ var Task = mongoose.model('Task');
 
 var auth = jwt({secret: process.env.JWT_SECRET, userProperty: 'payload'});
 
-/* Routes for projects */
+/**
+ * @api {get} /api/reports Get all actions
+ * @apiName GetActions
+ * @apiGroup Reports
+ *
+ * @apiSuccess {Action[]} List of Actions.
+ */
 router.get('/actions', auth, function(req, res, next) {
     Action.find(function(err, actions) {
         if (err) {return next(err);}
@@ -18,6 +24,15 @@ router.get('/actions', auth, function(req, res, next) {
     })
 });
 
+/**
+ * @api {get} /api/reports/users/:username Get all stats for user
+ * @apiName GetUserStats
+ * @apiGroup Reports
+ * 
+ * @apiParam {username} username username of user
+ *
+ * @apiSuccess {Stats} Stats User Stats
+ */
 router.get('/users/:username', auth, function(req, res, next) {
     var stats = {
         tasks: {
