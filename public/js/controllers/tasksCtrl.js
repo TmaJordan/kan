@@ -53,9 +53,13 @@ angular.module('kanApp').controller('TasksController', [
             if (task.completed) {
                 task.status = Tasks.statusList[Tasks.statusList.length - 2].name;
                 task.timeTaken = Date.now() - (new Date(task.timeStarted)).getTime();
+                $scope.stats.tasks.completed++;
+                $scope.stats.tasks.open--;
             }
             else {
                 task.status = Tasks.statusList[1].name;
+                $scope.stats.tasks.completed--;
+                $scope.stats.tasks.open++;
             }
             Tasks.update(task);
             $scope.task = task;
@@ -73,9 +77,13 @@ angular.module('kanApp').controller('TasksController', [
             //Also put the status back to complete/incomplete
             if ($scope.task.completed) {
                 $scope.task.status = Tasks.statusList[Tasks.statusList.length - 2].name;
+                $scope.stats.tasks.completed++;
+                $scope.stats.tasks.open--;
             }
             else {
-                task.status = Tasks.statusList[1].name;
+                $scope.task.status = Tasks.statusList[1].name;
+                $scope.stats.tasks.completed--;
+                $scope.stats.tasks.open++;
             }
             $scope.popup.show = false;
             Tasks.update($scope.task);

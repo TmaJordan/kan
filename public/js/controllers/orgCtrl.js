@@ -28,6 +28,7 @@ angular.module('kanApp').controller('OrgController', [
             console.log("Saving user...");
             Users.update($scope.selectedUser);
             $scope.viewMode = "view";
+            $scope.uploadComplete = false;
         }
 
         $scope.cancel = function() {
@@ -54,10 +55,13 @@ angular.module('kanApp').controller('OrgController', [
             }).then(function (resp) {
                 console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + JSON.stringify(resp.data));
                 $scope.uploadComplete = true;
+                $scope.progress = "Upload Complete";
                 $scope.selectedUser.profileImage = '/uploads/' + resp.data.filename;
             }, function (resp) {
                 console.log('Error status: ' + resp.status);
             }, function (evt) {
+                $scope.uploadComplete = true;
+                $scope.progress = progressPercentage + '%';
                 var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                 console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
             });

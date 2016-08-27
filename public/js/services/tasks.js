@@ -103,10 +103,11 @@ angular.module('kanApp').factory('Tasks', ['$http', 'auth', function($http, auth
     Tasks.orderFn = function(task) {
         var time = ((new Date(task.dueDate)).getTime() - Date.now()) / (1000 * 60 * 60);
         var importance = Math.pow(5, Tasks.priorityList.indexOf(task.priority)) * task.loe;
-
+        var difficulty = Tasks.difficultyList.indexOf(task.difficulty);
         //Make smaller if less than 0 and greater if larger
         var order = time > 0 ? time / importance : time * importance;
-
+        //If easy, will be near the top of the list to get them done first.
+        order = order * difficulty;
         return order;
     }
 

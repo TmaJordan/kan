@@ -22,7 +22,7 @@
             </section>
             <form ng-switch-when="edit" ng-submit="saveEdit()">
                 <button type="file" name="profile" ngf-select="upload($file, $invalidFiles)" accept="image/*" ngf-max-size="1MB">Upload Profile Pic</button>
-                <div ng-show="uploadComplete">Upload Complete</div>
+                <div ng-show="uploadComplete">{{progress}}</div>
                 <label>Name<input type="text" placeholder="Name" ng-model="selectedUser.fullname"></label>
                 <label>Email<input type="email" placeholder="Email" ng-model="selectedUser.email"></label>
                 
