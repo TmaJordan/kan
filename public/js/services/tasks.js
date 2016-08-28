@@ -38,8 +38,7 @@ angular.module('kanApp').factory('Tasks', ['$http', 'auth', function($http, auth
         return $http.post('/api/tasks', task, {
             headers: {Authorization: 'Bearer '+ auth.getToken()}
         }).success(function(data) {
-            //Use unshift instead of push so new task gets added to top of list
-            Tasks.tasks.unshift(data); 
+            Tasks.tasks.push(data); 
         });
     };
 
@@ -108,7 +107,12 @@ angular.module('kanApp').factory('Tasks', ['$http', 'auth', function($http, auth
         var order = time > 0 ? time / importance : time * importance;
         //If easy, will be near the top of the list to get them done first.
         order = order * difficulty;
-        return order;
+        if (task.completed) {
+            return -((new Date(task.dueDate)).getTime());
+        }
+        else {
+            return order;
+        }
     }
 
     Tasks.checkOverdue = function(time) {
