@@ -97,7 +97,7 @@ angular.module('kanApp').controller('TaskController', [
 
         $scope.startTask = function() {
             if ($scope.task.timeStarted) {
-                $scope.task.timeStarted = undefined;
+                $scope.task.timeStarted = null;
             }
             else {
                 $scope.task.timeStarted = new Date();

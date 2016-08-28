@@ -42,7 +42,7 @@ angular.module('kanApp').controller('TasksController', [
         
         //Automatically update first task to autostart it
         $interval(function() {
-            if ($scope.selectedView == "mytasks" && !$scope.filteredTasks[0].timeStarted) {
+            if ($scope.selectedView == "mytasks" && !$scope.filteredTasks[0].timeStarted && (Tasks.statusList.indexOf($scope.filteredTasks[0].status) != Tasks.statusList.length - 1)) {
                 console.log('Starting - ' + $scope.filteredTasks[0]);
                 $scope.filteredTasks[0].timeStarted = new Date();
                 $scope.filteredTasks[0].status = Tasks.statusList[1].name;
