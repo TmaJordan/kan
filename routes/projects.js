@@ -26,6 +26,7 @@ router.get('/', auth, function(req, res, next) {
             projects[i].completed = 0;
             projects[i].total = 0;
             projects[i].open = 0;
+            projects[i].totalLoe = 0;
             for (var j = 0; j < projects[i].tasks.length; j++) {
                 
                 projects[i].total++;
@@ -34,6 +35,7 @@ router.get('/', auth, function(req, res, next) {
                 }
                 else {
                     projects[i].open++;
+                    projects[i].totalLoe += projects[i].tasks[j].loe;
                 }
             }
             console.log(projects[i].total + ' Tasks in Project ' + i);
