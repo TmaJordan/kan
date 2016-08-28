@@ -13,6 +13,7 @@ Before starting the application, you will need to set a number of environment va
 * SERVER_LOC=URL of server root e.g. http://localhost:3000/
 * JWT_SECRET= Secret used for generating JSON Web Tokens
 * ORG_DOMAIN=Optional, limit new users to specific email domain e.g. gmail.com
+* HTTPS=true //If this key is present, https will be enabled for the application. You will need to place the server.key and server.crt files in the sslcert directory
 * ENVIRONMENT=dev //Optional, controlls error logging. Remove for production
  
 Once this file is in place, start the app by running "npm start" from the project root.
