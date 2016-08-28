@@ -692,22 +692,22 @@ input[type="radio"] {
 /* End of User Styles */
 
 /* Animation Styles */
-.task-item.ng-move,
-.task-item.ng-enter,
-.task-item.ng-leave {
+.swimlane .task-item.ng-move,
+.swimlane .task-item.ng-enter,
+.swimlane .task-item.ng-leave {
   transition:all ease-in 0.2s;
 }
 
-.task-item.ng-leave.ng-leave-active,
-.task-item.ng-move,
-.task-item.ng-enter {
+.swimlane .task-item.ng-leave.ng-leave-active,
+.swimlane .task-item.ng-move,
+.swimlane .task-item.ng-enter {
   opacity:0;
   max-height:0em;
 }
 
-.task-item.ng-leave,
-.task-item.ng-move.ng-move-active,
-.task-item.ng-enter.ng-enter-active {
+.swimlane .task-item.ng-leave,
+.swimlane .task-item.ng-move.ng-move-active,
+.swimlane .task-item.ng-enter.ng-enter-active {
   opacity:1;
   max-height:2em;
 }
