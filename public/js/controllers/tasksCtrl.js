@@ -45,7 +45,7 @@ angular.module('kanApp').controller('TasksController', [
             if ($scope.selectedView == "mytasks" && !$scope.filteredTasks[0].timeStarted) {
                 console.log('Starting - ' + $scope.filteredTasks[0]);
                 $scope.filteredTasks[0].timeStarted = new Date();
-                $scope.filteredTasks[0].status = Tasks.statusList[1];
+                $scope.filteredTasks[0].status = Tasks.statusList[1].name;
                 Tasks.update($scope.filteredTasks[0]);
             }
         }, 5000);
