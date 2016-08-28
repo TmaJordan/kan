@@ -1,5 +1,6 @@
 require('dotenv').config();
 var fs = require('fs');
+var http = require('http');
 var https = require('https');
 var express = require('express');
 var mongoose = require('mongoose');
@@ -7,10 +8,6 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var path = require('path');
 var passport = require('passport');
-var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
-var certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
-
-var credentials = {key: privateKey, cert: certificate};
 
 require('./models/Tasks');
 require('./models/Comments');
@@ -83,10 +80,21 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var httpsServer = https.createServer(credentials, app);
+if (process.env.HTTPS) {
+
+  var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
+  var certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
+
+  var credentials = {key: privateKey, cert: certificate};
+
+  var server = https.createServer(credentials, app);
+}
+else {
+  var server = http.createServer(app);
+}
 
 //ADd comment to deploy app
 var port = process.env.PORT || 3000
-httpsServer.listen(port, function () {
+server.listen(port, function () {
   console.log('Server listening on port: ' + port);
 });
