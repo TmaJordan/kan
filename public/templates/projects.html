@@ -13,6 +13,6 @@
         <div class="project-stats">{{project.open}} Open</div>
         <div class="description">{{project.description}}</div>
         <div class="dueDate">{{project.dueDate | date:'MMM d yyyy'}}</div>
-        <div class="project-stats">{{project.totalLoe}} LOE</div>
+        <div class="project-stats">{{project.totalLoe | number:1}} LOE</div>
     </div>
 </section>

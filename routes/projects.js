@@ -35,7 +35,9 @@ router.get('/', auth, function(req, res, next) {
                 }
                 else {
                     projects[i].open++;
-                    projects[i].totalLoe += projects[i].tasks[j].loe;
+                    if (projects[i].tasks[j].status != "On Hold") {
+                        projects[i].totalLoe += projects[i].tasks[j].loe;
+                    }
                 }
             }
             console.log(projects[i].total + ' Tasks in Project ' + i);
