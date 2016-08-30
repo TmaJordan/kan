@@ -127,8 +127,8 @@ angular.module('kanApp').run([
         $rootScope.$on('$routeChangeStart', function (event, next, current) {
             if (!auth.isLoggedIn()) {
                 if (next.templateUrl !== 'templates/login.html' && next.templateUrl !== 'templates/register.html') {
-                    console.log('Not logged in, redirecting to Login');
-                    $location.path('login.html');
+                    console.log('Not logged in, redirecting to Register');
+                    $location.path('register.html');
                 }
             }
         });

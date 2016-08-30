@@ -74,7 +74,7 @@
                         <option ng-repeat="user in users" value="{{user.username}}">{{user.username}}</option>
                     </select>
                 </label>
-                <label>LOE<input type="text" placeholder="LOE" ng-model="task.loe"></label>
+                <label>LOE (Level of Effort in Days)<input type="number" step="0.1" placeholder="LOE" ng-model="task.loe"></label>
                 <datepicker date-format="MMM d yyyy" selector="date-picker">
                     <label class="date-label">Due Date<input class="date-picker" placeholder="Due Date" ng-model="task.dueDate" type="text"/></label>
                 </datepicker>
