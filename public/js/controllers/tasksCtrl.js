@@ -113,6 +113,10 @@ angular.module('kanApp').controller('TasksController', [
         $scope.addTask = function() {
             var task = {
                 title: Tasks.newTaskTitle,
+                loe: 0.5,
+                priority: Tasks.priorityList[1],
+                difficulty: Tasks.difficultyList[1],
+                status: Tasks.statusList[0].name
             }
 
             if ($scope.selectedView == 'mytasks') {

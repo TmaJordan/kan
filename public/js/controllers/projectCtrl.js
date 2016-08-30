@@ -35,7 +35,10 @@ angular.module('kanApp').controller('ProjectController', [
             var task = {
                 title: Tasks.newTaskTitle,
                 status: status,
-                project: project._id
+                project: project._id,
+                loe: 0.5,
+                priority: Tasks.priorityList[1],
+                difficulty: Tasks.difficultyList[1]
             }
             Tasks.create(task).success(function(task) {
                 $location.path('/tasks/' + task._id);
