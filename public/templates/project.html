@@ -29,7 +29,8 @@
         <ul ui-on-Drop="onDrop(stage, $data)" ng-class="stage.class">
             <li ng-repeat="task in project.tasks | filter: {status: stage.name} | orderBy:taskOrder" class="task-item" ui-draggable="true" drag="task">
                 <label ng-click="editTask(task)">
-                    <input class="toggle" type="checkbox" ng-model="task.completed" ng-change="toggleCompleted(task)">
+                    <input id="{{task._id}}" class="toggle" type="checkbox" ng-model="task.completed" ng-change="toggleCompleted(task)">
+                    <label for="{{task._id}}"></label>
                     <a ng-href="/tasks/{{task._id}}">{{task.title}}</a>
                 </label>
                 <div ng-show="checkOverdue(task.dueDate) && !task.completed" class="overdue" title="Overdue">!</div>

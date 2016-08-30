@@ -1,7 +1,8 @@
 <section>
     <h2>
         <a href="javascript:history.back()" ng-click="saveEdit()" class="back">&lt; {{task.title}}</a>
-        <input class="toggle" type="checkbox" title="Complete Task" ng-model="task.completed" ng-change="toggleCompleted()">
+        <input id="{{task._id}}" class="toggle" type="checkbox" title="Complete Task" ng-model="task.completed" ng-change="toggleCompleted()">
+        <label for="{{task._id}}"></label>
         <img ng-show="viewMode=='view'" src="images/edit.svg" title="Edit" alt="edit" ng-click="edit()" class="editButton" />
         <img ng-show="viewMode=='view'" title="Start Task" ng-src="{{task.timeStarted && 'images/stopwatch-started.svg' || 'images/stopwatch.svg'}}" class="stopwatchButton" ng-click="startTask()" />
     </h2>
@@ -74,7 +75,7 @@
                         <option ng-repeat="user in users" value="{{user.username}}">{{user.username}}</option>
                     </select>
                 </label>
-                <label>LOE (Level of Effort in Days)<input type="number" step="0.1" placeholder="LOE" ng-model="task.loe"></label>
+                <label>LOE (Level of Effort in Days)<input type="number" step="0.1" min="0.1" placeholder="LOE" ng-model="task.loe"></label>
                 <datepicker date-format="MMM d yyyy" selector="date-picker">
                     <label class="date-label">Due Date<input class="date-picker" placeholder="Due Date" ng-model="task.dueDate" type="text"/></label>
                 </datepicker>
