@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 146 146" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g id="Kan-Icon" transform="matrix(1,0,0,1,0,16.2246)">
+        <g id="Path-1" transform="matrix(0.396434,-0.107236,0.107236,0.396434,83.9162,4.1096)">
+            <path d="M0,0L145.548,0C145.548,0 123.248,26.974 96.9,53.987C70.551,81 43.254,122.11 43.254,122.11L43.254,113.589C43.254,113.589 60.67,81.638 89.684,47.899C118.697,14.159 119.669,10.889 119.669,10.889L7.186,10.889L0,0Z" style="fill:black;fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,0,-16.2246)">
+            <path d="M53.956,88.627C53.956,88.627 61.805,73.765 79.953,55.12C79.953,55.12 79.953,55.12 79.953,55.12C95.376,39.275 115.133,27.076 115.133,27.076" style="fill:none;stroke-width:7px;stroke:black;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,0,-16.2246)">
+            <path d="M77.356,25.066L77.292,35.066L14.305,34.661L14.49,132.101L115.236,132.132L115.2,68.06L125.2,68.054L125.241,142.13L125.237,142.135L4.509,142.099L4.286,24.639L4.327,24.597L77.356,25.066Z" style="fill:black;"/>
+        </g>
+    </g>
+</svg>

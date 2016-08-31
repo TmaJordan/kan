@@ -3,6 +3,7 @@
         <h2 ng-switch-when="view">
             <a href="javascript:history.back()" ng-click="saveEdit()" class="back">&lt; {{project.name}}</a>
             <img src="images/edit.svg" alt="edit" title="Edit" ng-click="edit()" class="editButton" />
+            <img src="images/export.svg" alt="export" title="Export" ng-click="export()" class="exportButton" />
         </h2>
         <form ng-switch-when="edit" ng-submit="saveEdit()">
             <fieldset>

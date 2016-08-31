@@ -25,6 +25,10 @@ angular.module('kanApp').controller('ProjectController', [
             $scope.backup = angular.copy($scope.project);
         }
 
+        $scope.export = function() {
+            Projects.export($scope.project);
+        }
+
         $scope.editTask = function(task) {
             console.log("Edit: " + task.title);
         }

@@ -1,4 +1,4 @@
-angular.module('kanApp').factory('Projects', ['$http', 'auth', function($http, auth){
+angular.module('kanApp').factory('Projects', ['$http', '$window', 'auth', function($http, $window, auth){
     //Projects Service
     var Projects = {
         projects: []
@@ -54,6 +54,15 @@ angular.module('kanApp').factory('Projects', ['$http', 'auth', function($http, a
            Projects.projects.push(data); 
         });
     };
+
+    Projects.export = function(project) {
+        return $http.get('/api/projects/' + project._id + '/export', {
+            headers: {Authorization: 'Bearer '+ auth.getToken()}
+        }).success(function(url) {
+            console.log(url);
+            $window.open(url); 
+        });
+    }
 
     Projects.newProjectTitle = "New Project";
 

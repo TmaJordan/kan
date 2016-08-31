@@ -77,6 +77,21 @@ router.post('/', auth, function(req, res, next) {
 });
 
 /**
+ * @api {get} /api/projects/:project/export Export project to csv file
+ * @apiName ExportProject
+ * @apiGroup Projects
+ * 
+ * @apiParam {project} project._id ID of Project to export
+ *
+ * @apiSuccess {url} URL Link to exported project CSV file 
+ */
+router.get('/:project/export', auth, function(req, res, next) {
+  console.log(req.project._id + " Export");
+  
+  res.send(process.env.SERVER_LOC + "export/" + "App Survey.csv");
+});
+
+/**
  * @api {get} /api/projects/:project Get project
  * @apiName GetProject
  * @apiGroup Projects
