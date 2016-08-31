@@ -86,6 +86,7 @@ button, input[type=submit] {
     margin: 0.25em;
     border: none;
     border-radius: 0.25em;
+    -webkit-appearance: none;
 }
 /* End of form element styling */
 
