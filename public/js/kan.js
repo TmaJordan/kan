@@ -31,6 +31,9 @@ angular.module('kanApp').config(function($routeProvider, $locationProvider) {
                 tasks: ['Tasks', function(Tasks) {
                     return Tasks.getAll();
                 }],
+                projects: ['Projects', function(Projects) {
+                    return Projects.getAll();
+                }],
                 user: ['Users', 'auth', function(Users, auth) {
                     return Users.get(auth.currentUser());
                 }],
@@ -45,6 +48,9 @@ angular.module('kanApp').config(function($routeProvider, $locationProvider) {
             resolve: {
                 tasks: ['Tasks', function(Tasks) {
                     return Tasks.getAll();
+                }],
+                projects: ['Projects', function(Projects) {
+                    return Projects.getAll();
                 }],
                 user: ['Users', 'auth', function(Users, auth) {
                     return Users.get(auth.currentUser());

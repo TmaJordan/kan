@@ -5,15 +5,28 @@ angular.module('kanApp').controller('TasksController', [
     '$location',
     'Tasks', 
     'Sounds',
+    'projects',
     'auth',
     'user',
     'stats',
-    function TasksController($scope, $timeout, $interval, $location, Tasks, Sounds, auth, user, stats) {
+    function TasksController($scope, $timeout, $interval, $location, Tasks, Sounds, projects, auth, user, stats) {
         $scope.views = [
             {value: "mytasks", title: "My Tasks"},
+            {value: "overdue", title: "Overdue Tasks"},
             {value: "completed", title: "Completed Tasks"}
         ];
         $scope.selectedView = $scope.views[0].value;
+
+        for (var i = 0; i < projects.data.length; i++) {
+            //console.log(JSON.stringify(projects.data[i]));
+            if (projects.data[i].owner == auth.currentUser()) {
+                var projectOption = {
+                    value: "project_" + projects.data[i]._id,
+                    title: projects.data[i].name + " Tasks"
+                }
+                $scope.views.push(projectOption);
+            }
+        }
         
         $scope.updateView = function() {
             console.log($scope.selectedView);
@@ -24,8 +37,15 @@ angular.module('kanApp').controller('TasksController', [
                 if ($scope.selectedView == 'mytasks') {
                     return !task.completed && task.assignee == auth.currentUser();
                 }
+                else if ($scope.selectedView == 'overdue') {
+                    return ((new Date(task.dueDate)).getTime() - Date.now() < 0) && !task.completed;
+                }
                 else if ($scope.selectedView == 'completed') {
                     return task.completed && task.assignee == auth.currentUser();
+                }
+                else if ($scope.selectedView.startsWith("project_")) {
+                    var projectId = $scope.selectedView.replace("project_", "");
+                    return task.project == projectId && !task.completed;
                 }
             }
         }
@@ -42,7 +62,7 @@ angular.module('kanApp').controller('TasksController', [
         
         //Automatically update first task to autostart it
         $interval(function() {
-            if ($scope.selectedView == "mytasks" && !$scope.filteredTasks[0].timeStarted && !$scope.filteredTasks[0].status != "On Hold") {
+            if ($scope.selectedView == "mytasks" && !$scope.filteredTasks[0].timeStarted && $scope.filteredTasks[0].status != "On Hold") {
                 console.log('Starting - ' + $scope.filteredTasks[0]);
                 $scope.filteredTasks[0].timeStarted = new Date();
                 $scope.filteredTasks[0].status = Tasks.statusList[1].name;
