@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
 
 var jwt = require('express-jwt');
 
@@ -86,9 +87,35 @@ router.post('/', auth, function(req, res, next) {
  * @apiSuccess {url} URL Link to exported project CSV file 
  */
 router.get('/:project/export', auth, function(req, res, next) {
-  console.log(req.project._id + " Export");
-  
-  res.send(process.env.SERVER_LOC + "export/" + "App Survey.csv");
+    console.log(req.project._id + " Export");
+    var filename = req.project.name + "-Export.csv";
+
+    var rows = [];
+    var header = 'Title,Status,Type,LOE (In Days),Assignee,Priority,Difficulty,Due Date';
+    rows.push(header);
+    for (var i = 0; i < req.project.tasks.length; i++) {
+        var columns = [];
+
+        columns.push(req.project.tasks[i].title);
+        columns.push(req.project.tasks[i].status);
+        columns.push(req.project.tasks[i].type);
+        columns.push(req.project.tasks[i].loe);
+        columns.push(req.project.tasks[i].assignee);
+        columns.push(req.project.tasks[i].priority);
+        columns.push(req.project.tasks[i].difficulty);
+        columns.push(req.project.tasks[i].dueDate);
+
+        rows.push(columns.join(","));
+    }
+
+    fs.writeFile(process.cwd() + '/public/export/' + filename, rows.join('\n'), 'utf8', function (err) {
+        if (err) {
+            console.log('Some error occured - file either not saved or corrupted file saved.');
+            console.log(err);
+        } else{
+            res.send(process.env.SERVER_LOC + "export/" + filename);
+        }
+    });
 });
 
 /**
