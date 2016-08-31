@@ -181,9 +181,11 @@ router.post('/:task/comments', auth, function(req, res, next) {
       var pattern = /\B@[a-z0-9_-]+/gi;
       var mentions = comment.body.match(pattern);
 
-      for (var i = 0; i < mentions.length; i++) {
+      if (mentions) {
+        for (var i = 0; i < mentions.length; i++) {
           var username = mentions[0].replace("@", "");
           mailer.sendCommentMail(username, req.payload.username + ' has mentioned you in a comment', comment);
+        }
       }
 
       res.json(comment);
