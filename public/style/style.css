@@ -87,6 +87,7 @@ button, input[type=submit] {
     border: none;
     border-radius: 0.25em;
     -webkit-appearance: none;
+    box-shadow: 1px 1px 2px #888;
 }
 /* End of form element styling */
 
@@ -267,6 +268,7 @@ button.add, img.add {
     font-size: 2em;
     -webkit-transition: -webkit-transform 0.3s;
     transition: transform 0.3s;
+    box-shadow: none;
 }
 
 button.remove, img.remove {
@@ -437,11 +439,12 @@ span.timestamp {
 
 .task-edit input[type=submit], .task-edit button {
     margin-top: 1em;
-    float: right;
+    float: left;
+    padding: 0.5em 1em;
 }
 
 .task-edit button.delete {
-    margin-right: 1.5em;
+    margin-left: 1.5em;
 }
 
 .task-edit input[type=submit] {
@@ -476,6 +479,7 @@ button.incomplete {
 
 .task-edit textarea {
     width: 100%;
+    margin-bottom: 1em;
 }
 
 label.date-label {
@@ -786,6 +790,13 @@ main.ng-enter.ng-enter-active {
         width: 100%;
         height: auto;
         float: none;
+    }
+
+    .task-edit input[type=submit], .task-edit button, .task-edit button.delete {
+        margin: 1em auto;
+        float: left;
+        padding: 0.5em 1em;
+        width: 100%;
     }
 }
 /* End of Media Query styles for small screens < 650px */

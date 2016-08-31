@@ -55,9 +55,15 @@
             <fieldset class="task-edit">
                 <label>Task Name<input type="text" ng-model="task.title" autofocus></label>
                 <label>Description<textarea placeholder="Description" ng-model="task.description"></textarea></label>
-                <input type="submit" value="Save">
-                <button type="button" class="cancel" ng-click="cancel()">Cancel</button>
-                <button type="button" class="delete" ng-click="delete()">Delete</button>
+                <label>LOE (Level of Effort in Days)<input type="number" step="0.1" min="0.1" placeholder="LOE" ng-model="task.loe"></label>
+                <datepicker date-format="MMM d yyyy" selector="date-picker">
+                    <label class="date-label">Due Date<input class="date-picker" placeholder="Due Date" ng-model="task.dueDate" type="text"/></label>
+                </datepicker>
+                <label>Dependency
+                    <select ng-model="task.dependency">
+                        <option ng-repeat="taskDep in tasks | filter: {project: task.project._id, completed: false} | orderBy: 'title'" value="{{taskDep._id}}">{{taskDep.title}}</option>
+                    </select>
+                </label>
             </fieldset>
             <fieldset class="task-edit">
                 <label>Type
@@ -75,10 +81,6 @@
                         <option ng-repeat="user in users" value="{{user.username}}">{{user.username}}</option>
                     </select>
                 </label>
-                <label>LOE (Level of Effort in Days)<input type="number" step="0.1" min="0.1" placeholder="LOE" ng-model="task.loe"></label>
-                <datepicker date-format="MMM d yyyy" selector="date-picker">
-                    <label class="date-label">Due Date<input class="date-picker" placeholder="Due Date" ng-model="task.dueDate" type="text"/></label>
-                </datepicker>
                 <label>Priority
                     <select ng-model="task.priority">
                         <option ng-repeat="priority in priorities" value="{{priority}}">{{priority}}</option>
@@ -94,11 +96,9 @@
                         <option ng-repeat="status in statuses" value="{{status.name}}">{{status.name}}</option>
                     </select>
                 </label>
-                <label>Dependency
-                    <select ng-model="task.dependency">
-                        <option ng-repeat="taskDep in tasks | filter: {project: task.project._id, completed: false} | orderBy: 'title'" value="{{taskDep._id}}">{{taskDep.title}}</option>
-                    </select>
-                </label>
+                <input type="submit" value="Save">
+                <button type="button" class="cancel" ng-click="cancel()">Cancel</button>
+                <button type="button" class="delete" ng-click="delete()">Delete</button>
             </fieldset>
         </form>
     </div>
