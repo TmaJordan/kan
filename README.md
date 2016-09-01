@@ -17,3 +17,27 @@ Before starting the application, you will need to set a number of environment va
 * ENVIRONMENT=dev //Optional, controlls error logging. Remove for production
  
 Once this file is in place, start the app by running "npm start" from the project root.
+## App Structure
+###apidoc
+Contains all of the documentation for the server routes
+###config
+Contains passport, nodemailer and other configuration settings
+###models
+Contains all of the mongoose models
+###public
+Contains the angular web app and all required resources for it.
+* audio - Sounds which play using HTML5 Audio
+* export - Where exported project csv files are saved
+* images - All svg images required by app
+* js - All javascript files
+ * controllers - Angular controllers for different views
+ * lib - 3rd Party libraries and widgets
+ * services - Angular factory services used to fetch and update data
+ * kan.js - Entry point to application
+* style - All css files and any 3rd party styles for widgets
+* templates - Angular templates used to display different views.
+* uploads - Location that profile image uploads are stored.
+###routes
+Contains all of the defined express routes handling the different services
+###sslcert
+Place your ssl certs here if https is required
