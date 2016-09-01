@@ -18,7 +18,7 @@ input[type="checkbox"] + label {
     width:1.5em;
     height:1.5em;
     margin:0.25em 0.25em 0em 0.25em;
-    vertical-align:bottom;
+    vertical-align:middle;
     border: 1px solid #888;
     box-shadow: 0px 0px 1px #888;
     border-radius: 0.25em;
@@ -321,6 +321,10 @@ img.remove {
 .task-item a {
     color: #333;
     text-decoration: none;
+    max-width: 84%;
+    margin-left: 2%;
+    display: inline-block;
+    vertical-align: middle;    
 }
 
 .task-item label {
