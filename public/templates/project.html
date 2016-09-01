@@ -11,7 +11,7 @@
                 <label>Description<textarea placeholder="Description" ng-model="project.description"></textarea></label>
             </fieldset>
             <fieldset>
-                <datepicker date-format="MMM d yyyy" selector="date-picker">
+                <datepicker date-format="MMM d yyyy" date-set="{{project.dueDate}}" selector="date-picker">
                     <label class="date-label">Due Date<input class="date-picker" placeholder="Due Date" ng-model="project.dueDate" type="text"/></label>
                 </datepicker>
             </fieldset>
