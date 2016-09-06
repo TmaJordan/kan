@@ -210,7 +210,7 @@ router.get('/verify/:user', function(req, res, next) {
     req.user.save(function(err, user) {
         if (err) {return next(err);}
         
-        res.sendFile(path.resolve(__dirname, '../public/login.html'));
+        res.sendFile(path.resolve(__dirname, '../public/index.html'));
     });
 });
 
